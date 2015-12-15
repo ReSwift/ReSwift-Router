@@ -1,0 +1,1 @@
+A declarative router for [Swift Flow](https://github.com/Swift-Flow/Swift-Flow). Allows developers to declare routes in a similar manner as URLs are used on the web.
