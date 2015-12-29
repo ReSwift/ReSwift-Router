@@ -7,114 +7,110 @@
 //
 
 import XCTest
+import Quick
+import Nimble
 @testable import SwiftFlow
 
-struct TestAppState: StateType {
-    var testValue: Int?
+// swiftlint:disable function_body_length
+class StoreSpecs: QuickSpec {
 
-    init() {
-        testValue = nil
-    }
-}
 
-struct SetValueAction: ActionConvertible {
+    override func spec() {
 
-    let value: Int
-    static let type = "SetValueAction"
-    
-    init (_ value: Int) {
-        self.value = value
-    }
+        describe("#subscribe") {
 
-    init(_ action: Action) {
-        self.value = action.payload!["value"] as! Int
-    }
+            var store: Store!
+            var reducer: TestReducer!
 
-    func toAction() -> Action {
-        return Action(type: SetValueAction.type, payload: ["value": value])
-    }
-
-}
-
-struct TestReducer: Reducer {
-    func handleAction(var state: TestAppState, action: Action) -> TestAppState {
-        switch action.type {
-        case SetValueAction.type:
-            state.testValue = SetValueAction(action).value
-            return state
-        default:
-            abort()
-        }
-    }
-}
-
-class TestStoreSubscriber: StoreSubscriber {
-    var receivedStates: [TestAppState] = []
-
-    func newState(state: TestAppState) {
-        receivedStates.append(state)
-    }
-}
-
-class StoreTests: XCTestCase {
-
-    var store: Store!
-    var reducer: TestReducer!
-
-    override func setUp() {
-        super.setUp()
-
-        reducer = TestReducer()
-        store = MainStore(reducer: reducer, appState: TestAppState())
-    }
-
-    func testDispatchesInitialValueUponSubscription() {
-        let expectation = expectationWithDescription("Sends initial value")
-        store = MainStore(reducer: reducer, appState: TestAppState())
-        let subscriber = TestStoreSubscriber()
-
-        store.dispatch(SetValueAction(3)) { newState in
-            if (subscriber.receivedStates.last?.testValue == 3) {
-                expectation.fulfill()
+            beforeEach {
+                reducer = TestReducer()
+                store = MainStore(reducer: reducer, appState: TestAppState())
             }
-        }
 
-        store.subscribe(subscriber)
+            it("dispatches initial value upon subscription") {
+                store = MainStore(reducer: reducer, appState: TestAppState())
+                let subscriber = TestStoreSubscriber<TestAppState>()
 
-        waitForExpectationsWithTimeout(2.0, handler: nil)
-    }
+                store.subscribe(subscriber)
+                store.dispatch(SetValueAction(3))
 
-    func testDoesNotDispatchValuesWhenUnsubscribed() {
-        let expectation = expectationWithDescription("Sends subsequent values")
-        store = MainStore(reducer: reducer, appState: TestAppState())
-        let subscriber = TestStoreSubscriber()
-
-        store.dispatch(SetValueAction(5))
-        store.subscribe(subscriber)
-        store.dispatch(SetValueAction(10))
-
-        // Let Run Loop Run so that dispatched actions can be performed
-        NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: NSDate.distantFuture())
-
-        store.unsubscribe(subscriber)
-        // Following value is missed due to not being subscribed:
-        store.dispatch(SetValueAction(15))
-        store.dispatch(SetValueAction(25))
-
-        // Let Run Loop Run so that dispatched actions can be performed
-        NSRunLoop.currentRunLoop().runMode(NSDefaultRunLoopMode, beforeDate: NSDate.distantFuture())
-
-        store.subscribe(subscriber)
-
-        store.dispatch(SetValueAction(20)) { newState in
-            if (subscriber.receivedStates[subscriber.receivedStates.count - 1].testValue == 20
-                && subscriber.receivedStates[subscriber.receivedStates.count - 2].testValue == 25
-                 && subscriber.receivedStates[subscriber.receivedStates.count - 3].testValue == 10) {
-                    expectation.fulfill()
+                expect(subscriber.receivedStates.last?.testValue).to(equal(3))
             }
+
+            it("does not dispatch value after subscriber unsubscribes") {
+                store = MainStore(reducer: reducer, appState: TestAppState())
+                let subscriber = TestStoreSubscriber<TestAppState>()
+
+                store.dispatch(SetValueAction(5))
+                store.subscribe(subscriber)
+                store.dispatch(SetValueAction(10))
+
+                store.unsubscribe(subscriber)
+                // Following value is missed due to not being subscribed:
+                store.dispatch(SetValueAction(15))
+                store.dispatch(SetValueAction(25))
+
+                store.subscribe(subscriber)
+
+                store.dispatch(SetValueAction(20))
+
+                expect(subscriber.receivedStates.count).to(equal(4))
+
+                expect(subscriber.receivedStates[subscriber.receivedStates.count - 4]
+                    .testValue).to(equal(5))
+
+                expect(subscriber.receivedStates[subscriber.receivedStates.count - 3]
+                    .testValue).to(equal(10))
+
+                expect(subscriber.receivedStates[subscriber.receivedStates.count - 2]
+                    .testValue).to(equal(25))
+
+                expect(subscriber.receivedStates[subscriber.receivedStates.count - 1]
+                    .testValue).to(equal(20))
+            }
+
         }
 
-        waitForExpectationsWithTimeout(2.0, handler: nil)
+        describe("#dispatch") {
+
+            var store: Store!
+            var reducer: TestReducer!
+
+            beforeEach {
+                reducer = TestReducer()
+                store = MainStore(reducer: reducer, appState: TestAppState())
+            }
+
+            it("returns the dispatched action") {
+                let action = SetValueAction(10)
+                let returnValue = store.dispatch(action)
+
+                expect((returnValue as? SetValueAction)?.value).to(equal(action.value))
+            }
+
+            it("throws an exception when a reducer dispatches an action") {
+                let reducer = DispatchingReducer()
+                store = MainStore(reducer: reducer, appState: TestAppState())
+                reducer.store = store
+                store.dispatch(SetValueAction(10))
+            }
+
+        }
+
     }
 
 }
+
+
+// Needs to be class so that shared reference can be modified to inject store
+class DispatchingReducer: Reducer {
+    var store: Store? = nil
+
+    func handleAction(state: TestAppState, action: Action) -> TestAppState {
+        expect(self.store?.dispatch(SetValueAction(20))).to(raiseException(named:
+            "SwiftFlow:IllegalDispatchFromReducer"))
+        return state
+    }
+}
+
+// swiftlint:enable function_body_length

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "625E66821C1FF97E0027C288"
-               BuildableName = "SwiftFlow.framework"
-               BlueprintName = "SwiftFlow"
-               ReferencedContainer = "container:SwiftFlow.xcodeproj">
+               BlueprintIdentifier = "1F118CD41BDCA4AB005013A2"
+               BuildableName = "Quick.framework"
+               BlueprintName = "Quick-tvOS"
+               ReferencedContainer = "container:Quick.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,27 +26,36 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "625E66991C1FFA3C0027C288"
-               BuildableName = "SwiftFlowTests.xctest"
-               BlueprintName = "SwiftFlowTests"
-               ReferencedContainer = "container:SwiftFlow.xcodeproj">
+               BlueprintIdentifier = "1F118CDD1BDCA4AB005013A2"
+               BuildableName = "Quick-tvOSTests.xctest"
+               BlueprintName = "Quick-tvOSTests"
+               ReferencedContainer = "container:Quick.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1F118CEF1BDCA4BB005013A2"
+               BuildableName = "QuickFocused-tvOSTests.xctest"
+               BlueprintName = "QuickFocused-tvOSTests"
+               ReferencedContainer = "container:Quick.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "625E66821C1FF97E0027C288"
-            BuildableName = "SwiftFlow.framework"
-            BlueprintName = "SwiftFlow"
-            ReferencedContainer = "container:SwiftFlow.xcodeproj">
+            BlueprintIdentifier = "1F118CD41BDCA4AB005013A2"
+            BuildableName = "Quick.framework"
+            BlueprintName = "Quick-tvOS"
+            ReferencedContainer = "container:Quick.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,10 +74,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "625E66821C1FF97E0027C288"
-            BuildableName = "SwiftFlow.framework"
-            BlueprintName = "SwiftFlow"
-            ReferencedContainer = "container:SwiftFlow.xcodeproj">
+            BlueprintIdentifier = "1F118CD41BDCA4AB005013A2"
+            BuildableName = "Quick.framework"
+            BlueprintName = "Quick-tvOS"
+            ReferencedContainer = "container:Quick.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,10 +92,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "625E66821C1FF97E0027C288"
-            BuildableName = "SwiftFlow.framework"
-            BlueprintName = "SwiftFlow"
-            ReferencedContainer = "container:SwiftFlow.xcodeproj">
+            BlueprintIdentifier = "1F118CD41BDCA4AB005013A2"
+            BuildableName = "Quick.framework"
+            BlueprintName = "Quick-tvOS"
+            ReferencedContainer = "container:Quick.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

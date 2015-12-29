@@ -517,6 +517,7 @@
 				625E66D71C1FFE280027C288 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		625E66F91C2000EB0027C288 /* Build configuration list for PBXNativeTarget "SwiftFlowRouterTests" */ = {
 			isa = XCConfigurationList;
@@ -525,6 +526,7 @@
 				625E66FB1C2000EB0027C288 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

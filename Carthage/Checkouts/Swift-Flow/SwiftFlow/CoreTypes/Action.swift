@@ -8,56 +8,59 @@
 
 import Foundation
 
-public struct Action: ActionType {
+public struct StandardAction: Action {
     public let type: String
     public let payload: [String: AnyObject]?
+    /// Indicates whether this action will be deserialized as a typed action or as a standard action
+    public let isTypedAction: Bool
 
     public init(_ type: String) {
         self.type = type
         self.payload = nil
+        self.isTypedAction = false
     }
 
-    public init(type: String, payload: [String: AnyObject]) {
+    public init(type: String, payload: [String: AnyObject], isTypedAction: Bool = false) {
         self.type = type
         self.payload = payload
+        self.isTypedAction = isTypedAction
     }
 
-    public init(type: String, payload payloadConvertible: PayloadConvertible) {
-        self.type = type
-        self.payload = payloadConvertible.toPayload()
+    public init(type: String, payload payloadConvertible: PayloadConvertible,
+        isTypedAction: Bool = false) {
+            self.type = type
+            self.payload = payloadConvertible.toPayload()
+            self.isTypedAction = isTypedAction
     }
-
-    public func toAction() -> Action {
-        return self
-    }
-
 }
 
-extension Action: Coding {
+// MARK: Coding Extension
+
+extension StandardAction: Coding {
 
     public init(dictionary: [String : AnyObject]) {
         self.type = dictionary["type"] as! String
         self.payload = dictionary["payload"] as? [String: AnyObject]
+        self.isTypedAction = (dictionary["isTypedAction"] as! Int) == 1 ? true : false
     }
 
     public func dictionaryRepresentation() -> [String : AnyObject] {
         if let payload = payload {
-            return ["type": type, "payload": payload]
+            return ["type": type, "payload": payload, "isTypedAction": isTypedAction ? 1 : 0]
         } else {
-            return ["type": type, "payload": "null"]
+            return ["type": type, "payload": "null", "isTypedAction": isTypedAction ? 1 : 0]
         }
     }
-    
+
 }
 
 public protocol PayloadConvertible {
     func toPayload() -> [String: AnyObject]
 }
 
-public protocol ActionConvertible: ActionType {
-    init (_ action: Action)
+public protocol StandardActionConvertible: Action {
+    init (_ standardAction: StandardAction)
+    func toStandardAction() -> StandardAction
 }
 
-public protocol ActionType {
-    func toAction() -> Action
-}
+public protocol Action { }

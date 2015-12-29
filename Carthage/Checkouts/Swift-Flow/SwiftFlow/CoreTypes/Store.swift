@@ -10,8 +10,18 @@ import Foundation
 
 public protocol Store {
 
+    init(reducer: AnyReducer, appState: StateType)
+
+    init(reducer: AnyReducer, appState: StateType, middleware: [Middleware])
+
     /// The current state stored in the store
     var appState: StateType { get }
+
+    /**
+     The main dispatch function that is used by all convenience `dispatch` methods.
+     This dispatch function can be extended by providing middlewares.
+    */
+    var dispatchFunction: DispatchFunction! { get }
 
     /**
      Subscribes the provided subscriber to this store.
@@ -38,8 +48,10 @@ public protocol Store {
      store.dispatch( CounterAction.IncreaseCounter )
      ```
      - parameter action: The action that is being dispatched to the store
-    */
-    func dispatch(action: ActionType)
+     - returns: By default returns the dispatched action, but middlewares can change the
+     return type, e.g. to return promises
+     */
+    func dispatch(action: Action) -> Any
 
     /**
      Dispatches an action creator to the store. Action creators are functions that generate
@@ -68,8 +80,11 @@ public protocol Store {
      ```swift
      store.dispatch( noteActionCreatore.deleteNote(3) )
      ```
+
+     - returns: By default returns the dispatched action, but middlewares can change the
+     return type, e.g. to return promises
      */
-    func dispatch(actionCreatorProvider: ActionCreator)
+    func dispatch(actionCreatorProvider: ActionCreator) -> Any
 
     /**
      Dispatches an async action creator to the store. An async action creator generates an
@@ -89,14 +104,16 @@ public protocol Store {
      }
      ```
      - parameter action: The action that is being dispatched to the store
+     - returns: By default returns the dispatched action, but middlewares can change the
+     return type, e.g. to return promises
      */
-    func dispatch(action: ActionType, callback: DispatchCallback?)
-    func dispatch(actionCreatorProvider: ActionCreator, callback: DispatchCallback?)
+    func dispatch(action: Action, callback: DispatchCallback?) -> Any
+    func dispatch(actionCreatorProvider: ActionCreator, callback: DispatchCallback?) -> Any
     func dispatch(asyncActionCreatorProvider: AsyncActionCreator, callback: DispatchCallback?)
 }
 
 public typealias DispatchCallback = (StateType) -> Void
-public typealias ActionCreator = (state: StateType, store: Store) -> ActionType?
+public typealias ActionCreator = (state: StateType, store: Store) -> Action?
 
 /// AsyncActionCreators allow the developer to wait for the completion of an async action
 public typealias AsyncActionCreator = (state: StateType, store: Store,
