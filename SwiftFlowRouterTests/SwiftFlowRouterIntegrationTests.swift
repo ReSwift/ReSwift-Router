@@ -53,7 +53,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var store: MainStore!
 
             beforeEach {
-                store = MainStore(reducer: MainReducer([NavigationReducer()]), appState: FakeAppState())
+                store = MainStore(reducer: CombinedReducer([NavigationReducer()]), appState: FakeAppState())
             }
 
             describe("setup") {

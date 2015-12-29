@@ -9,7 +9,11 @@
 import Foundation
 import SwiftFlow
 
-public struct SetRouteAction: ActionConvertible {
+/// Exports the type map needed for using Swift Flow Router with a Recording Store
+public let typeMap: [String: StandardActionConvertible.Type] =
+    ["SWIFT_FLOW_ROUTER_SET_ROUTE": SetRouteAction.self]
+
+public struct SetRouteAction: StandardActionConvertible {
 
     let route: [RouteElementIdentifier]
     public static let type = "SWIFT_FLOW_ROUTER_SET_ROUTE"
@@ -18,12 +22,12 @@ public struct SetRouteAction: ActionConvertible {
         self.route = route
     }
 
-    public init(_ action: Action) {
+    public init(_ action: StandardAction) {
         self.route = action.payload!["route"] as! [RouteElementIdentifier]
     }
 
-    public func toAction() -> Action {
-        return Action(type: SetRouteAction.type, payload: ["route": route])
+    public func toStandardAction() -> StandardAction {
+        return StandardAction(type: SetRouteAction.type, payload: ["route": route], isTypedAction: true)
     }
     
 }
