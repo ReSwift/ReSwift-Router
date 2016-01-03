@@ -22,11 +22,26 @@ This requires to store the current navigation state within the app state and to 
 
 #Installation
 
-Install Swift Flow Router via Carthage:
 
-```
-github "Swift-Flow/Swift-Flow-Router"
-```
+##Cocoapods
+
+You can install Swift Flow Router via CocoaPods by adding it to your `Podfile`:
+
+	use_frameworks!
+
+	source 'https://github.com/CocoaPods/Specs.git'
+	platform :ios, '8.0'
+
+	pod 'SwiftFlow'
+	pod 'SwiftFlowRouter'
+	
+And run `pod install`.
+
+##Carthage
+
+You can install Swift Flow via [Carthage]() by adding the following line to your Cartfile:
+
+	github "Swift-Flow/Swift-Flow-Router"
 
 #Configuration
 
