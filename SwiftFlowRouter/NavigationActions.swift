@@ -6,7 +6,6 @@
 //  Copyright © 2015 DigiTales. All rights reserved.
 //
 
-import Foundation
 import SwiftFlow
 
 /// Exports the type map needed for using Swift Flow Router with a Recording Store

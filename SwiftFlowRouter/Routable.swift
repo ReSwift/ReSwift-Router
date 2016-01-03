@@ -6,8 +6,6 @@
 //  Copyright © 2015 DigiTales. All rights reserved.
 //
 
-import Foundation
-
 public typealias RoutingCompletionHandler = () -> Void
 
 public protocol Routable {

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SwiftFlowRouter"
-  s.version          = "0.2.0"
+  s.version          = "0.2.1"
   s.summary          = "Declarative Routing for Swift Flow"
   s.description      = <<-DESC
                           A declarative router for Swift Flow. Allows developers to declare routes in a similar manner as
@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   s.license          = { :type => "MIT", :file => "LICENSE.md" }
   s.author           = { "Benjamin Encz" => "me@benjamin-encz.de" }
   s.social_media_url = "http://twitter.com/benjaminencz"
-  s.source           = { :git => "https://github.com/Swift-Flow/Swift-Flow-Router.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/Swift-Flow/Swift-Flow-Router.git", :tag => "v#{s.version.to_s}" }
   s.ios.deployment_target     = '8.0'
   s.osx.deployment_target     = '10.10'
   s.tvos.deployment_target    = '9.0'

@@ -6,7 +6,6 @@
 //  Copyright © 2015 DigiTales. All rights reserved.
 //
 
-import UIKit
 import SwiftFlow
 
 public class Router: StoreSubscriber {
