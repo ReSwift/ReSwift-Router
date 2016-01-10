@@ -50,10 +50,10 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
         describe("routing calls") {
 
-            var store: MainStore!
+            var store: MainStore<FakeAppState>!
 
             beforeEach {
-                store = MainStore(reducer: CombinedReducer([NavigationReducer()]), appState: FakeAppState())
+                store = MainStore(reducer: CombinedReducer([NavigationReducer()]), state: FakeAppState())
             }
 
             describe("setup") {

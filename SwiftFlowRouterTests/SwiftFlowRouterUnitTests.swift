@@ -14,6 +14,9 @@ import SwiftFlow
 
 class SwiftFlowRouterUnitTests: QuickSpec {
 
+    // Used as test app state
+    struct AppState: StateType {}
+
     override func spec() {
         describe("routing calls") {
 
@@ -26,7 +29,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                 let oldRoute: [RouteElementIdentifier] = []
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 var action1Correct: Bool?
@@ -59,7 +62,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                 let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 var controllerIndex: Int?
@@ -85,7 +88,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier,
                     infoViewControllerIdentifier]
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 var action1Correct: Bool?
@@ -121,7 +124,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                 let oldRoute = [tabBarViewControllerIdentifier]
                 let newRoute = [statsViewControllerIdentifier]
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 var controllerIndex: Int?
@@ -146,7 +149,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                 let oldRoute: [RouteElementIdentifier] = []
                 let newRoute: [RouteElementIdentifier] = []
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 expect(routingActions).to(haveCount(0))
@@ -156,7 +159,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                 let oldRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 expect(routingActions).to(haveCount(0))
@@ -167,7 +170,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                     counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier]
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 var action1Correct: Bool?
@@ -201,7 +204,7 @@ class SwiftFlowRouterUnitTests: QuickSpec {
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier,
                     counterViewControllerIdentifier]
 
-                let routingActions = Router.routingActionsForTransitionFrom(oldRoute,
+                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)
 
                 var action1Correct: Bool?

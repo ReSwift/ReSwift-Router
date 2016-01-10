@@ -8,14 +8,14 @@
 
 import SwiftFlow
 
-public class Router: StoreSubscriber {
+public class Router<State: StateType>: StoreSubscriber {
 
-    var store: MainStore
+    var store: MainStore<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
     let waitForRoutingCompletionQueue = dispatch_queue_create("WaitForRoutingCompletionQueue", nil)
 
-    public init(store: MainStore, rootRoutable: Routable) {
+    public init(store: MainStore<State>, rootRoutable: Routable) {
         self.store = store
         self.routables.append(rootRoutable)
 
