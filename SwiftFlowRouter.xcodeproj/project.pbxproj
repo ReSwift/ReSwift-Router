@@ -43,6 +43,41 @@
 			remoteGlobalIDString = 625E66CC1C1FFE280027C288;
 			remoteInfo = SwiftFlowRouter;
 		};
+		6296C9BB1C49F08100A60ECD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 625E66E31C2000750027C288 /* SwiftFlow.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25DBCF7B1C30C4AA00D63A58;
+			remoteInfo = "SwiftFlow-OSX";
+		};
+		6296C9BD1C49F08100A60ECD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 625E66E31C2000750027C288 /* SwiftFlow.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25DBCF871C30C4DB00D63A58;
+			remoteInfo = "SwiftFlow-OSXTests";
+		};
+		6296C9BF1C49F08100A60ECD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 625E66E31C2000750027C288 /* SwiftFlow.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25DBCF4E1C30C18D00D63A58;
+			remoteInfo = "SwiftFlow-tvOS";
+		};
+		6296C9C11C49F08100A60ECD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 625E66E31C2000750027C288 /* SwiftFlow.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25DBCF641C30C1AC00D63A58;
+			remoteInfo = "SwiftFlow-tvOSTests";
+		};
+		6296C9C31C49F08100A60ECD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 625E66E31C2000750027C288 /* SwiftFlow.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 25DBCF371C30BF2B00D63A58;
+			remoteInfo = "SwiftFlow-watchOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -142,7 +177,12 @@
 			isa = PBXGroup;
 			children = (
 				625E66E91C2000750027C288 /* SwiftFlow.framework */,
-				625E66EB1C2000750027C288 /* SwiftFlowTests.xctest */,
+				625E66EB1C2000750027C288 /* SwiftFlow-iOSTests.xctest */,
+				6296C9BC1C49F08100A60ECD /* SwiftFlow.framework */,
+				6296C9BE1C49F08100A60ECD /* SwiftFlow-OSXTests.xctest */,
+				6296C9C01C49F08100A60ECD /* SwiftFlow.framework */,
+				6296C9C21C49F08100A60ECD /* SwiftFlow-tvOSTests.xctest */,
+				6296C9C41C49F08100A60ECD /* SwiftFlow.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,11 +309,46 @@
 			remoteRef = 625E66E81C2000750027C288 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		625E66EB1C2000750027C288 /* SwiftFlowTests.xctest */ = {
+		625E66EB1C2000750027C288 /* SwiftFlow-iOSTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = SwiftFlowTests.xctest;
+			path = "SwiftFlow-iOSTests.xctest";
 			remoteRef = 625E66EA1C2000750027C288 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6296C9BC1C49F08100A60ECD /* SwiftFlow.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftFlow.framework;
+			remoteRef = 6296C9BB1C49F08100A60ECD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6296C9BE1C49F08100A60ECD /* SwiftFlow-OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SwiftFlow-OSXTests.xctest";
+			remoteRef = 6296C9BD1C49F08100A60ECD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6296C9C01C49F08100A60ECD /* SwiftFlow.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftFlow.framework;
+			remoteRef = 6296C9BF1C49F08100A60ECD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6296C9C21C49F08100A60ECD /* SwiftFlow-tvOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "SwiftFlow-tvOSTests.xctest";
+			remoteRef = 6296C9C11C49F08100A60ECD /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6296C9C41C49F08100A60ECD /* SwiftFlow.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftFlow.framework;
+			remoteRef = 6296C9C31C49F08100A60ECD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
