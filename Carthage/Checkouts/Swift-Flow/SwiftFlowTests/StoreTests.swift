@@ -19,16 +19,16 @@ class StoreSpecs: QuickSpec {
 
         describe("#subscribe") {
 
-            var store: Store!
+            var store: MainStore<TestAppState>!
             var reducer: TestReducer!
 
             beforeEach {
                 reducer = TestReducer()
-                store = MainStore(reducer: reducer, appState: TestAppState())
+                store = MainStore(reducer: reducer, state: TestAppState())
             }
 
             it("dispatches initial value upon subscription") {
-                store = MainStore(reducer: reducer, appState: TestAppState())
+                store = MainStore(reducer: reducer, state: TestAppState())
                 let subscriber = TestStoreSubscriber<TestAppState>()
 
                 store.subscribe(subscriber)
@@ -37,8 +37,17 @@ class StoreSpecs: QuickSpec {
                 expect(subscriber.receivedStates.last?.testValue).to(equal(3))
             }
 
+            it("allows dispatching from within an observer") {
+                store = MainStore(reducer: reducer, state: TestAppState())
+                store.subscribe(DispatchingSubscriber(store: store))
+
+                store.dispatch(SetValueAction(2))
+
+                expect(store.state.testValue).to(equal(5))
+            }
+
             it("does not dispatch value after subscriber unsubscribes") {
-                store = MainStore(reducer: reducer, appState: TestAppState())
+                store = MainStore(reducer: reducer, state: TestAppState())
                 let subscriber = TestStoreSubscriber<TestAppState>()
 
                 store.dispatch(SetValueAction(5))
@@ -69,16 +78,26 @@ class StoreSpecs: QuickSpec {
                     .testValue).to(equal(20))
             }
 
+            it("ignores identical subscribers") {
+                store = MainStore(reducer: reducer, state: TestAppState())
+                let subscriber = TestStoreSubscriber<TestAppState>()
+
+                store.subscribe(subscriber)
+                store.subscribe(subscriber)
+
+                expect(store.subscribers.count).to(equal(1))
+            }
+
         }
 
         describe("#dispatch") {
 
-            var store: Store!
+            var store: MainStore<TestAppState>!
             var reducer: TestReducer!
 
             beforeEach {
                 reducer = TestReducer()
-                store = MainStore(reducer: reducer, appState: TestAppState())
+                store = MainStore(reducer: reducer, state: TestAppState())
             }
 
             it("returns the dispatched action") {
@@ -89,10 +108,59 @@ class StoreSpecs: QuickSpec {
             }
 
             it("throws an exception when a reducer dispatches an action") {
+                // Expectation lives in the `DispatchingReducer` class
                 let reducer = DispatchingReducer()
-                store = MainStore(reducer: reducer, appState: TestAppState())
+                store = MainStore(reducer: reducer, state: TestAppState())
                 reducer.store = store
                 store.dispatch(SetValueAction(10))
+            }
+
+            it("accepts action creators") {
+                store.dispatch(SetValueAction(5))
+
+                let doubleStateValueActionCreator: ActionCreator = { state, store in
+                    guard let appState = state as? TestAppState else { return nil }
+
+                    return SetValueAction(appState.testValue! * 2)
+                }
+
+                store.dispatch(doubleStateValueActionCreator)
+
+                expect(store.state.testValue).to(equal(10))
+            }
+
+            it("accepts async action creators") {
+                let asyncActionCreator: AsyncActionCreator = { state, store, callback in
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        // Provide the callback with an action creator
+                        callback { state, store in
+                            return SetValueAction(5)
+                        }
+                    }
+                }
+
+                store.dispatch(asyncActionCreator)
+
+                expect(store.state.testValue).toEventually(equal(5))
+            }
+
+            it("calls the callback once state update from async action is complete") {
+                let asyncActionCreator: AsyncActionCreator = { state, store, callback in
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+                        // Provide the callback with an action creator
+                        callback { state, store in
+                            return SetValueAction(5)
+                        }
+                    }
+                }
+
+                waitUntil { fulfill in
+                    store.dispatch(asyncActionCreator) { newState in
+                        if (newState as? TestAppState)?.testValue == 5 {
+                            fulfill()
+                        }
+                    }
+                }
             }
 
         }
@@ -104,7 +172,7 @@ class StoreSpecs: QuickSpec {
 
 // Needs to be class so that shared reference can be modified to inject store
 class DispatchingReducer: Reducer {
-    var store: Store? = nil
+    var store: MainStore<TestAppState>? = nil
 
     func handleAction(state: TestAppState, action: Action) -> TestAppState {
         expect(self.store?.dispatch(SetValueAction(20))).to(raiseException(named:

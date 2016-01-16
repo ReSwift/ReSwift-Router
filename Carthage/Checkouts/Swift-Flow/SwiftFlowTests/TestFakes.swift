@@ -39,7 +39,8 @@ struct SetValueAction: StandardActionConvertible {
     }
 
     func toStandardAction() -> StandardAction {
-        return StandardAction(type: SetValueAction.type, payload: ["value": value])
+        return StandardAction(type: SetValueAction.type, payload: ["value": value],
+                                isTypedAction: true)
     }
 
 }
@@ -58,7 +59,8 @@ struct SetValueStringAction: StandardActionConvertible {
     }
 
     func toStandardAction() -> StandardAction {
-        return StandardAction(type: SetValueStringAction.type, payload: ["value": value])
+        return StandardAction(type: SetValueStringAction.type, payload: ["value": value],
+                                isTypedAction: true)
     }
 
 }
@@ -92,5 +94,21 @@ class TestStoreSubscriber<T>: StoreSubscriber {
 
     func newState(state: T) {
         receivedStates.append(state)
+    }
+}
+
+class DispatchingSubscriber: StoreSubscriber {
+    var store: MainStore<TestAppState>
+
+    init(store: MainStore<TestAppState>) {
+        self.store = store
+    }
+
+    func newState(state: TestAppState) {
+        // Test if we've already dispatched this action to
+        // avoid endless recursion
+        if state.testValue != 5 {
+            self.store.dispatch(SetValueAction(5))
+        }
     }
 }
