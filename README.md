@@ -2,9 +2,9 @@
 [![](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Swift-Flow/Swift-Flow/blob/master/LICENSE.md)
 
 
-A declarative router for [Swift Flow](https://github.com/Swift-Flow/Swift-Flow). Allows developers to declare routes in a similar manner as URLs are used on the web.
+A declarative router for [ReSwift](https://github.com/ReSwift/ReSwift). Allows developers to declare routes in a similar manner as URLs are used on the web.
 
-Using Swift Flow Router you can navigate your app by defining the target location in the form of a URL-like sequence of identifiers:
+Using ReSwiftRouter you can navigate your app by defining the target location in the form of a URL-like sequence of identifiers:
 
 ```swift
 mainStore.dispatch(
@@ -12,43 +12,43 @@ mainStore.dispatch(
 )
 ```    
 
-#About Swift Flow Router
+#About ReSwiftRouter
 
-**Swift Flow Router is still under development and the API is neither complete nor stable at this point.**
+**ReSwiftRouter is still under development and the API is neither complete nor stable at this point.**
 
-When building apps with Swift Flow you should aim to cause **all** state changes through actions - this includes changes to the navigation state.
+When building apps with ReSwift you should aim to cause **all** state changes through actions - this includes changes to the navigation state.
 
-This requires to store the current navigation state within the app state and to use actions to trigger changes to that state - both is provided Swift Flow Router.
+This requires to store the current navigation state within the app state and to use actions to trigger changes to that state - both is provided ReSwiftRouter.
 
 #Installation
 
 
 ##Cocoapods
 
-You can install Swift Flow Router via CocoaPods by adding it to your `Podfile`:
+You can install ReSwiftRouter via CocoaPods by adding it to your `Podfile`:
 
 	use_frameworks!
 
 	source 'https://github.com/CocoaPods/Specs.git'
 	platform :ios, '8.0'
 
-	pod 'SwiftFlow'
-	pod 'SwiftFlowRouter'
+	pod 'ReSwift'
+	pod 'ReSwiftRouter'
 	
 And run `pod install`.
 
 ##Carthage
 
-You can install Swift Flow via [Carthage]() by adding the following line to your Cartfile:
+You can install ReSwiftRouter via [Carthage]() by adding the following line to your Cartfile:
 
-	github "Swift-Flow/Swift-Flow-Router"
+	github "ReSwift/ReSwiftRouter"
 
 #Configuration
 
 Extend your app state to include the navigation state by conforming to the `HasNavigationState` protocol and adding the a `navigationState` member as follows:
 
 ```swift
-import SwiftFlowRouter
+import ReSwiftRouter
 
 struct AppState: StateType, HasNavigationState {
     // other application state
@@ -66,9 +66,9 @@ We'll discuss `Routable` in the next section.
 
 #Implementing `Routable`
 
-Swift Flow Router works with routes that are defined, similar to URLs, as a sequence of identifiers e.g. `["Home", "User", "UserDetail"]`. 
+ReSwiftRouter works with routes that are defined, similar to URLs, as a sequence of identifiers e.g. `["Home", "User", "UserDetail"]`. 
 
-Swift Flow Router is agnostic of the UI framework you are using - it uses `Routable`s to implement that interaction.
+ReSwiftRouter is agnostic of the UI framework you are using - it uses `Routable`s to implement that interaction.
 
 Each route segment is mapped to one responsible `Routable`. The `Routable` needs to be able to present a child, hide a child or replace a child with another child.
 
@@ -134,7 +134,7 @@ func popRouteSegment(identifier: RouteElementIdentifier,
 
 ##Calling the Completion Handler within Routables
 
-Swift Flow Router needs to throttle the navigation actions, since many UI frameworks including UIKit don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completionHandler`. The router will not perform any further navigation actions until the completion handler is called.
+ReSwiftRouter needs to throttle the navigation actions, since many UI frameworks including UIKit don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completionHandler`. The router will not perform any further navigation actions until the completion handler is called.
 
 #Changing the Current Route
 
