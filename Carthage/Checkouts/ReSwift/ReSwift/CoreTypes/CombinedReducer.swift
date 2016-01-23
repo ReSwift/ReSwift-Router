@@ -24,13 +24,14 @@ public struct CombinedReducer: AnyReducer {
 
     /// Creates a Combined Reducer from the given list of Reducers
     public init(_ reducers: [AnyReducer]) {
+        precondition(reducers.count > 0)
+
         self.reducers = reducers
     }
 
-    public func _handleAction(state: StateType, action: Action) -> StateType {
-        return reducers.reduce(state) { currentState, reducer in
-            reducer._handleAction(currentState, action: action)
-        }
+    public func _handleAction(action: Action, state: StateType?) -> StateType {
+        return reducers.reduce(state) { (currentState, reducer) -> StateType in
+            reducer._handleAction(action, state: currentState)
+        }!
     }
-
 }

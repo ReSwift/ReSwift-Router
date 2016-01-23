@@ -8,7 +8,7 @@
 
 import Foundation
 /**
- This is Swift Flow's built in action type, it is the only built in type that conforms to the
+ This is ReSwift's built in action type, it is the only built in type that conforms to the
  `Action` protocol. `StandardAction` can be serialized and can therefore be used with developer
  tools that restore state between app launches.
 
@@ -17,7 +17,7 @@ import Foundation
 
  It is recommended that you define your own types that conform to `Action` - if you want to be able
  to serialize your custom action types, you can implement `StandardActionConvertible` which will
- make it possible to generate a `StanardAction` from your typed action - the best of both worlds!
+ make it possible to generate a `StandardAction` from your typed action - the best of both worlds!
 */
 public struct StandardAction: Action {
     /// A String that identifies the type of this `StandardAction`
@@ -42,7 +42,6 @@ public struct StandardAction: Action {
         self.payload = payload
         self.isTypedAction = isTypedAction
     }
-
 }
 
 // MARK: Coding Extension
@@ -108,3 +107,7 @@ public protocol StandardActionConvertible: Action {
 /// All actions that want to be able to be dispatched to a store need to conform to this protocol
 /// Currently it is just a marker protocol with no requirements.
 public protocol Action { }
+
+/// Initial Action that is dispatched as soon as the store is created.
+/// Reducers respond to this action by configuring their intial state.
+public struct SwiftFlowInit: Action {}

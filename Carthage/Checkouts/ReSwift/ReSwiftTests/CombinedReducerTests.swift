@@ -15,29 +15,31 @@ class MockReducer: Reducer {
 
     var calledWithAction: [Action] = []
 
-    func handleAction(state: StateType, action: Action) -> StateType {
+    func handleAction(action: Action, state: CounterState?) -> CounterState {
         calledWithAction.append(action)
 
-        return state
+        return state ?? CounterState()
     }
 
 }
 
 class IncreaseByOneReducer: Reducer {
-    func handleAction(state: CounterState, action: Action) -> CounterState {
-        var newState = state
-        newState.count = state.count + 1
+    func handleAction(action: Action, state: CounterState?) -> CounterState {
+        var state = state ?? CounterState()
 
-        return newState
+        state.count = state.count + 1
+
+        return state
     }
 }
 
 class IncreaseByTwoReducer: Reducer {
-    func handleAction(state: CounterState, action: Action) -> CounterState {
-        var newState = state
-        newState.count = state.count + 2
+    func handleAction(action: Action, state: CounterState?) -> CounterState {
+        var state = state ?? CounterState()
 
-        return newState
+        state.count = state.count + 2
+
+        return state
     }
 }
 
@@ -59,7 +61,7 @@ class CombinedReducerSpecs: QuickSpec {
 
                 let combinedReducer = CombinedReducer([mockReducer1, mockReducer2])
 
-                combinedReducer._handleAction(CounterState(), action: StandardAction(emptyAction))
+                combinedReducer._handleAction(StandardAction(emptyAction), state: CounterState())
 
                 expect(mockReducer1.calledWithAction).to(haveCount(1))
                 expect(mockReducer2.calledWithAction).to(haveCount(1))
@@ -74,8 +76,8 @@ class CombinedReducerSpecs: QuickSpec {
                 let increaseByTwoReducer = IncreaseByTwoReducer()
 
                 let combinedReducer = CombinedReducer([increaseByOneReducer, increaseByTwoReducer])
-                let newState = combinedReducer._handleAction(CounterState(),
-                    action: StandardAction(emptyAction)) as? CounterState
+                let newState = combinedReducer._handleAction(StandardAction(emptyAction),
+                    state: CounterState()) as? CounterState
 
                 expect(newState?.count).to(equal(3))
             }
