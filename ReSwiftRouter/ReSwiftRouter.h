@@ -6,7 +6,7 @@
 //  Copyright © 2015 Benjamin Encz. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for SwiftFlowRouter.
 FOUNDATION_EXPORT double SwiftFlowRouterVersionNumber;
