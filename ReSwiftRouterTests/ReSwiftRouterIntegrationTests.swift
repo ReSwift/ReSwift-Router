@@ -39,8 +39,16 @@ struct FakeAppState: StateType, HasNavigationState {
 }
 
 class FakeReducer: Reducer {
-    func handleAction(state: FakeAppState, action: Action) -> FakeAppState {
-        return state
+    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
+        return state ?? FakeAppState()
+    }
+}
+
+struct AppReducer: Reducer {
+    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
+        return FakeAppState(
+            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+        )
     }
 }
 
@@ -50,10 +58,10 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
         describe("routing calls") {
 
-            var store: MainStore<FakeAppState>!
+            var store: Store<FakeAppState>!
 
             beforeEach {
-                store = MainStore(reducer: CombinedReducer([NavigationReducer()]), state: FakeAppState())
+                store = Store(reducer: CombinedReducer([AppReducer()]), state: FakeAppState())
             }
 
             describe("setup") {

@@ -8,11 +8,17 @@
 
 import ReSwift
 
-public struct NavigationReducer: Reducer {
+/** 
+ The Navigation Reducer handles the state slice concerned with storing the current navigation
+ information. Note, that this reducer is **not** a *top-level* reducer, you need to use it within
+ another reducer and pass in the relevant state slice. Take a look at the specs to see an
+ example set up. 
+ */
+public struct NavigationReducer {
 
-    public init() {}
+    public static func handleAction(action: Action, state: NavigationState?) -> NavigationState {
+        let state = state ?? NavigationState()
 
-    public func handleAction(state: HasNavigationState, action: Action) -> HasNavigationState {
         switch action {
         case let action as SetRouteAction:
             return setRoute(state, route: action.route)
@@ -23,8 +29,8 @@ public struct NavigationReducer: Reducer {
         return state
     }
 
-    func setRoute(var state: HasNavigationState, route: [RouteElementIdentifier]) -> HasNavigationState {
-        state.navigationState.route = route
+    static func setRoute(var state: NavigationState, route: [RouteElementIdentifier]) -> NavigationState {
+        state.route = route
 
         return state
     }

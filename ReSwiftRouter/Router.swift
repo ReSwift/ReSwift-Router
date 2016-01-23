@@ -11,12 +11,12 @@ import ReSwift
 
 public class Router<State: StateType>: StoreSubscriber {
 
-    var store: MainStore<State>
+    var store: Store<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
     let waitForRoutingCompletionQueue = dispatch_queue_create("WaitForRoutingCompletionQueue", nil)
 
-    public init(store: MainStore<State>, rootRoutable: Routable) {
+    public init(store: Store<State>, rootRoutable: Routable) {
         self.store = store
         self.routables.append(rootRoutable)
 

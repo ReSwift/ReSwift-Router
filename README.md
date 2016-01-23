@@ -63,7 +63,22 @@ After you've initialized your store, create an instance of `Router`, passing in 
 router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController))
 ```
 
-We'll discuss `Routable` in the next section.
+We'll discuss `Routable` in the next main section.
+
+##Calling the Navigation Reducer
+
+The `NavigationReducer` is provided as part of `ReSwiftRouter`. You need to call it from within your top-level reducer. Here's a simple example from the specs:
+
+```swift
+struct AppReducer: Reducer {
+    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
+        return FakeAppState(
+            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+        )
+    }
+}
+```
+This will reducer will handle all routing relevant actions.
 
 #Implementing `Routable`
 
