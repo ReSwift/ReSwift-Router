@@ -30,11 +30,11 @@ extension Routable {
 
     public func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
         completionHandler: RoutingCompletionHandler) {
-            fatalError("This routable cannot change segments. You have not implemented it.")
+            fatalError("This routable cannot pop segments. You have not implemented it.")
     }
 
     public func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
         completionHandler: RoutingCompletionHandler) -> Routable {
-            fatalError("This routable cannot change segments. You have not implemented it.")
+            fatalError("This routable cannot push segments. You have not implemented it.")
     }
 }
