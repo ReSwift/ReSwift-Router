@@ -26,7 +26,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
             let infoViewControllerIdentifier = "InfoViewController"
 
             it("calculates transitions from an empty route to a multi segment route") {
-                let oldRoute: [RouteElementIdentifier] = []
+                let oldRoute: Route = []
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
                 let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
@@ -146,8 +146,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
             }
 
             it("calculates no actions for transition from empty route to empty route") {
-                let oldRoute: [RouteElementIdentifier] = []
-                let newRoute: [RouteElementIdentifier] = []
+                let oldRoute: Route = []
+                let newRoute: Route = []
 
                 let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
                     newRoute: newRoute)

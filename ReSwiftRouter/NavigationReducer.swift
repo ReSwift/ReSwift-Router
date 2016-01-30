@@ -29,7 +29,7 @@ public struct NavigationReducer {
         return state
     }
 
-    static func setRoute(var state: NavigationState, route: [RouteElementIdentifier]) -> NavigationState {
+    static func setRoute(var state: NavigationState, route: Route) -> NavigationState {
         state.route = route
 
         return state
