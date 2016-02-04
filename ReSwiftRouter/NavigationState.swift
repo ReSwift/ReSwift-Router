@@ -9,11 +9,12 @@
 import ReSwift
 
 public typealias RouteElementIdentifier = String
+public typealias Route = [RouteElementIdentifier]
 
 public struct NavigationState {
     public init() {}
 
-    public var route: [RouteElementIdentifier] = []
+    public var route: Route = []
     public var subRouteState: [StateType] = []
 }
 

@@ -88,8 +88,8 @@ public class Router<State: StateType>: StoreSubscriber {
 
     // MARK: Route Transformation Logic
 
-    static func largestCommonSubroute(oldRoute: [RouteElementIdentifier],
-        newRoute: [RouteElementIdentifier]) -> Int {
+    static func largestCommonSubroute(oldRoute: Route,
+        newRoute: Route) -> Int {
 
             var largestCommonSubroute = -1
 
@@ -110,8 +110,8 @@ public class Router<State: StateType>: StoreSubscriber {
         return segment + 1
     }
 
-    static func routingActionsForTransitionFrom(oldRoute: [RouteElementIdentifier],
-        newRoute: [RouteElementIdentifier]) -> [RoutingActions] {
+    static func routingActionsForTransitionFrom(oldRoute: Route,
+        newRoute: Route) -> [RoutingActions] {
 
             var routingActions: [RoutingActions] = []
 

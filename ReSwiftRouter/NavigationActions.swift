@@ -14,15 +14,15 @@ public let typeMap: [String: StandardActionConvertible.Type] =
 
 public struct SetRouteAction: StandardActionConvertible {
 
-    let route: [RouteElementIdentifier]
+    let route: Route
     public static let type = "RE_SWIFT_ROUTER_SET_ROUTE"
 
-    public init (_ route: [RouteElementIdentifier]) {
+    public init (_ route: Route) {
         self.route = route
     }
 
     public init(_ action: StandardAction) {
-        self.route = action.payload!["route"] as! [RouteElementIdentifier]
+        self.route = action.payload!["route"] as! Route
     }
 
     public func toStandardAction() -> StandardAction {
