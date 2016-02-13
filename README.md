@@ -24,7 +24,7 @@ This requires to store the current navigation state within the app state and to 
 #Installation
 
 
-##Cocoapods
+##CocoaPods
 
 You can install ReSwiftRouter via CocoaPods by adding it to your `Podfile`:
 
