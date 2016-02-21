@@ -17,18 +17,27 @@ import Foundation
  */
 public class Store<State: StateType>: StoreType {
 
+    typealias SubscriptionType = Subscription<State>
+
     // TODO: Setter should not be public; need way for store enhancers to modify appState anyway
 
     /*private (set)*/ public var state: State! {
         didSet {
-            subscribers.forEach { $0._newState(state) }
+            subscriptions = subscriptions.filter { $0.subscriber != nil }
+            subscriptions.forEach {
+                // if a selector is available, subselect the relevant state
+                // otherwise pass the entire state to the subscriber
+                $0.subscriber?._newState($0.selector?(state) ?? state)
+            }
         }
     }
 
     public var dispatchFunction: DispatchFunction!
 
     private var reducer: AnyReducer
-    var subscribers: [AnyStoreSubscriber] = []
+
+    var subscriptions: [SubscriptionType] = []
+
     private var isDispatching = false
 
     public required convenience init(reducer: AnyReducer, state: State?) {
@@ -39,35 +48,50 @@ public class Store<State: StateType>: StoreType {
         self.reducer = reducer
 
         // Wrap the dispatch function with all middlewares
-        self.dispatchFunction = middleware.reverse().reduce(_defaultDispatch) {
-            [weak self] dispatchFunction, middleware in
-                let getState = { self?.state }
-                return middleware(self?.dispatch, getState)(dispatchFunction)
+        self.dispatchFunction = middleware
+            .reverse()
+            .reduce({ [unowned self] action in self._defaultDispatch(action) }) {
+                [weak self] dispatchFunction, middleware in
+                    let getState = { self?.state }
+                    return middleware(self?.dispatch, getState)(dispatchFunction)
         }
 
         if let state = state {
             self.state = state
         } else {
-            dispatch(SwiftFlowInit())
+            dispatch(ReSwiftInit())
         }
     }
 
-    public func subscribe(subscriber: AnyStoreSubscriber) {
-        if subscribers.contains({ $0 === subscriber }) {
+    private func _isNewSubscriber(subscriber: AnyStoreSubscriber) -> Bool {
+        if subscriptions.contains({ $0.subscriber === subscriber }) {
             print("Store subscriber is already added, ignoring.")
-            return
+            return false
         }
 
-        subscribers.append(subscriber)
+        return true
+    }
 
-        if let state = self.state {
-            subscriber._newState(state)
-        }
+    public func subscribe<S: StoreSubscriber
+        where S.StoreSubscriberStateType == State>(subscriber: S) {
+            subscribe(subscriber, selector: nil)
+    }
+
+    public func subscribe<SelectedState, S: StoreSubscriber
+        where S.StoreSubscriberStateType == SelectedState>
+        (subscriber: S, selector: (State -> SelectedState)?) {
+            if !_isNewSubscriber(subscriber) { return }
+
+            subscriptions.append(Subscription(subscriber: subscriber, selector: selector))
+
+            if let state = self.state {
+                subscriber._newState(selector?(state) ?? state)
+            }
     }
 
     public func unsubscribe(subscriber: AnyStoreSubscriber) {
-        if let index = subscribers.indexOf({ return $0 === subscriber }) {
-            subscribers.removeAtIndex(index)
+        if let index = subscriptions.indexOf({ return $0.subscriber === subscriber }) {
+            subscriptions.removeAtIndex(index)
         }
     }
 
@@ -108,6 +132,7 @@ public class Store<State: StateType>: StoreType {
 
     public func dispatch(actionCreatorProvider: ActionCreator, callback: DispatchCallback?) -> Any {
         let action = actionCreatorProvider(state: state, store: self)
+
         if let action = action {
             dispatch(action, callback: callback)
         }
@@ -117,10 +142,7 @@ public class Store<State: StateType>: StoreType {
 
     public func dispatch(actionCreatorProvider: AsyncActionCreator, callback: DispatchCallback?) {
         actionCreatorProvider(state: state, store: self) { actionProvider in
-            let action = actionProvider(state: self.state, store: self)
-            if let action = action {
-                self.dispatch(action, callback: callback)
-            }
+            self.dispatch(actionProvider, callback: callback)
         }
     }
 
@@ -128,6 +150,9 @@ public class Store<State: StateType>: StoreType {
 
     public typealias ActionCreator = (state: State, store: Store) -> Action?
 
-    public typealias AsyncActionCreator = (state: State, store: Store,
-        actionCreatorCallback: ActionCreator -> Void) -> Void
+    public typealias AsyncActionCreator = (
+        state: State,
+        store: Store,
+        actionCreatorCallback: ActionCreator -> Void
+    ) -> Void
 }
