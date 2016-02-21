@@ -9,7 +9,7 @@
 import Foundation
 import ReSwift
 
-public class Router<State: StateType>: StoreSubscriber {
+public class Router<State: HasNavigationState>: StoreSubscriber {
 
     var store: Store<State>
     var lastNavigationState = NavigationState()
@@ -23,7 +23,7 @@ public class Router<State: StateType>: StoreSubscriber {
         self.store.subscribe(self)
     }
 
-    public func newState(state: HasNavigationState) {
+    public func newState(state: State) {
         let routingActions = Router.routingActionsForTransitionFrom(
             lastNavigationState.route, newRoute: state.navigationState.route)
 
