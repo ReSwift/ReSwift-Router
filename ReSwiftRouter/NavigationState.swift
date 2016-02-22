@@ -17,7 +17,3 @@ public struct NavigationState {
     public var route: Route = []
     public var subRouteState: [StateType] = []
 }
-
-public protocol HasNavigationState {
-    var navigationState: NavigationState { get set }
-}

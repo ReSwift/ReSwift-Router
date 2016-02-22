@@ -11,21 +11,23 @@ import ReSwift
 
 public class Router<State: StateType>: StoreSubscriber {
 
+    public typealias NavigationStateSelector = (State) -> NavigationState
+
     var store: Store<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
     let waitForRoutingCompletionQueue = dispatch_queue_create("WaitForRoutingCompletionQueue", nil)
 
-    public init(store: Store<State>, rootRoutable: Routable) {
-        self.store = store
+    public init(store: Store<State>, rootRoutable: Routable, stateSelector: NavigationStateSelector) {
+        self.store = store 
         self.routables.append(rootRoutable)
 
-        self.store.subscribe(self)
+        self.store.subscribe(self, selector: stateSelector)
     }
 
-    public func newState(state: HasNavigationState) {
+    public func newState(state: NavigationState) {
         let routingActions = Router.routingActionsForTransitionFrom(
-            lastNavigationState.route, newRoute: state.navigationState.route)
+            lastNavigationState.route, newRoute: state.route)
 
         routingActions.forEach { routingAction in
 
@@ -83,14 +85,12 @@ public class Router<State: StateType>: StoreSubscriber {
 
         }
 
-        lastNavigationState = state.navigationState
+        lastNavigationState = state
     }
 
     // MARK: Route Transformation Logic
 
-    static func largestCommonSubroute(oldRoute: Route,
-        newRoute: Route) -> Int {
-
+    static func largestCommonSubroute(oldRoute: Route, newRoute: Route) -> Int {
             var largestCommonSubroute = -1
 
             while largestCommonSubroute + 1 < newRoute.count &&
