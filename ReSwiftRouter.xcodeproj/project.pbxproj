@@ -1323,6 +1323,7 @@
 				6209C0521C54256F004E6B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6209C0721C5427E0004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-tvOS" */ = {
 			isa = XCConfigurationList;
@@ -1331,6 +1332,7 @@
 				6209C0741C5427E0004E6B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6209C0751C5427E0004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-tvOSTests" */ = {
 			isa = XCConfigurationList;
@@ -1339,6 +1341,7 @@
 				6209C0771C5427E0004E6B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6209C0991C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-OSX" */ = {
 			isa = XCConfigurationList;
@@ -1347,6 +1350,7 @@
 				6209C09B1C5428DE004E6B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6209C09C1C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-OSXTests" */ = {
 			isa = XCConfigurationList;
@@ -1355,6 +1359,7 @@
 				6209C09E1C5428DE004E6B66 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		625E66C71C1FFE270027C288 /* Build configuration list for PBXProject "ReSwiftRouter" */ = {
 			isa = XCConfigurationList;

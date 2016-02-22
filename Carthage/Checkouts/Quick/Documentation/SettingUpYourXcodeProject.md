@@ -1,26 +1,25 @@
 # Setting Up Tests in Your Xcode Project
 
-When you create a new project in Xcode 6, a unit test target is included
-by default. To write unit tests, you'll need to be able to use your main
-target's code from within your test target.
+With the exception of the Command Line Tool project type, when you create a new project in Xcode 7, a unit test target is included
+by default. [See specific instructions for a Command Line Tool Project](#setting-up-a-test-target-for-a-command-line-tool-project). To write unit tests, you'll need to be able to use your main
+target's code from within your test target. 
 
 ## Testing Swift Code Using Swift
 
-In order to test code written in Swift, you'll need to do three things:
+In order to test code written in Swift, you'll need to do two things:
 
 1. Set "defines module" in your `.xcodeproj` to `YES`.
 
   * To do this in Xcode: Choose your project, then "Build Settings" header, then "Defines Modules" line, then select "Yes".
 
-2. Mark any class/method/function you want to test `public`, since only
-   `public` symbols are exported.
-3. `import YourAppModuleName` in your unit tests.
+2. `@testable import YourAppModuleName` in your unit tests. This will expose Any `public` and `internal` (the default)
+   symbols to your tests. `private` symbols are still unavailable.
 
 ```swift
 // MyAppTests.swift
 
 import XCTest
-import MyModule
+@testable import MyModule
 
 class MyClassTests: XCTestCase {
   // ...
@@ -52,7 +51,7 @@ You can now use the code from `MyClass.h` in your Swift test files.
 2. Import your module's Swift headers in your unit tests.
 
 ```objc
-#import <XCTest/XCTest.h>
+@import XCTest;
 #import "MyModule-Swift.h"
 
 @interface MyClassTests: XCTestCase
@@ -67,10 +66,18 @@ Import the file defining the code you'd like to test from within your test targe
 ```objc
 // MyAppTests.m
 
-#import <XCTest/XCTest.h>
+@import XCTest;
 #import "MyClass.h"
 
 @interface MyClassTests: XCTestCase
 // ...
 @end
 ```
+
+### Setting Up a Test Target for a Command Line Tool Project
+
+1. Add a target to your project in the project pane.
+2. Select "OS X Unit Testing Bundle".
+3. Edit the scheme of your main target.
+4. Select the "Test" node, click the "+" under the "Info" heading, and select
+   your testing bundle.

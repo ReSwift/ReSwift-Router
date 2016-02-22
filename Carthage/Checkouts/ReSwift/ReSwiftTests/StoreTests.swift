@@ -12,6 +12,7 @@ import Nimble
 @testable import ReSwift
 
 // swiftlint:disable function_body_length
+// swiftlint:disable type_body_length
 class StoreSpecs: QuickSpec {
 
     override func spec() {
@@ -22,7 +23,25 @@ class StoreSpecs: QuickSpec {
                 let reducer = MockReducer()
                 let _ = Store<CounterState>(reducer: reducer, state: nil)
 
-                expect(reducer.calledWithAction[0] is SwiftFlowInit).to(beTrue())
+                expect(reducer.calledWithAction[0] is ReSwiftInit).to(beTrue())
+            }
+
+        }
+
+        describe("#deinit") {
+
+            it("Deinitializes when no reference is held") {
+                var deInitCount = 0
+
+                autoreleasepool {
+                    let reducer = TestReducer()
+                    let _ = DeInitStore(
+                        reducer: reducer,
+                        state: TestAppState(),
+                        deInitAction: { deInitCount++ })
+                }
+
+                expect(deInitCount).to(equal(1))
             }
 
         }
@@ -32,9 +51,44 @@ class StoreSpecs: QuickSpec {
             var store: Store<TestAppState>!
             var reducer: TestReducer!
 
+            typealias TestSubscriber = TestStoreSubscriber<TestAppState>
+
             beforeEach {
                 reducer = TestReducer()
                 store = Store(reducer: reducer, state: TestAppState())
+            }
+
+            it("does not strongly capture an observer") {
+                store = Store(reducer: reducer, state: TestAppState())
+                var subscriber: TestSubscriber? = TestSubscriber()
+
+                store.subscribe(subscriber!)
+                expect(store.subscriptions.flatMap({ $0.subscriber }).count).to(equal(1))
+
+                subscriber = nil
+                expect(store.subscriptions.flatMap({ $0.subscriber })).to(beEmpty())
+            }
+
+            it("removes deferenced subscribers before notifying state changes") {
+                store = Store(reducer: reducer, state: TestAppState())
+                var subscriber1: TestSubscriber? = TestSubscriber()
+                var subscriber2: TestSubscriber? = TestSubscriber()
+
+                store.subscribe(subscriber1!)
+                store.subscribe(subscriber2!)
+                store.dispatch(SetValueAction(3))
+                expect(store.subscriptions.count).to(equal(2))
+                expect(subscriber1?.receivedStates.last?.testValue).to(equal(3))
+                expect(subscriber2?.receivedStates.last?.testValue).to(equal(3))
+
+                subscriber1 = nil
+                store.dispatch(SetValueAction(5))
+                expect(store.subscriptions.count).to(equal(1))
+                expect(subscriber2?.receivedStates.last?.testValue).to(equal(5))
+
+                subscriber2 = nil
+                store.dispatch(SetValueAction(8))
+                expect(store.subscriptions).to(beEmpty())
             }
 
             it("dispatches initial value upon subscription") {
@@ -49,8 +103,9 @@ class StoreSpecs: QuickSpec {
 
             it("allows dispatching from within an observer") {
                 store = Store(reducer: reducer, state: TestAppState())
-                store.subscribe(DispatchingSubscriber(store: store))
+                let subscriber = DispatchingSubscriber(store: store)
 
+                store.subscribe(subscriber)
                 store.dispatch(SetValueAction(2))
 
                 expect(store.state.testValue).to(equal(5))
@@ -95,7 +150,17 @@ class StoreSpecs: QuickSpec {
                 store.subscribe(subscriber)
                 store.subscribe(subscriber)
 
-                expect(store.subscribers.count).to(equal(1))
+                expect(store.subscriptions.count).to(equal(1))
+            }
+
+            it("ignores identical subscribers that provide substate selectors") {
+                store = Store(reducer: reducer, state: TestAppState())
+                let subscriber = TestStoreSubscriber<TestAppState>()
+
+                store.subscribe(subscriber) { $0 }
+                store.subscribe(subscriber) { $0 }
+
+                expect(store.subscriptions.count).to(equal(1))
             }
 
         }
@@ -177,6 +242,26 @@ class StoreSpecs: QuickSpec {
 
 }
 
+// Used for deinitialization test
+class DeInitStore<State: StateType>: Store<State> {
+    var deInitAction: (() -> Void)?
+
+    deinit {
+        deInitAction?()
+    }
+
+    required convenience init(
+        reducer: AnyReducer,
+        state: State?,
+        deInitAction: () -> Void) {
+            self.init(reducer: reducer, state: state, middleware: [])
+            self.deInitAction = deInitAction
+    }
+
+    required init(reducer: AnyReducer, state: State?, middleware: [Middleware]) {
+        super.init(reducer: reducer, state: state, middleware: middleware)
+    }
+}
 
 // Needs to be class so that shared reference can be modified to inject store
 class DispatchingReducer: Reducer {
@@ -189,4 +274,5 @@ class DispatchingReducer: Reducer {
     }
 }
 
+// swiftlint:enable type_body_length
 // swiftlint:enable function_body_length

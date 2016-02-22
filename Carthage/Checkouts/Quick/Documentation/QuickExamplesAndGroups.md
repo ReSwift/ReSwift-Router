@@ -43,8 +43,8 @@ class DolphinSpec: QuickSpec {
 ```objc
 // Objective-C
 
-#import <Quick/Quick.h>
-#import <Nimble/Nimble.h>
+@import Quick;
+@import Nimble;
 
 QuickSpecBegin(DolphinSpec)
 
@@ -103,8 +103,8 @@ class DolphinSpec: QuickSpec {
 ```objc
 // Objective-C
 
-#import <Quick/Quick.h>
-#import <Nimble/Nimble.h>
+@import Quick;
+@import Nimble;
 
 QuickSpecBegin(DolphinSpec)
 
@@ -178,8 +178,8 @@ class DolphinSpec: QuickSpec {
 ```objc
 // Objective-C
 
-#import <Quick/Quick.h>
-#import <Nimble/Nimble.h>
+@import Quick;
+@import Nimble;
 
 QuickSpecBegin(DolphinSpec)
 
@@ -267,8 +267,8 @@ class DolphinSpec: QuickSpec {
 ```objc
 // Objective-C
 
-#import <Quick/Quick.h>
-#import <Nimble/Nimble.h>
+@import Quick;
+@import Nimble;
 
 QuickSpecBegin(DolphinSpec)
 
@@ -298,6 +298,9 @@ describe(@"a dolphin", ^{
 
 QuickSpecEnd
 ```
+
+Strictly speaking, the `context` keyword is a synonym for `describe`, 
+but thoughtful use will make your spec easier to understand.
 
 ### Test Readability: Quick and XCTest
 
@@ -436,7 +439,7 @@ class DolphinSpec: QuickSpec {
 ```objc
 // Objective-C
 
-#import <Quick/Quick.h>
+@import Quick;
 
 QuickSpecBegin(DolphinSpec)
 
