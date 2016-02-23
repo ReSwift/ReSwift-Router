@@ -1,5 +1,12 @@
 #Upcoming Release
 
+#0.2.5
+
+*Released: 02/22/2015*
+
+**API Changes:**
+- ReSwift-Router now uses the new substate selection API when subscribing to a store. As a result, the `HasNavigationState` protocol has been removed. This change also allows an app to have multiple routers. - @Ben-G
+
 #0.2.4
 
 *Released: 01/23/2015*
