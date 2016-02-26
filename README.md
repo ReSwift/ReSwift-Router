@@ -122,7 +122,7 @@ If your navigation stack uses a modal presentation for this transition, the impl
 func pushRouteSegment(identifier: RouteElementIdentifier,
     completionHandler: RoutingCompletionHandler) -> Routable {
     
-	if identifier == "Home" {
+	if identifier == "User" {
 		// 1.) Perform the transition
         userViewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewControllerWithIdentifier("UserViewController") as! Routable
