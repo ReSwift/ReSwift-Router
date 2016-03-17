@@ -234,6 +234,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
             }
 
         }
+
     }
 
 }

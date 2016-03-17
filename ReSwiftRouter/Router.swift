@@ -44,8 +44,10 @@ public class Router<State: StateType>: StoreSubscriber {
                 case let .Pop(responsibleRoutableIndex, segmentToBePopped):
                     dispatch_async(dispatch_get_main_queue()) {
                         self.routables[responsibleRoutableIndex]
-                            .popRouteSegment(segmentToBePopped) {
-                            dispatch_semaphore_signal(semaphore)
+                            .popRouteSegment(
+                                segmentToBePopped,
+                                animated: state.changeRouteAnimated) {
+                                    dispatch_semaphore_signal(semaphore)
                         }
 
                         self.routables.removeAtIndex(responsibleRoutableIndex + 1)
@@ -55,8 +57,10 @@ public class Router<State: StateType>: StoreSubscriber {
                     dispatch_async(dispatch_get_main_queue()) {
                         self.routables[responsibleRoutableIndex + 1] =
                             self.routables[responsibleRoutableIndex]
-                                .changeRouteSegment(segmentToBeReplaced,
-                                    to: newSegment) {
+                                .changeRouteSegment(
+                                    segmentToBeReplaced,
+                                    to: newSegment,
+                                    animated: state.changeRouteAnimated) {
                                         dispatch_semaphore_signal(semaphore)
                         }
                     }
@@ -65,8 +69,10 @@ public class Router<State: StateType>: StoreSubscriber {
                     dispatch_async(dispatch_get_main_queue()) {
                         self.routables.append(
                             self.routables[responsibleRoutableIndex]
-                                .pushRouteSegment(segmentToBePushed) {
-                                    dispatch_semaphore_signal(semaphore)
+                                .pushRouteSegment(
+                                    segmentToBePushed,
+                                    animated: state.changeRouteAnimated) {
+                                        dispatch_semaphore_signal(semaphore)
                             }
                         )
                     }
@@ -77,9 +83,12 @@ public class Router<State: StateType>: StoreSubscriber {
                 let result = dispatch_semaphore_wait(semaphore, waitUntil)
 
                 if result != 0 {
-                    assertionFailure("[SwiftFlowRouter]: Router is stuck waiting for a" +
-                        " completion handler to be called. Ensure that you have called the " +
+                    print("[SwiftFlowRouter]: Router is stuck waiting for a" +
+                        " completion handler to be called. Ensure that you have called the" +
                         " completion handler in each Routable element.")
+                    print("Set a symbolic breakpoint for the `ReSwiftRouterStuck` symbol in order" +
+                        " to halt the program when this happens")
+                    ReSwiftRouterStuck()
                 }
             }
 
@@ -193,6 +202,8 @@ public class Router<State: StateType>: StoreSubscriber {
     }
 
 }
+
+func ReSwiftRouterStuck() {}
 
 enum RoutingActions {
     case Push(responsibleRoutableIndex: Int, segmentToBePushed: RouteElementIdentifier)
