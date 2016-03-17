@@ -21,7 +21,7 @@ public struct NavigationReducer {
 
         switch action {
         case let action as SetRouteAction:
-            return setRoute(state, route: action.route)
+            return setRoute(state, setRouteAction: action)
         case let action as SetRouteSpecificData:
             return setRouteSpecificData(state, route: action.route, data: action.data)
         default:
@@ -31,8 +31,9 @@ public struct NavigationReducer {
         return state
     }
 
-    static func setRoute(var state: NavigationState, route: Route) -> NavigationState {
-        state.route = route
+    static func setRoute(var state: NavigationState, setRouteAction: SetRouteAction) -> NavigationState {
+        state.route = setRouteAction.route
+        state.changeRouteAnimated = setRouteAction.animated
 
         return state
     }

@@ -15,18 +15,25 @@ public let typeMap: [String: StandardActionConvertible.Type] =
 public struct SetRouteAction: StandardActionConvertible {
 
     let route: Route
+    let animated: Bool
     public static let type = "RE_SWIFT_ROUTER_SET_ROUTE"
 
-    public init (_ route: Route) {
+    public init (_ route: Route, animated: Bool = true) {
         self.route = route
+        self.animated = animated
     }
 
     public init(_ action: StandardAction) {
         self.route = action.payload!["route"] as! Route
+        self.animated = action.payload!["animated"] as! Bool
     }
 
     public func toStandardAction() -> StandardAction {
-        return StandardAction(type: SetRouteAction.type, payload: ["route": route], isTypedAction: true)
+        return StandardAction(
+            type: SetRouteAction.type,
+            payload: ["route": route, "animated": animated],
+            isTypedAction: true
+        )
     }
     
 }

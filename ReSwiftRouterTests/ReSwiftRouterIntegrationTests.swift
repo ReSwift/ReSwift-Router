@@ -11,25 +11,47 @@ import Nimble
 import ReSwift
 @testable import ReSwiftRouter
 
-class FakeRoutable: Routable {
+class MockRoutable: Routable {
 
-
-    func pushRouteSegment(routeSegment: RouteElementIdentifier,
-        completionHandler: RoutingCompletionHandler) -> Routable {
-            completionHandler()
-            return FakeRoutable()
-    }
-
-    func popRouteSegment(routeSegment: RouteElementIdentifier,
-        completionHandler: RoutingCompletionHandler) {
-            completionHandler()
-    }
-
-    func changeRouteSegment(from: RouteElementIdentifier,
+    var callsToPushRouteSegment: [(routeElement: RouteElementIdentifier, animated: Bool)] = []
+    var callsToPopRouteSegment: [(routeElement: RouteElementIdentifier, animated: Bool)] = []
+    var callsToChangeRouteSegment: [(
+        from: RouteElementIdentifier,
         to: RouteElementIdentifier,
+        animated: Bool
+    )] = []
+
+    func pushRouteSegment(
+        routeElementIdentifier: RouteElementIdentifier,
+        animated: Bool,
+        completionHandler: RoutingCompletionHandler) -> Routable {
+            callsToPushRouteSegment.append(
+                (routeElement: routeElementIdentifier, animated: animated)
+            )
+            completionHandler()
+            return MockRoutable()
+    }
+
+    func popRouteSegment(
+        routeElementIdentifier: RouteElementIdentifier,
+        animated: Bool,
+        completionHandler: RoutingCompletionHandler) {
+            callsToPopRouteSegment.append(
+                (routeElement: routeElementIdentifier, animated: animated)
+            )
+            completionHandler()
+    }
+
+    func changeRouteSegment(
+        from: RouteElementIdentifier,
+        to: RouteElementIdentifier,
+        animated: Bool,
         completionHandler: RoutingCompletionHandler) -> Routable {
             completionHandler()
-            return FakeRoutable()
+
+            callsToChangeRouteSegment.append((from: from, to: to, animated: animated))
+
+            return MockRoutable()
     }
 
 }
@@ -74,7 +96,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                         func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
                             completionHandler: RoutingCompletionHandler) -> Routable {
                                 called = true
-                                return FakeRoutable()
+                                return MockRoutable()
                         }
                     }
 
@@ -100,12 +122,14 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
-                        func pushRouteSegment(routeSegment: RouteElementIdentifier,
+                        func pushRouteSegment(
+                            routeSegment: RouteElementIdentifier,
+                            animated: Bool,
                             completionHandler: RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeSegment)
 
                                 completionHandler()
-                                return FakeRoutable()
+                                return MockRoutable()
                         }
 
                     }
@@ -137,12 +161,14 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
-                        func pushRouteSegment(routeSegment: RouteElementIdentifier,
+                        func pushRouteSegment(
+                            routeSegment: RouteElementIdentifier,
+                            animated: Bool,
                             completionHandler: RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeSegment)
 
                                 completionHandler()
-                                return FakeRoutable()
+                                return MockRoutable()
                         }
                     }
 
@@ -160,7 +186,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                                 self.injectedRoutable = injectedRoutable
                             }
 
-                            func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+                            func pushRouteSegment(
+                                routeElementIdentifier: RouteElementIdentifier,
+                                animated: Bool,
                                 completionHandler: RoutingCompletionHandler) -> Routable {
                                     completionHandler()
                                     return injectedRoutable
@@ -203,6 +231,54 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                 
             }
             
+        }
+
+        describe("configuring animated/unanimated navigation") {
+
+            var store: Store<FakeAppState>!
+            var mockRoutable: MockRoutable!
+            var router: Router<FakeAppState>!
+
+            beforeEach {
+                store = Store(reducer: AppReducer(), state: nil)
+                mockRoutable = MockRoutable()
+                router = Router(store: store, rootRoutable: mockRoutable) { state in
+                    state.navigationState
+                }
+
+                // silence router not read warning, need to keep router alive via reference
+                _ = router
+            }
+
+            context("when dispatching an animated route change") {
+                beforeEach {
+                    store.dispatch(SetRouteAction(["someRoute"], animated: true))
+                }
+
+                it("calls routables asking for an animated presentation") {
+                    expect(mockRoutable.callsToPushRouteSegment.last?.animated).toEventually(beTrue())
+                }
+            }
+
+            context("when dispatching an unanimated route change") {
+                beforeEach {
+                    store.dispatch(SetRouteAction(["someRoute"], animated: false))
+                }
+
+                it("calls routables asking for an animated presentation") {
+                    expect(mockRoutable.callsToPushRouteSegment.last?.animated).toEventually(beFalse())
+                }
+            }
+
+            context("when dispatching a default route change") {
+                beforeEach {
+                    store.dispatch(SetRouteAction(["someRoute"]))
+                }
+
+                it("calls routables asking for an animated presentation") {
+                    expect(mockRoutable.callsToPushRouteSegment.last?.animated).toEventually(beTrue())
+                }
+            }
         }
 
 
