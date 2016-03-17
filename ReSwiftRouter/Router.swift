@@ -77,9 +77,12 @@ public class Router<State: StateType>: StoreSubscriber {
                 let result = dispatch_semaphore_wait(semaphore, waitUntil)
 
                 if result != 0 {
-                    assertionFailure("[SwiftFlowRouter]: Router is stuck waiting for a" +
-                        " completion handler to be called. Ensure that you have called the " +
+                    print("[SwiftFlowRouter]: Router is stuck waiting for a" +
+                        " completion handler to be called. Ensure that you have called the" +
                         " completion handler in each Routable element.")
+                    print("Set a symbolic breakpoint for the `ReSwiftRouterStuck` symbol in order" +
+                        " to halt the program when this happens")
+                    ReSwiftRouterStuck()
                 }
             }
 
@@ -193,6 +196,8 @@ public class Router<State: StateType>: StoreSubscriber {
     }
 
 }
+
+func ReSwiftRouterStuck() {}
 
 enum RoutingActions {
     case Push(responsibleRoutableIndex: Int, segmentToBePushed: RouteElementIdentifier)

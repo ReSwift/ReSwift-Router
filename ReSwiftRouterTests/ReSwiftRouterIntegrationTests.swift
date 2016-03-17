@@ -125,7 +125,6 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                 it("calls push on the root for a route with two elements") {
                     store.dispatch(
-
                         SetRouteAction(
                             ["TabBarViewController", "SecondViewController"]
                         )
