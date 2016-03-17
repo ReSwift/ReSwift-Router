@@ -178,6 +178,35 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             }
 
         }
+
+
+        describe("route specific data") {
+
+            var store: Store<FakeAppState>!
+
+            beforeEach {
+                store = Store(reducer: AppReducer(), state: nil)
+            }
+
+            context("when setting route specific data") {
+
+                beforeEach {
+                    store.dispatch(SetRouteSpecificData(route: ["part1", "part2"], data: "UserID_10"))
+                }
+
+                it("allows accessing the data when providing the expected type") {
+                    let data: String? = store.state.navigationState.getRouteSpecificState(
+                        ["part1", "part2"]
+                    )
+
+                    expect(data).toEventually(equal("UserID_10"))
+                }
+                
+            }
+            
+        }
+
+
     }
     
 }
