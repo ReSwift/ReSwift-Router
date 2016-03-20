@@ -1,4 +1,17 @@
-#Upcoming Release
+#0.2.6
+
+*Released: 03/20/2015*
+
+**API Changes:**
+
+- Provide route action that allows chosing between animated and un-animated route changes - @Ben-G
+- Provide API for setting associated data for a certain route. This enables passing state information to subroutes - @Ben-G
+
+**Other:**:
+
+- Update ReSwift Dependency to 1.0 - @Ben-G
+- Use a symbolic breakpoint in place of an `assertionFailure` for handling a stuck router - @Ben-G
+- Documentation Fix - @jschmid
 
 #0.2.5
 

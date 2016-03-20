@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ReSwiftRouter"
-  s.version          = "0.2.5"
+  s.version          = "0.2.6"
   s.summary          = "Declarative Routing for ReSwift"
   s.description      = <<-DESC
                           A declarative router for ReSwift. Allows developers to declare routes in a similar manner as
@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.requires_arc = true
   s.source_files     = 'ReSwiftRouter/**/*.swift'
-  s.dependency 'ReSwift', '0.2.5'
+  s.dependency 'ReSwift', '~>1.0'
 end
