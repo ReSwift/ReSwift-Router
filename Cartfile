@@ -1,1 +1,1 @@
-github "ReSwift/ReSwift" "0.2.5"
+github "ReSwift/ReSwift" ~> 1.0
