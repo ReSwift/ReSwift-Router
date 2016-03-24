@@ -375,8 +375,6 @@
 			isa = PBXGroup;
 			children = (
 				62AC57B01CA3A04D0007C9FA /* ReSwift.xcodeproj */,
-				62AC579B1CA3A03E0007C9FA /* Nimble.xcodeproj */,
-				62AC577D1CA3A01C0007C9FA /* Quick.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -396,6 +394,8 @@
 		625E67001C2001F60027C288 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				62AC579B1CA3A03E0007C9FA /* Nimble.xcodeproj */,
+				62AC577D1CA3A01C0007C9FA /* Quick.xcodeproj */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
