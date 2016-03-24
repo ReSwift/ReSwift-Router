@@ -1,3 +1,10 @@
+#0.2.7
+
+*Released: 03/23/2015*
+
+**Fixes:**
+- Fix issue when checking out with Carthage (#20) - @Ben-G
+
 #0.2.6
 
 *Released: 03/20/2015*
