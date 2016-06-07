@@ -31,7 +31,9 @@ public struct NavigationReducer {
         return state
     }
 
-    static func setRoute(var state: NavigationState, setRouteAction: SetRouteAction) -> NavigationState {
+    static func setRoute(state: NavigationState, setRouteAction: SetRouteAction) -> NavigationState {
+        var state = state
+
         state.route = setRouteAction.route
         state.changeRouteAnimated = setRouteAction.animated
 
@@ -39,10 +41,12 @@ public struct NavigationReducer {
     }
 
     static func setRouteSpecificData(
-        var state: NavigationState,
+        state: NavigationState,
         route: Route,
         data: Any) -> NavigationState{
             let routeHash = RouteHash(route: route)
+
+            var state = state
 
             state.routeSpecificState[routeHash] = data
 
