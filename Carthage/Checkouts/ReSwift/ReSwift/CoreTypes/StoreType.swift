@@ -1,5 +1,5 @@
 //
-//  Store.swift
+//  StoreType.swift
 //  ReSwift
 //
 //  Created by Benjamin Encz on 11/28/15.
@@ -9,14 +9,18 @@
 import Foundation
 
 /**
- Defines the interface of Stores in Swift Flow. `MainStore` is the default implementation of this
- interaface. Applications have a single store that stores the entire application state.
+ Defines the interface of Stores in ReSwift. `Store` is the default implementation of this
+ interface. Applications have a single store that stores the entire application state.
  Stores receive actions and use reducers combined with these actions, to calculate state changes.
  Upon every state update a store informs all of its subscribers.
  */
 public protocol StoreType {
 
+    #if swift(>=2.2)
+    associatedtype State: StateType
+    #else
     typealias State: StateType
+    #endif
 
     /// Initializes the store with a reducer and an intial state.
     init(reducer: AnyReducer, state: State?)
@@ -128,7 +132,11 @@ public protocol StoreType {
      a successful login). However, you should try to use this callback very seldom as it
      deviates slighlty from the unidirectional data flow principal.
      */
+    #if swift(>=2.2)
+    associatedtype DispatchCallback = (State) -> Void
+    #else
     typealias DispatchCallback = (State) -> Void
+    #endif
 
     /**
      An ActionCreator is a function that, based on the received state argument, might or might not
@@ -150,9 +158,18 @@ public protocol StoreType {
      ```
 
      */
+    #if swift(>=2.2)
+    associatedtype ActionCreator = (state: State, store: StoreType) -> Action?
+    #else
     typealias ActionCreator = (state: State, store: StoreType) -> Action?
+    #endif
 
     /// AsyncActionCreators allow the developer to wait for the completion of an async action.
+    #if swift(>=2.2)
+    associatedtype AsyncActionCreator = (state: State, store: StoreType,
+    actionCreatorCallback: ActionCreator -> Void) -> Void
+    #else
     typealias AsyncActionCreator = (state: State, store: StoreType,
     actionCreatorCallback: ActionCreator -> Void) -> Void
+    #endif
 }

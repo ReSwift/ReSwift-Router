@@ -5,7 +5,7 @@ import Foundation
 public func haveCount<T: CollectionType>(expectedValue: T.Index.Distance) -> NonNilMatcherFunc<T> {
     return NonNilMatcherFunc { actualExpression, failureMessage in
         if let actualValue = try actualExpression.evaluate() {
-            failureMessage.postfixMessage = "have \(actualValue) with count \(expectedValue)"
+            failureMessage.postfixMessage = "have \(stringify(actualValue)) with count \(stringify(expectedValue))"
             let result = expectedValue == actualValue.count
             failureMessage.actualValue = "\(actualValue.count)"
             return result
@@ -20,7 +20,7 @@ public func haveCount<T: CollectionType>(expectedValue: T.Index.Distance) -> Non
 public func haveCount(expectedValue: Int) -> MatcherFunc<NMBCollection> {
     return MatcherFunc { actualExpression, failureMessage in
         if let actualValue = try actualExpression.evaluate() {
-            failureMessage.postfixMessage = "have \(actualValue) with count \(expectedValue)"
+            failureMessage.postfixMessage = "have \(stringify(actualValue)) with count \(stringify(expectedValue))"
             let result = expectedValue == actualValue.count
             failureMessage.actualValue = "\(actualValue.count)"
             return result
@@ -30,6 +30,7 @@ public func haveCount(expectedValue: Int) -> MatcherFunc<NMBCollection> {
     }
 }
 
+#if _runtime(_ObjC)
 extension NMBObjCMatcher {
     public class func haveCountMatcher(expected: NSNumber) -> NMBObjCMatcher {
         return NMBObjCMatcher(canMatchNil: false) { actualExpression, failureMessage in
@@ -40,9 +41,10 @@ extension NMBObjCMatcher {
                 return try! haveCount(expected.integerValue).matches(expr, failureMessage: failureMessage)
             } else if let actualValue = actualValue {
                 failureMessage.postfixMessage = "get type of NSArray, NSSet, NSDictionary, or NSHashTable"
-                failureMessage.actualValue = "\(NSStringFromClass(actualValue.dynamicType))"
+                failureMessage.actualValue = "\(classAsString(actualValue.dynamicType))"
             }
             return false
         }
     }
 }
+#endif

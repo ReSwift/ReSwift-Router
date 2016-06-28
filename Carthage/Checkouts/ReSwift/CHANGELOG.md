@@ -1,8 +1,22 @@
 #Upcoming Release
 
+#2.0.0
+
+*Released: 06/27/2016*
+
+**Breaking API Changes**:
+
+- Significant Improvements to Serialization Code for `StandardAction` (relevant for recording tools) - @okla
+
+**Other**:
+
+- Swift 2.3 Updates - @agentk
+- Documentation Updates & Fixes - @okla, @gregpardo, @tomj, @askielboe, @mitsuse, @esttorhe, @RyanCCollins, @thomaspaulmann, @jlampa
+
+
 #1.0.0
 
-*Released: 03/19/2015*
+*Released: 03/19/2016*
 
 **API Changes:**
 - Remove callback arguments on synchronous dispatch methods - @Ben-G
@@ -16,7 +30,7 @@
 
 #0.2.5
 
-*Released: 02/20/2015*
+*Released: 02/20/2016*
 
 **API Changes:**
 
@@ -37,7 +51,7 @@
 
 #0.2.4
 
-*Released: 01/23/2015*
+*Released: 01/23/2016*
 
 **API Changes:**
 
