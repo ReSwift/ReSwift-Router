@@ -1,13 +1,23 @@
+#0.3.0
+
+*Released: 06/28/2016*
+
+**Other**:
+
+- Update syntax to Swift 2.3 - @mjarvis
+- Update to ReSwift 2.0.0 - @Ben-G
+
 #0.2.7
 
-*Released: 03/23/2015*
+*Released: 03/23/2016*
 
 **Fixes:**
+
 - Fix issue when checking out with Carthage (#20) - @Ben-G
 
 #0.2.6
 
-*Released: 03/20/2015*
+*Released: 03/20/2016*
 
 **API Changes:**
 
@@ -22,14 +32,14 @@
 
 #0.2.5
 
-*Released: 02/22/2015*
+*Released: 02/22/2016*
 
 **API Changes:**
 - ReSwift-Router now uses the new substate selection API when subscribing to a store. As a result, the `HasNavigationState` protocol has been removed. This change also allows an app to have multiple routers. - @Ben-G
 
 #0.2.4
 
-*Released: 01/23/2015*
+*Released: 01/23/2016*
 
 **API Changes:**
 
