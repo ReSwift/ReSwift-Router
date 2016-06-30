@@ -1,4 +1,6 @@
 import Foundation
+
+#if _runtime(_ObjC)
 import Dispatch
 
 private let timeoutLeeway: UInt64 = NSEC_PER_MSEC
@@ -7,7 +9,7 @@ private let pollLeeway: UInt64 = NSEC_PER_MSEC
 /// Stores debugging information about callers
 internal struct WaitingInfo: CustomStringConvertible {
     let name: String
-    let file: String
+    let file: FileString
     let lineNumber: UInt
 
     var description: String {
@@ -16,7 +18,7 @@ internal struct WaitingInfo: CustomStringConvertible {
 }
 
 internal protocol WaitLock {
-    func acquireWaitingLock(fnName: String, file: String, line: UInt)
+    func acquireWaitingLock(fnName: String, file: FileString, line: UInt)
     func releaseWaitingLock()
     func isWaitingLocked() -> Bool
 }
@@ -25,7 +27,7 @@ internal class AssertionWaitLock: WaitLock {
     private var currentWaiter: WaitingInfo? = nil
     init() { }
 
-    func acquireWaitingLock(fnName: String, file: String, line: UInt) {
+    func acquireWaitingLock(fnName: String, file: FileString, line: UInt) {
         let info = WaitingInfo(name: fnName, file: file, lineNumber: line)
         nimblePrecondition(
             NSThread.isMainThread(),
@@ -218,7 +220,7 @@ internal class AwaitPromiseBuilder<T> {
     /// - The async expectation raised an unexpected error (swift)
     ///
     /// The returned AwaitResult will NEVER be .Incomplete.
-    func wait(fnName: String = __FUNCTION__, file: String = __FILE__, line: UInt = __LINE__) -> AwaitResult<T> {
+    func wait(fnName: String = #function, file: FileString = #file, line: UInt = #line) -> AwaitResult<T> {
         waitLock.acquireWaitingLock(
             fnName,
             file: file,
@@ -334,9 +336,9 @@ internal class Awaiter {
 internal func pollBlock(
     pollInterval pollInterval: NSTimeInterval,
     timeoutInterval: NSTimeInterval,
-    file: String,
+    file: FileString,
     line: UInt,
-    fnName: String = __FUNCTION__,
+    fnName: String = #function,
     expression: () throws -> Bool) -> AwaitResult<Bool> {
         let awaiter = NimbleEnvironment.activeInstance.awaiter
         let result = awaiter.poll(pollInterval) { () throws -> Bool? in
@@ -352,3 +354,5 @@ internal func pollBlock(
 
         return result
 }
+
+#endif

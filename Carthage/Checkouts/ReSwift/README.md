@@ -10,11 +10,13 @@ ReSwift is a [Redux](https://github.com/reactjs/redux)-like implementation of th
 - **Views**: in a ReSwift app your views update when your state changes. Your views become simple visualizations of the current app state.
 - **State Changes**: in a ReSwift app you can only perform state changes through actions. Actions are small pieces of data that describe a state change. By drastically limiting the way state can be mutated, your app becomes easier to understand and it gets easier to work with many collaborators.
 
-The ReSwift library is tiny allowing users to dive into the code, understand every single line and [hopefully contribute](#contributing). 
+The ReSwift library is tiny - allowing users to dive into the code, understand every single line and [hopefully contribute](#contributing). 
 
 ReSwift is quickly growing beyond the core library, providing experimental extensions for routing and time traveling through past app states!
 
 Excited? So are we 🎉
+
+Check out our [public gitter chat!](https://gitter.im/ReSwift/public)
 
 # Table of Contents
 
@@ -78,6 +80,21 @@ struct CounterReducer: Reducer {
 }
 ```
 In order to have a predictable app state, it is important that the reducer is always free of side effects, it receives the current app state and an action and returns the new app state.
+
+To maintain our state and delegate the actions to the reducers, we need a store. Let's call it `mainStore` and define it as a global constant, for example in the app delegate file:
+
+```swift
+let mainStore = Store<AppState>(
+	reducer: AppReducer(),
+	state: nil
+)
+
+@UIApplicationMain
+class AppDelegate: UIResponder, UIApplicationDelegate {
+	[...]
+}
+```
+
 
 Lastly, your view layer, in this case a view controller, needs to tie into this system by subscribing to store updates and emitting actions whenever the app state needs to be changed:
 
@@ -195,6 +212,10 @@ This repository contains the core component for ReSwift, the following extension
 - [GitHubBrowserExample](https://github.com/ReSwift/GitHubBrowserExample): A real world example, involving authentication, network requests and navigation. Still WIP but should be the best resource for starting to adapt `ReSwift` in your own app.
 - [Meet](https://github.com/Ben-G/Meet): A real world application being built with ReSwift - currently still very early on. It is not up to date with the latest version of ReSwift, but is the best project for demonstrating time travel.
 
+##Production Apps with Open Source Code
+
+- [Product Hunt for OS X](https://github.com/producthunt/producthunt-osx) Official Product Hunt client for OS X.
+
 # Contributing
 
 There's still a lot of work to do here! We would love to see you involved! You can find all the details on how to get started in the [Contributing Guide](/CONTRIBUTING.md).
@@ -210,3 +231,6 @@ If you have any questions, you can find the core team on twitter:
 - [@benjaminencz](https://twitter.com/benjaminencz)
 - [@karlbowden](https://twitter.com/karlbowden)
 - [@ARendtslev](https://twitter.com/ARendtslev)
+
+We also have a [public gitter chat!](https://gitter.im/ReSwift/public)
+
