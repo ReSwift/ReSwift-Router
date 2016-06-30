@@ -1,1 +1,1 @@
-github "ReSwift/ReSwift" "next-release"
+github "ReSwift/ReSwift" ~> 2.0
