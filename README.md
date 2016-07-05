@@ -80,7 +80,7 @@ struct AppReducer: Reducer {
     }
 }
 ```
-This will reducer will handle all routing relevant actions.
+This will make reducer handle all routing relevant actions.
 
 #Implementing `Routable`
 
