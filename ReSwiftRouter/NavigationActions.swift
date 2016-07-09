@@ -23,8 +23,8 @@ public struct SetRouteAction: StandardActionConvertible {
         self.animated = animated
     }
     
-    public init(route: RouteElementIdentifier...) {
-        self.init(route)
+    public init(route: RouteElementIdentifier..., animated: Bool = true) {
+        self.init(route, animated: animated)
     }
 
     public init(_ action: StandardAction) {
@@ -43,8 +43,8 @@ public struct SetRouteAction: StandardActionConvertible {
 }
 
 public extension Store {
-    public func dispatchRoute(route: RouteElementIdentifier...) {
-        dispatch(SetRouteAction(route))
+    public func dispatchRoute(route: RouteElementIdentifier..., animated: Bool = true) {
+        dispatch(SetRouteAction(route, animated: animated))
     }
 }
 
