@@ -1,1 +1,1 @@
-github "ReSwift/ReSwift" ~> 2.0
+github "ReSwift/ReSwift" "agentk/xctest"
