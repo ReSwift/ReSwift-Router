@@ -1,3 +1,11 @@
+#0.3.1
+
+*Released: 07/16/2016*
+
+**Fixes:**
+ 
+- Expose `RouteHash` initializer publicly - @Ben-G
+
 #0.3.0
 
 *Released: 06/28/2016*
