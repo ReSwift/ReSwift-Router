@@ -40,7 +40,7 @@ class RouteHashTests: QuickSpec {
                 routeHash2 = RouteHash(route: ["part3", "part4"])
             }
 
-            it("both hashs are considered equal") {
+            it("they are considered unequal") {
                 expect(routeHash1).toNot(equal(routeHash2))
             }
 
