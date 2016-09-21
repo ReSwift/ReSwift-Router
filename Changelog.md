@@ -1,3 +1,12 @@
+#0.4.0
+
+*Released: 09/21/2016*
+
+**Other:**
+
+- Swift 3 Migration - @Ben-G
+- Documentation Fix - @excitedhoney
+
 #0.3.1
 
 *Released: 07/16/2016*
