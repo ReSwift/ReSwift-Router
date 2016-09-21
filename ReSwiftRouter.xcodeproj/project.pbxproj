@@ -424,10 +424,10 @@
 		62AC579C1CA3A03E0007C9FA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				62AC57A51CA3A03E0007C9FA /* Nimble.framework */,
-				62AC57A71CA3A03E0007C9FA /* NimbleTests.xctest */,
 				62AC57A91CA3A03E0007C9FA /* Nimble.framework */,
 				62AC57AB1CA3A03E0007C9FA /* NimbleTests.xctest */,
+				62AC57A51CA3A03E0007C9FA /* Nimble.framework */,
+				62AC57A71CA3A03E0007C9FA /* NimbleTests.xctest */,
 				62AC57AD1CA3A03E0007C9FA /* Nimble.framework */,
 				62AC57AF1CA3A03E0007C9FA /* NimbleTests.xctest */,
 			);
@@ -815,7 +815,7 @@
 		62AC57C11CA3A04D0007C9FA /* ReSwift-OSXTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = "ReSwift-OSXTests.xctest";
+			path = "ReSwift-macOSTests.xctest";
 			remoteRef = 62AC57C01CA3A04D0007C9FA /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
