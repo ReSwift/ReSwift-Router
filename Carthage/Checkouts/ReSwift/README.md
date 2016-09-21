@@ -10,7 +10,9 @@ ReSwift is a [Redux](https://github.com/reactjs/redux)-like implementation of th
 - **Views**: in a ReSwift app your views update when your state changes. Your views become simple visualizations of the current app state.
 - **State Changes**: in a ReSwift app you can only perform state changes through actions. Actions are small pieces of data that describe a state change. By drastically limiting the way state can be mutated, your app becomes easier to understand and it gets easier to work with many collaborators.
 
-The ReSwift library is tiny - allowing users to dive into the code, understand every single line and [hopefully contribute](#contributing). 
+The ReSwift library is tiny - allowing users to dive into the code, understand every single line and [hopefully contribute](#contributing).
+
+ReSwift also supports **Swift 2.2 through to Swift 3** without requiring you to make migration changes.
 
 ReSwift is quickly growing beyond the core library, providing experimental extensions for routing and time traveling through past app states!
 
@@ -85,7 +87,7 @@ To maintain our state and delegate the actions to the reducers, we need a store.
 
 ```swift
 let mainStore = Store<AppState>(
-	reducer: AppReducer(),
+	reducer: CounterReducer(),
 	state: nil
 )
 
@@ -134,7 +136,7 @@ The `newState` method will be called by the `Store` whenever a new app state is 
 
 Button taps result in dispatched actions that will be handled by the store and its reducers, resulting in a new app state.
 
-This is a very basic example that only shows a subset of ReSwift's features, read the Getting Started Guide to see how you can build entire apps with this architecture.
+This is a very basic example that only shows a subset of ReSwift's features, read the Getting Started Guide to see how you can build entire apps with this architecture. For a complete implementation of this example see the [CounterExample](https://github.com/ReSwift/CounterExample) project.
 
 [You can also watch this talk on the motivation behind ReSwift](https://realm.io/news/benji-encz-unidirectional-data-flow-swift/).
 
@@ -185,13 +187,7 @@ You can install ReSwift via [Carthage](https://github.com/Carthage/Carthage) by 
 
 # Checking out Source Code
 
-After cloning this repository you need to use carthage to install testing frameworks that ReSwift depends on.
-
-Due to an [issue in Nimble](https://github.com/Quick/Nimble/issues/213) at the moment, tvOS tests will fail if building Nimble / Quick from source. You can however install Nimble & Quick from binaries then rebuild OS X & iOS only. After checkout, run the following from the terminal:
-
-```bash
-carthage bootstrap && carthage bootstrap --no-use-binaries --platform ios,osx
-```
+ReSwift no longer has any carthage dependencies for development. Just checkout the project and run.
 
 # Demo
 
@@ -208,7 +204,8 @@ This repository contains the core component for ReSwift, the following extension
 
 # Example Projects
 
-- [CounterExample](https://github.com/ReSwift/CounterExample-Navigation-TimeTravel): A very simple counter app implemented with ReSwift. This app also demonstrates the basics of routing with ReSwiftRouter.
+- [CounterExample](https://github.com/ReSwift/CounterExample): A very simple counter app implemented with ReSwift. 
+- [CounterExample-Navigation-TimeTravel](https://github.com/ReSwift/CounterExample-Navigation-TimeTravel): This example builds on the simple CounterExample app, adding time travel with [ReSwiftRecorder](https://github.com/ReSwift/ReSwift-Recorder) and routing with [ReSwiftRouter](https://github.com/ReSwift/ReSwift-Router).
 - [GitHubBrowserExample](https://github.com/ReSwift/GitHubBrowserExample): A real world example, involving authentication, network requests and navigation. Still WIP but should be the best resource for starting to adapt `ReSwift` in your own app.
 - [Meet](https://github.com/Ben-G/Meet): A real world application being built with ReSwift - currently still very early on. It is not up to date with the latest version of ReSwift, but is the best project for demonstrating time travel.
 

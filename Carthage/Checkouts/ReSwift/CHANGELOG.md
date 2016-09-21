@@ -1,5 +1,17 @@
 #Upcoming Release
 
+#2.1.0
+
+*Released: 09/15/2016*
+
+**Other**:
+
+- Swift 3 preview compatibility, maintaining Swift 2 naming - (#126) - @agentk
+- Xcode 8 GM Swift 3 Updates (#149) - @tkersey
+- Migrate Quick/Nimble testing to XCTest - (#127) - @agentk
+- Automatically build docs via Travis CI (#128) - @agentk
+- Documentation Updates & Fixes	- @mikekavouras, @ColinEberhardt
+
 #2.0.0
 
 *Released: 06/27/2016*
