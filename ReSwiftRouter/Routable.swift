@@ -11,44 +11,44 @@ public typealias RoutingCompletionHandler = () -> Void
 public protocol Routable {
 
     func pushRouteSegment(
-        routeElementIdentifier: RouteElementIdentifier,
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable
+        completionHandler: @escaping RoutingCompletionHandler) -> Routable
 
     func popRouteSegment(
-        routeElementIdentifier: RouteElementIdentifier,
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler)
+        completionHandler: @escaping RoutingCompletionHandler)
 
     func changeRouteSegment(
-        from: RouteElementIdentifier,
+        _ from: RouteElementIdentifier,
         to: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable
+        completionHandler: @escaping RoutingCompletionHandler) -> Routable
 
 }
 
 extension Routable {
 
     public func pushRouteSegment(
-        routeElementIdentifier: RouteElementIdentifier,
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable {
+        completionHandler: @escaping RoutingCompletionHandler) -> Routable {
             fatalError("This routable cannot change segments. You have not implemented it.")
     }
 
     public func popRouteSegment(
-        routeElementIdentifier: RouteElementIdentifier,
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) {
+        completionHandler: @escaping RoutingCompletionHandler) {
             fatalError("This routable cannot change segments. You have not implemented it.")
     }
 
     public func changeRouteSegment(
-        from: RouteElementIdentifier,
+        _ from: RouteElementIdentifier,
         to: RouteElementIdentifier,
         animated: Bool,
-        completionHandler: RoutingCompletionHandler) -> Routable {
+        completionHandler: @escaping RoutingCompletionHandler) -> Routable {
             fatalError("This routable cannot change segments. You have not implemented it.")
     }
 

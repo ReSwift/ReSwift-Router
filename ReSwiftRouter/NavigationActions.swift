@@ -31,7 +31,7 @@ public struct SetRouteAction: StandardActionConvertible {
     public func toStandardAction() -> StandardAction {
         return StandardAction(
             type: SetRouteAction.type,
-            payload: ["route": route, "animated": animated],
+            payload: ["route": route as AnyObject, "animated": animated as AnyObject],
             isTypedAction: true
         )
     }

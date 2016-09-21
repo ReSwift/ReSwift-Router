@@ -53,16 +53,18 @@ extension StandardAction: Coding {
 
     public init?(dictionary: [String: AnyObject]) {
         guard let type = dictionary[typeKey] as? String,
-          isTypedAction = dictionary[isTypedActionKey] as? Bool else { return nil }
+          let isTypedAction = dictionary[isTypedActionKey] as? Bool else { return nil }
         self.type = type
         self.payload = dictionary[payloadKey] as? [String: AnyObject]
         self.isTypedAction = isTypedAction
     }
 
     public var dictionaryRepresentation: [String: AnyObject] {
-        let payload: AnyObject = self.payload ?? reSwiftNull
+        let payload: AnyObject = self.payload as AnyObject? ?? reSwiftNull as AnyObject
 
-        return [typeKey: type, payloadKey: payload, isTypedActionKey: isTypedAction]
+        return [typeKey: type as AnyObject,
+                payloadKey: payload,
+                isTypedActionKey: isTypedAction as AnyObject]
     }
 }
 

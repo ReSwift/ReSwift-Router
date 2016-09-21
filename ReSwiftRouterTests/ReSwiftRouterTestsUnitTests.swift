@@ -35,7 +35,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 var action1Correct: Bool?
                 var action2Correct: Bool?
 
-                if case let RoutingActions.Push(responsibleRoutableIndex, segmentToBePushed)
+                if case let RoutingActions.push(responsibleRoutableIndex, segmentToBePushed)
                     = routingActions[0] {
 
                         if responsibleRoutableIndex == 0
@@ -44,7 +44,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                         }
                 }
 
-                if case let RoutingActions.Push(responsibleRoutableIndex, segmentToBePushed)
+                if case let RoutingActions.push(responsibleRoutableIndex, segmentToBePushed)
                     = routingActions[1] {
 
                         if responsibleRoutableIndex == 1
@@ -69,7 +69,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 var toBeReplaced: RouteElementIdentifier?
                 var new: RouteElementIdentifier?
 
-                if case let RoutingActions.Change(responsibleControllerIndex,
+                if case let RoutingActions.change(responsibleControllerIndex,
                     controllerToBeReplaced,
                     newController) = routingActions.first! {
                         controllerIndex = responsibleControllerIndex
@@ -94,7 +94,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 var action1Correct: Bool?
                 var action2Correct: Bool?
 
-                if case let RoutingActions.Change(responsibleRoutableIndex, segmentToBeReplaced,
+                if case let RoutingActions.change(responsibleRoutableIndex, segmentToBeReplaced,
                     newSegment)
                     = routingActions[0] {
 
@@ -105,7 +105,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                         }
                 }
 
-                if case let RoutingActions.Push(responsibleRoutableIndex, segmentToBePushed)
+                if case let RoutingActions.push(responsibleRoutableIndex, segmentToBePushed)
                     = routingActions[1] {
 
                         if responsibleRoutableIndex == 2
@@ -131,7 +131,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 var toBeReplaced: RouteElementIdentifier?
                 var new: RouteElementIdentifier?
 
-                if case let RoutingActions.Change(responsibleControllerIndex,
+                if case let RoutingActions.change(responsibleControllerIndex,
                     controllerToBeReplaced,
                     newController) = routingActions.first! {
                         controllerIndex = responsibleControllerIndex
@@ -176,7 +176,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 var action1Correct: Bool?
                 var action2Correct: Bool?
 
-                if case let RoutingActions.Pop(responsibleRoutableIndex, segmentToBePopped)
+                if case let RoutingActions.pop(responsibleRoutableIndex, segmentToBePopped)
                     = routingActions[0] {
 
                         if responsibleRoutableIndex == 2
@@ -185,7 +185,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                             }
                 }
 
-                if case let RoutingActions.Pop(responsibleRoutableIndex, segmentToBePopped)
+                if case let RoutingActions.pop(responsibleRoutableIndex, segmentToBePopped)
                     = routingActions[1] {
 
                         if responsibleRoutableIndex == 1
@@ -210,7 +210,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 var action1Correct: Bool?
                 var action2Correct: Bool?
 
-                if case let RoutingActions.Push(responsibleRoutableIndex, segmentToBePushed)
+                if case let RoutingActions.push(responsibleRoutableIndex, segmentToBePushed)
                     = routingActions[0] {
 
                         if responsibleRoutableIndex == 1
@@ -219,7 +219,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                         }
                 }
 
-                if case let RoutingActions.Push(responsibleRoutableIndex, segmentToBePushed)
+                if case let RoutingActions.push(responsibleRoutableIndex, segmentToBePushed)
                     = routingActions[1] {
 
                         if responsibleRoutableIndex == 2

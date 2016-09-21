@@ -1,5 +1,5 @@
 //
-//  Fakes.swift
+//  TestFakes.swift
 //  ReSwift
 //
 //  Created by Benji Encz on 12/24/15.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import ReSwift
+import ReSwift
 
 struct TestAppState: StateType {
     var testValue: Int?
@@ -39,7 +39,7 @@ struct SetValueAction: StandardActionConvertible {
     }
 
     func toStandardAction() -> StandardAction {
-        return StandardAction(type: SetValueAction.type, payload: ["value": value],
+        return StandardAction(type: SetValueAction.type, payload: ["value": value as AnyObject],
                                 isTypedAction: true)
     }
 
@@ -59,8 +59,9 @@ struct SetValueStringAction: StandardActionConvertible {
     }
 
     func toStandardAction() -> StandardAction {
-        return StandardAction(type: SetValueStringAction.type, payload: ["value": value],
-                                isTypedAction: true)
+        return StandardAction(type: SetValueStringAction.type,
+                              payload: ["value": value as AnyObject],
+                              isTypedAction: true)
     }
 
 }
@@ -114,5 +115,24 @@ class DispatchingSubscriber: StoreSubscriber {
         if state.testValue != 5 {
             self.store.dispatch(SetValueAction(5))
         }
+    }
+}
+
+class CallbackStoreSubscriber<T>: StoreSubscriber {
+
+    let handler: (T) -> Void
+
+    #if swift(>=3)
+    init(handler: @escaping (T) -> Void) {
+        self.handler = handler
+    }
+    #else
+    init(handler: (T) -> Void) {
+        self.handler = handler
+    }
+    #endif
+
+    func newState(state: T) {
+        handler(state)
     }
 }

@@ -13,11 +13,7 @@ public protocol AnyStoreSubscriber: class {
 }
 
 public protocol StoreSubscriber: AnyStoreSubscriber {
-    #if swift(>=2.2)
     associatedtype StoreSubscriberStateType
-    #else
-    typealias StoreSubscriberStateType
-    #endif
 
     func newState(state: StoreSubscriberStateType)
 }
@@ -25,7 +21,11 @@ public protocol StoreSubscriber: AnyStoreSubscriber {
 extension StoreSubscriber {
     public func _newState(state: Any) {
         if let typedState = state as? StoreSubscriberStateType {
-            newState(typedState)
+            #if swift(>=3)
+                newState(state: typedState)
+            #else
+                newState(typedState)
+            #endif
         }
     }
 }
