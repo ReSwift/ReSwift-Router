@@ -22,7 +22,7 @@ class MockRoutable: Routable {
     )] = []
 
     func pushRouteSegment(
-        routeElementIdentifier: RouteElementIdentifier,
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
         completionHandler: RoutingCompletionHandler) -> Routable {
             callsToPushRouteSegment.append(
@@ -33,7 +33,7 @@ class MockRoutable: Routable {
     }
 
     func popRouteSegment(
-        routeElementIdentifier: RouteElementIdentifier,
+        _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
         completionHandler: RoutingCompletionHandler) {
             callsToPopRouteSegment.append(
@@ -43,7 +43,7 @@ class MockRoutable: Routable {
     }
 
     func changeRouteSegment(
-        from: RouteElementIdentifier,
+        _ from: RouteElementIdentifier,
         to: RouteElementIdentifier,
         animated: Bool,
         completionHandler: RoutingCompletionHandler) -> Routable {
@@ -93,7 +93,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     class FakeRootRoutable: Routable {
                         var called = false
 
-                        func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
+                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
                             completionHandler: RoutingCompletionHandler) -> Routable {
                                 called = true
                                 return MockRoutable()
@@ -118,12 +118,12 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     class FakeRootRoutable: Routable {
                         var calledWithIdentifier: (RouteElementIdentifier?) -> Void
 
-                        init(calledWithIdentifier: (RouteElementIdentifier?) -> Void) {
+                        init(calledWithIdentifier: @escaping (RouteElementIdentifier?) -> Void) {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
                         func pushRouteSegment(
-                            routeSegment: RouteElementIdentifier,
+                            _ routeSegment: RouteElementIdentifier,
                             animated: Bool,
                             completionHandler: RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeSegment)
@@ -157,12 +157,12 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     class FakeChildRoutable: Routable {
                         var calledWithIdentifier: (RouteElementIdentifier?) -> Void
 
-                        init(calledWithIdentifier: (RouteElementIdentifier?) -> Void) {
+                        init(calledWithIdentifier: @escaping (RouteElementIdentifier?) -> Void) {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
                         func pushRouteSegment(
-                            routeSegment: RouteElementIdentifier,
+                            _ routeSegment: RouteElementIdentifier,
                             animated: Bool,
                             completionHandler: RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeSegment)
@@ -187,7 +187,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             }
 
                             func pushRouteSegment(
-                                routeElementIdentifier: RouteElementIdentifier,
+                                _ routeElementIdentifier: RouteElementIdentifier,
                                 animated: Bool,
                                 completionHandler: RoutingCompletionHandler) -> Routable {
                                     completionHandler()

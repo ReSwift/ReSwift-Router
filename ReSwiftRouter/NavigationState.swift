@@ -17,7 +17,7 @@ public struct RouteHash: Hashable {
     let routeHash: String
 
     public init(route: Route) {
-        self.routeHash = route.joinWithSeparator("/")
+        self.routeHash = route.joined(separator: "/")
     }
 
     public var hashValue: Int { return self.routeHash.hashValue }
@@ -36,7 +36,7 @@ public struct NavigationState {
 }
 
 extension NavigationState {
-    public func getRouteSpecificState<T>(route: Route) -> T? {
+    public func getRouteSpecificState<T>(_ route: Route) -> T? {
         let hash = RouteHash(route: route)
 
         return self.routeSpecificState[hash] as? T

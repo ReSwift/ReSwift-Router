@@ -9,81 +9,81 @@
 import Foundation
 import ReSwift
 
-public class Router<State: StateType>: StoreSubscriber {
+open class Router<State: StateType>: StoreSubscriber {
 
     public typealias NavigationStateSelector = (State) -> NavigationState
 
     var store: Store<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
-    let waitForRoutingCompletionQueue = dispatch_queue_create("WaitForRoutingCompletionQueue", nil)
+    let waitForRoutingCompletionQueue = DispatchQueue(label: "WaitForRoutingCompletionQueue", attributes: [])
 
-    public init(store: Store<State>, rootRoutable: Routable, stateSelector: NavigationStateSelector) {
+    public init(store: Store<State>, rootRoutable: Routable,  stateSelector: @escaping NavigationStateSelector) {
         self.store = store 
         self.routables.append(rootRoutable)
 
         self.store.subscribe(self, selector: stateSelector)
     }
 
-    public func newState(state: NavigationState) {
+    open func newState(state: NavigationState) {
         let routingActions = Router.routingActionsForTransitionFrom(
             lastNavigationState.route, newRoute: state.route)
 
         routingActions.forEach { routingAction in
 
-            let semaphore = dispatch_semaphore_create(0)
+            let semaphore = DispatchSemaphore(value: 0)
 
             // Dispatch all routing actions onto this dedicated queue. This will ensure that
             // only one routing action can run at any given time. This is important for using this
             // Router with UI frameworks. Whenever a navigation action is triggered, this queue will
             // block (using semaphore_wait) until it receives a callback from the Routable 
             // indicating that the navigation action has completed
-            dispatch_async(waitForRoutingCompletionQueue) {
+            waitForRoutingCompletionQueue.async {
                 switch routingAction {
 
-                case let .Pop(responsibleRoutableIndex, segmentToBePopped):
-                    dispatch_async(dispatch_get_main_queue()) {
+                case let .pop(responsibleRoutableIndex, segmentToBePopped):
+                    DispatchQueue.main.async {
                         self.routables[responsibleRoutableIndex]
                             .popRouteSegment(
                                 segmentToBePopped,
                                 animated: state.changeRouteAnimated) {
-                                    dispatch_semaphore_signal(semaphore)
+                                    semaphore.signal()
                         }
 
-                        self.routables.removeAtIndex(responsibleRoutableIndex + 1)
+                        self.routables.remove(at: responsibleRoutableIndex + 1)
                     }
 
-                case let .Change(responsibleRoutableIndex, segmentToBeReplaced, newSegment):
-                    dispatch_async(dispatch_get_main_queue()) {
+                case let .change(responsibleRoutableIndex, segmentToBeReplaced, newSegment):
+                    DispatchQueue.main.async {
                         self.routables[responsibleRoutableIndex + 1] =
                             self.routables[responsibleRoutableIndex]
                                 .changeRouteSegment(
                                     segmentToBeReplaced,
                                     to: newSegment,
                                     animated: state.changeRouteAnimated) {
-                                        dispatch_semaphore_signal(semaphore)
+                                        semaphore.signal()
                         }
                     }
 
-                case let .Push(responsibleRoutableIndex, segmentToBePushed):
-                    dispatch_async(dispatch_get_main_queue()) {
+                case let .push(responsibleRoutableIndex, segmentToBePushed):
+                    DispatchQueue.main.async {
                         self.routables.append(
                             self.routables[responsibleRoutableIndex]
                                 .pushRouteSegment(
                                     segmentToBePushed,
                                     animated: state.changeRouteAnimated) {
-                                        dispatch_semaphore_signal(semaphore)
+                                        semaphore.signal()
                             }
                         )
                     }
                 }
 
-                let waitUntil = dispatch_time(DISPATCH_TIME_NOW, Int64(3 * Double(NSEC_PER_SEC)))
+                let waitUntil = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
 
-                let result = dispatch_semaphore_wait(semaphore, waitUntil)
+                let result = semaphore.wait(timeout: waitUntil)
 
-                if result != 0 {
-                    print("[SwiftFlowRouter]: Router is stuck waiting for a" +
+                if case .timedOut = result {
+                    print("[ReSwiftRouter]: Router is stuck waiting for a" +
                         " completion handler to be called. Ensure that you have called the" +
                         " completion handler in each Routable element.")
                     print("Set a symbolic breakpoint for the `ReSwiftRouterStuck` symbol in order" +
@@ -99,7 +99,7 @@ public class Router<State: StateType>: StoreSubscriber {
 
     // MARK: Route Transformation Logic
 
-    static func largestCommonSubroute(oldRoute: Route, newRoute: Route) -> Int {
+    static func largestCommonSubroute(_ oldRoute: Route, newRoute: Route) -> Int {
             var largestCommonSubroute = -1
 
             while largestCommonSubroute + 1 < newRoute.count &&
@@ -115,11 +115,11 @@ public class Router<State: StateType>: StoreSubscriber {
     // is not represented in the route, e.g.
     // route = ["tabBar"]
     // routables = [RootRoutable, TabBarRoutable]
-    static func routableIndexForRouteSegment(segment: Int) -> Int {
+    static func routableIndexForRouteSegment(_ segment: Int) -> Int {
         return segment + 1
     }
 
-    static func routingActionsForTransitionFrom(oldRoute: Route,
+    static func routingActionsForTransitionFrom(_ oldRoute: Route,
         newRoute: Route) -> [RoutingActions] {
 
             var routingActions: [RoutingActions] = []
@@ -147,7 +147,7 @@ public class Router<State: StateType>: StoreSubscriber {
             while routeBuildingIndex > commonSubroute + 1 {
                 let routeSegmentToPop = oldRoute[routeBuildingIndex]
 
-                let popAction = RoutingActions.Pop(
+                let popAction = RoutingActions.pop(
                     responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
                     segmentToBePopped: routeSegmentToPop
                 )
@@ -160,7 +160,7 @@ public class Router<State: StateType>: StoreSubscriber {
             // "The old route had an element after the commonSubroute and the new route does not
             //  we need to pop the route segment after the commonSubroute"
             if oldRoute.count > newRoute.count {
-                let popAction = RoutingActions.Pop(
+                let popAction = RoutingActions.pop(
                     responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
                     segmentToBePopped: oldRoute[routeBuildingIndex]
                 )
@@ -172,7 +172,7 @@ public class Router<State: StateType>: StoreSubscriber {
             // "The new route has a different element after the commonSubroute, we need to replace
             //  the old route element with the new one"
             else if oldRoute.count > (commonSubroute + 1) && newRoute.count > (commonSubroute + 1) {
-                let changeAction = RoutingActions.Change(
+                let changeAction = RoutingActions.change(
                     responsibleRoutableIndex: routableIndexForRouteSegment(commonSubroute),
                     segmentToBeReplaced: oldRoute[commonSubroute + 1],
                     newSegment: newRoute[commonSubroute + 1])
@@ -189,7 +189,7 @@ public class Router<State: StateType>: StoreSubscriber {
             while routeBuildingIndex < newRouteIndex {
                 let routeSegmentToPush = newRoute[routeBuildingIndex + 1]
 
-                let pushAction = RoutingActions.Push(
+                let pushAction = RoutingActions.push(
                     responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex),
                     segmentToBePushed: routeSegmentToPush
                 )
@@ -206,8 +206,8 @@ public class Router<State: StateType>: StoreSubscriber {
 func ReSwiftRouterStuck() {}
 
 enum RoutingActions {
-    case Push(responsibleRoutableIndex: Int, segmentToBePushed: RouteElementIdentifier)
-    case Pop(responsibleRoutableIndex: Int, segmentToBePopped: RouteElementIdentifier)
-    case Change(responsibleRoutableIndex: Int, segmentToBeReplaced: RouteElementIdentifier,
+    case push(responsibleRoutableIndex: Int, segmentToBePushed: RouteElementIdentifier)
+    case pop(responsibleRoutableIndex: Int, segmentToBePopped: RouteElementIdentifier)
+    case change(responsibleRoutableIndex: Int, segmentToBeReplaced: RouteElementIdentifier,
                     newSegment: RouteElementIdentifier)
 }
