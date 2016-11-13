@@ -634,9 +634,11 @@
 					};
 					6209C0871C5428DE004E6B66 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 					};
 					6209C0901C5428DE004E6B66 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 					};
 					625E66CC1C1FFE280027C288 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -1161,6 +1163,7 @@
 				PRODUCT_MODULE_NAME = ReSwiftRouter_OSXTests;
 				PRODUCT_NAME = ReSwiftRouter;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1176,6 +1179,7 @@
 				PRODUCT_MODULE_NAME = ReSwiftRouter_OSXTests;
 				PRODUCT_NAME = ReSwiftRouter;
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
