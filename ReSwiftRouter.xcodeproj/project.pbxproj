@@ -629,9 +629,11 @@
 					};
 					6209C0601C5427E0004E6B66 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 					};
 					6209C0691C5427E0004E6B66 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 					};
 					6209C0871C5428DE004E6B66 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -1092,6 +1094,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.benjamin-encz.ReSwiftRouter-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Debug;
@@ -1104,6 +1107,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.benjamin-encz.ReSwiftRouter-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
+				SWIFT_VERSION = 3.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;
 			};
 			name = Release;
