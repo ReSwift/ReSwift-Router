@@ -540,9 +540,9 @@
 			productReference = 6209C06A1C5427E0004E6B66 /* ReSwiftRouter-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		6209C0871C5428DE004E6B66 /* ReSwiftRouter-OSX */ = {
+		6209C0871C5428DE004E6B66 /* ReSwiftRouter-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6209C0991C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-OSX" */;
+			buildConfigurationList = 6209C0991C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-macOS" */;
 			buildPhases = (
 				6209C0831C5428DE004E6B66 /* Sources */,
 				6209C0841C5428DE004E6B66 /* Frameworks */,
@@ -553,14 +553,14 @@
 			);
 			dependencies = (
 			);
-			name = "ReSwiftRouter-OSX";
+			name = "ReSwiftRouter-macOS";
 			productName = "ReSwiftRouter-OSX";
 			productReference = 6209C0881C5428DE004E6B66 /* ReSwiftRouter.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		6209C0901C5428DE004E6B66 /* ReSwiftRouter-OSXTests */ = {
+		6209C0901C5428DE004E6B66 /* ReSwiftRouter-macOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 6209C09C1C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-OSXTests" */;
+			buildConfigurationList = 6209C09C1C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-macOSTests" */;
 			buildPhases = (
 				6209C08D1C5428DE004E6B66 /* Sources */,
 				6209C08E1C5428DE004E6B66 /* Frameworks */,
@@ -571,7 +571,7 @@
 			dependencies = (
 				6209C0941C5428DE004E6B66 /* PBXTargetDependency */,
 			);
-			name = "ReSwiftRouter-OSXTests";
+			name = "ReSwiftRouter-macOSTests";
 			productName = "ReSwiftRouter-OSXTests";
 			productReference = 6209C0911C5428DE004E6B66 /* ReSwiftRouter.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
@@ -681,8 +681,8 @@
 				6209C04A1C54256F004E6B66 /* ReSwiftRouter-watchOS */,
 				6209C0601C5427E0004E6B66 /* ReSwiftRouter-tvOS */,
 				6209C0691C5427E0004E6B66 /* ReSwiftRouter-tvOSTests */,
-				6209C0871C5428DE004E6B66 /* ReSwiftRouter-OSX */,
-				6209C0901C5428DE004E6B66 /* ReSwiftRouter-OSXTests */,
+				6209C0871C5428DE004E6B66 /* ReSwiftRouter-macOS */,
+				6209C0901C5428DE004E6B66 /* ReSwiftRouter-macOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -986,7 +986,7 @@
 		};
 		6209C0941C5428DE004E6B66 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6209C0871C5428DE004E6B66 /* ReSwiftRouter-OSX */;
+			target = 6209C0871C5428DE004E6B66 /* ReSwiftRouter-macOS */;
 			targetProxy = 6209C0931C5428DE004E6B66 /* PBXContainerItemProxy */;
 		};
 		625E66F81C2000EA0027C288 /* PBXTargetDependency */ = {
@@ -1372,7 +1372,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6209C0991C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-OSX" */ = {
+		6209C0991C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6209C09A1C5428DE004E6B66 /* Debug */,
@@ -1381,7 +1381,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		6209C09C1C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-OSXTests" */ = {
+		6209C09C1C5428DE004E6B66 /* Build configuration list for PBXNativeTarget "ReSwiftRouter-macOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				6209C09D1C5428DE004E6B66 /* Debug */,
