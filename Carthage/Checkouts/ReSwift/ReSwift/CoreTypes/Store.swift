@@ -184,7 +184,7 @@ public class Store<State: StateType>: StoreType {
             dispatch(action)
         }
 
-        return action
+        return action!
     }
     #else
     public func dispatch(actionCreatorProvider: ActionCreator) -> Any {
