@@ -2,6 +2,9 @@
 
 [![Build Status](https://img.shields.io/travis/ReSwift/ReSwift/master.svg?style=flat-square)](https://travis-ci.org/ReSwift/ReSwift) [![Code coverage status](https://img.shields.io/codecov/c/github/ReSwift/ReSwift.svg?style=flat-square)](http://codecov.io/github/ReSwift/ReSwift) [![CocoaPods Compatible](https://img.shields.io/cocoapods/v/ReSwift.svg?style=flat-square)](https://cocoapods.org/pods/ReSwift) [![Platform support](https://img.shields.io/badge/platform-ios%20%7C%20osx%20%7C%20tvos%20%7C%20watchos-lightgrey.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md) [![License MIT](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/ReSwift/ReSwift/blob/master/LICENSE.md)
 
+**Supported Swift Version:**: Swift 3.0.1
+For Swift 2.2 Support use [Release 2.0.0](https://github.com/ReSwift/ReSwift/releases/tag/2.0.0) or earlier.
+
 # Introduction
 
 ReSwift is a [Redux](https://github.com/reactjs/redux)-like implementation of the unidirectional data flow architecture in Swift. ReSwift helps you to separate three important concerns of your app's components:
@@ -11,8 +14,6 @@ ReSwift is a [Redux](https://github.com/reactjs/redux)-like implementation of th
 - **State Changes**: in a ReSwift app you can only perform state changes through actions. Actions are small pieces of data that describe a state change. By drastically limiting the way state can be mutated, your app becomes easier to understand and it gets easier to work with many collaborators.
 
 The ReSwift library is tiny - allowing users to dive into the code, understand every single line and [hopefully contribute](#contributing).
-
-ReSwift also supports **Swift 2.2 through to Swift 3** without requiring you to make migration changes.
 
 ReSwift is quickly growing beyond the core library, providing experimental extensions for routing and time traveling through past app states!
 
@@ -162,7 +163,7 @@ The ReSwift tooling is still in a very early stage, but aforementioned prospects
 
 # Getting Started Guide
 
-[A Getting Started Guide that describes the core components of apps built with ReSwift lives here](http://reswift.github.io/ReSwift/master/getting-started-guide.html). It will be expanded in the next few weeks. To get an understanding of the core principles we recommend reading the brilliant [redux documentation](http://rackt.org/redux/).
+[A Getting Started Guide that describes the core components of apps built with ReSwift lives here](http://reswift.github.io/ReSwift/master/getting-started-guide.html). It will be expanded in the next few weeks. To get an understanding of the core principles we recommend reading the brilliant [redux documentation](http://redux.js.org/).
 
 # Installation
 
@@ -219,7 +220,7 @@ There's still a lot of work to do here! We would love to see you involved! You c
 
 # Credits
 
-- Thanks a lot to [Dan Abramov](https://github.com/gaearon) for building [Redux](https://github.com/rackt/redux) - all ideas in here and many implementation details were provided by his library.
+- Thanks a lot to [Dan Abramov](https://github.com/gaearon) for building [Redux](https://github.com/reactjs/redux) - all ideas in here and many implementation details were provided by his library.
 
 # Get in touch
 
@@ -228,6 +229,7 @@ If you have any questions, you can find the core team on twitter:
 - [@benjaminencz](https://twitter.com/benjaminencz)
 - [@karlbowden](https://twitter.com/karlbowden)
 - [@ARendtslev](https://twitter.com/ARendtslev)
+- [@ctietze](https://twitter.com/ctietze)
 
 We also have a [public gitter chat!](https://gitter.im/ReSwift/public)
 
