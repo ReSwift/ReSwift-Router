@@ -8,48 +8,31 @@
 
 public typealias RoutingCompletionHandler = () -> Void
 
-public protocol Routable {
-
+// For Routables that only need to push route segments
+public protocol PushRoutable {
     func pushRouteSegment(
         _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
+}
 
+// For Routables that only need to pop route segments
+public protocol PopRoutable {
     func popRouteSegment(
         _ routeElementIdentifier: RouteElementIdentifier,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler)
+}
 
+// For Routables that only need to change route segments
+public protocol ChangeRoutable {
     func changeRouteSegment(
         _ from: RouteElementIdentifier,
         to: RouteElementIdentifier,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
-
 }
 
-extension Routable {
-
-    public func pushRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
-        animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler) -> Routable {
-            fatalError("This routable cannot change segments. You have not implemented it.")
-    }
-
-    public func popRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
-        animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler) {
-            fatalError("This routable cannot change segments. You have not implemented it.")
-    }
-
-    public func changeRouteSegment(
-        _ from: RouteElementIdentifier,
-        to: RouteElementIdentifier,
-        animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler) -> Routable {
-            fatalError("This routable cannot change segments. You have not implemented it.")
-    }
-
-}
+// Convenience protocol for routables that can perform push, pop & change on segments
+public protocol Routable: PushRoutable, PopRoutable, ChangeRoutable {}
+    
