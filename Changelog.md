@@ -1,3 +1,13 @@
+# 0.5.1
+
+*Released: 11/24/2016*
+
+**Other:**
+
+- Fix iOS Deployment Target (Back to 9.1 from 10.1)  -  @Ben-G
+
+
+
 #0.5.0
 
 *Released: 11/24/2016*
