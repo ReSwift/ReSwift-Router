@@ -1,3 +1,11 @@
+#0.5.0
+
+*Released: 11/24/2016*
+
+**Other:**
+
+- Swift 3.0.1 / Xcode 8.1 updates -  @DivineDominion, @frranck
+
 #0.4.0
 
 *Released: 09/21/2016*
@@ -12,7 +20,7 @@
 *Released: 07/16/2016*
 
 **Fixes:**
- 
+
 - Expose `RouteHash` initializer publicly - @Ben-G
 
 #0.3.0
