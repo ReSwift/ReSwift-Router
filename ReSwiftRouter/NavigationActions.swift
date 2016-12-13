@@ -42,10 +42,12 @@ public struct SetRouteAction: Action {
 
     let route: [RouteSegment]
     let animated: Bool
+    let navigate: Bool
 
     public init(route: [RouteSegment], animated: Bool = true, navigate: Bool = true) {
         self.route = route
         self.animated = animated
+        self.navigate = navigate
     }
 }
 

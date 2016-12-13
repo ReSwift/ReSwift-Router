@@ -22,6 +22,8 @@ public struct NavigationReducer {
         switch action {
         case let action as SetRouteAction:
             return self.setRoute(state: state, action: action)
+        case let action as MutateRouteSegmentAction:
+            return self.mutateComponent(state: state, action: action)
         default: break
         }
 
@@ -33,6 +35,18 @@ public struct NavigationReducer {
 
         state.route = action.route
         state.changeRouteAnimated = action.animated
+        state.shouldNavigate = action.navigate
+
+        return state
+    }
+
+    private static func mutateComponent(state: NavigationState, action: MutateRouteSegmentAction) -> NavigationState {
+        guard let index = state.route.index(where: { $0.instanceIdentifier == action.component.instanceIdentifier }) else { return state }
+
+        var state = state
+
+        state.route[index] = action.component
+        state.shouldNavigate = false
 
         return state
     }

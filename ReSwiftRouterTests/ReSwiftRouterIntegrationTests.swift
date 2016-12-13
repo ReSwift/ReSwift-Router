@@ -291,7 +291,33 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             }
         }
 
+        describe("changing route without navigating") {
+            var store: Store<FakeAppState>!
+            var mockRoutable: MockRoutable!
+            var router: Router<FakeAppState>!
+            let someRoute = MockRouteSegment()
 
+            beforeEach {
+                store = Store(reducer: AppReducer(), state: nil)
+                mockRoutable = MockRoutable()
+                router = Router(store: store, rootRoutable: mockRoutable) { state in
+                    state.navigationState
+                }
+
+                // silence router not read warning, need to keep router alive via reference
+                _ = router
+            }
+
+            context("when dispatching a route change with navigation: false") {
+                beforeEach {
+                    store.dispatch(SetRouteAction(route: [someRoute], navigate: false))
+                }
+
+                it("does not call to push route segment") {
+                    expect(mockRoutable.callsToPushRouteSegment).toEventually(beEmpty())
+                }
+            }
+        }
     }
     
 }

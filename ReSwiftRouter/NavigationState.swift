@@ -13,6 +13,7 @@ public struct NavigationState {
 
     public var route: [RouteSegment] = []
     var changeRouteAnimated: Bool = true
+    var shouldNavigate: Bool = true // Set to false if the router should not respond to state change
 
     public func segmentWith(instanceIdentifier: UUID) -> RouteSegment? {
         return self.route.first(where: { $0.instanceIdentifier == instanceIdentifier })

@@ -26,6 +26,10 @@ open class Router<State: StateType>: StoreSubscriber {
     }
 
     open func newState(state: NavigationState) {
+        guard state.shouldNavigate == true else {
+            return
+        }
+
         let routingActions = Router.routingActionsForTransitionFrom(
             lastNavigationState.route, newRoute: state.route)
 
