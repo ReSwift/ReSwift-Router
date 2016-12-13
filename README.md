@@ -166,3 +166,10 @@ Currently the only way to change the current application route is by using the `
 }
 ```
 As development continues, support for changing individual route segments will be added.
+
+
+#Contributing
+
+##Compiling & Running tests
+
+ReSwiftRouter uses [Carthage]() for its development dependencies. To build or test any of the targets, run `carthage bootstrap`.
