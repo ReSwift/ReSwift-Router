@@ -99,12 +99,12 @@ open class Router<State: StateType>: StoreSubscriber {
 
     // MARK: Route Transformation Logic
 
-    static func largestCommonSubroute(_ oldRoute: Route, newRoute: Route) -> Int {
+    static func largestCommonSubroute(_ oldRoute: [RouteSegment], newRoute: [RouteSegment]) -> Int {
             var largestCommonSubroute = -1
 
             while largestCommonSubroute + 1 < newRoute.count &&
                   largestCommonSubroute + 1 < oldRoute.count &&
-                  newRoute[largestCommonSubroute + 1] == oldRoute[largestCommonSubroute + 1] {
+                  newRoute[largestCommonSubroute + 1].instanceIdentifier == oldRoute[largestCommonSubroute + 1].instanceIdentifier {
                     largestCommonSubroute += 1
             }
 
@@ -119,8 +119,8 @@ open class Router<State: StateType>: StoreSubscriber {
         return segment + 1
     }
 
-    static func routingActionsForTransitionFrom(_ oldRoute: Route,
-        newRoute: Route) -> [RoutingActions] {
+    static func routingActionsForTransitionFrom(_ oldRoute: [RouteSegment],
+        newRoute: [RouteSegment]) -> [RoutingActions] {
 
             var routingActions: [RoutingActions] = []
 
@@ -206,8 +206,7 @@ open class Router<State: StateType>: StoreSubscriber {
 func ReSwiftRouterStuck() {}
 
 enum RoutingActions {
-    case push(responsibleRoutableIndex: Int, segmentToBePushed: RouteElementIdentifier)
-    case pop(responsibleRoutableIndex: Int, segmentToBePopped: RouteElementIdentifier)
-    case change(responsibleRoutableIndex: Int, segmentToBeReplaced: RouteElementIdentifier,
-                    newSegment: RouteElementIdentifier)
+    case push(responsibleRoutableIndex: Int, segmentToBePushed: RouteSegment)
+    case pop(responsibleRoutableIndex: Int, segmentToBePopped: RouteSegment)
+    case change(responsibleRoutableIndex: Int, segmentToBeReplaced: RouteSegment, newSegment: RouteSegment)
 }

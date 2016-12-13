@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		254B3BAD1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */; };
-		254B3BAE1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */; };
-		254B3BAF1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */; };
 		25C0A9CD1C50AF6400139FA7 /* NavigationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9C61C50AF6400139FA7 /* NavigationActions.swift */; };
 		25C0A9CE1C50AF6400139FA7 /* NavigationReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9C71C50AF6400139FA7 /* NavigationReducer.swift */; };
 		25C0A9CF1C50AF6400139FA7 /* NavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9C81C50AF6400139FA7 /* NavigationState.swift */; };
@@ -44,6 +41,10 @@
 		6209C0AB1C542BC7004E6B66 /* ReSwiftRouterTestsUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9D51C50AF8B00139FA7 /* ReSwiftRouterTestsUnitTests.swift */; };
 		6209C0AC1C542BCA004E6B66 /* ReSwiftRouterIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9D41C50AF8B00139FA7 /* ReSwiftRouterIntegrationTests.swift */; };
 		625E66F61C2000EA0027C288 /* ReSwiftRouter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 625E66CD1C1FFE280027C288 /* ReSwiftRouter.framework */; };
+		D47F3A161E007B6F00AAA70A /* RouteSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47F3A151E007B6F00AAA70A /* RouteSegment.swift */; };
+		D47F3A171E007B6F00AAA70A /* RouteSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47F3A151E007B6F00AAA70A /* RouteSegment.swift */; };
+		D47F3A181E007B6F00AAA70A /* RouteSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47F3A151E007B6F00AAA70A /* RouteSegment.swift */; };
+		D47F3A191E007B6F00AAA70A /* RouteSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = D47F3A151E007B6F00AAA70A /* RouteSegment.swift */; };
 		D47F3A4F1E0083B700AAA70A /* ReSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47F3A4E1E0083B700AAA70A /* ReSwift.framework */; };
 		D47F3A531E0083EB00AAA70A /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47F3A511E0083EB00AAA70A /* Nimble.framework */; };
 		D47F3A541E0083EB00AAA70A /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D47F3A521E0083EB00AAA70A /* Quick.framework */; };
@@ -94,7 +95,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteHashSpec.swift; path = ReSwiftRouterTests/RouteHashSpec.swift; sourceTree = SOURCE_ROOT; };
 		25C0A9C51C50AF6400139FA7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ReSwiftRouter/Info.plist; sourceTree = SOURCE_ROOT; };
 		25C0A9C61C50AF6400139FA7 /* NavigationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationActions.swift; path = ReSwiftRouter/NavigationActions.swift; sourceTree = SOURCE_ROOT; };
 		25C0A9C71C50AF6400139FA7 /* NavigationReducer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationReducer.swift; path = ReSwiftRouter/NavigationReducer.swift; sourceTree = SOURCE_ROOT; };
@@ -112,6 +112,7 @@
 		6209C0911C5428DE004E6B66 /* ReSwiftRouter.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReSwiftRouter.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		625E66CD1C1FFE280027C288 /* ReSwiftRouter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ReSwiftRouter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		625E66F11C2000EA0027C288 /* ReSwiftRouterTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ReSwiftRouterTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D47F3A151E007B6F00AAA70A /* RouteSegment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteSegment.swift; path = ReSwiftRouter/RouteSegment.swift; sourceTree = SOURCE_ROOT; };
 		D47F3A4E1E0083B700AAA70A /* ReSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReSwift.framework; path = Carthage/Build/iOS/ReSwift.framework; sourceTree = SOURCE_ROOT; };
 		D47F3A511E0083EB00AAA70A /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = Carthage/Build/iOS/Nimble.framework; sourceTree = SOURCE_ROOT; };
 		D47F3A521E0083EB00AAA70A /* Quick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quick.framework; path = Carthage/Build/iOS/Quick.framework; sourceTree = SOURCE_ROOT; };
@@ -223,6 +224,7 @@
 				25C0A9C91C50AF6400139FA7 /* ReSwiftRouter.h */,
 				25C0A9CA1C50AF6400139FA7 /* Routable.swift */,
 				25C0A9CB1C50AF6400139FA7 /* Router.swift */,
+				D47F3A151E007B6F00AAA70A /* RouteSegment.swift */,
 				625E66E21C2000620027C288 /* Frameworks */,
 			);
 			name = ReSwiftRouter;
@@ -246,7 +248,6 @@
 				25C0A9D31C50AF8B00139FA7 /* Info.plist */,
 				25C0A9D41C50AF8B00139FA7 /* ReSwiftRouterIntegrationTests.swift */,
 				25C0A9D51C50AF8B00139FA7 /* ReSwiftRouterTestsUnitTests.swift */,
-				254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */,
 				625E67001C2001F60027C288 /* Frameworks */,
 			);
 			name = ReSwiftRouterTests;
@@ -720,6 +721,7 @@
 				6209C0541C542580004E6B66 /* NavigationReducer.swift in Sources */,
 				6209C0551C542582004E6B66 /* NavigationState.swift in Sources */,
 				6209C0571C542588004E6B66 /* Router.swift in Sources */,
+				D47F3A171E007B6F00AAA70A /* RouteSegment.swift in Sources */,
 				6209C0531C54257D004E6B66 /* NavigationActions.swift in Sources */,
 				6209C0561C542585004E6B66 /* Routable.swift in Sources */,
 			);
@@ -732,6 +734,7 @@
 				6209C0791C542822004E6B66 /* NavigationReducer.swift in Sources */,
 				6209C07A1C542824004E6B66 /* NavigationState.swift in Sources */,
 				6209C07D1C54282D004E6B66 /* Router.swift in Sources */,
+				D47F3A181E007B6F00AAA70A /* RouteSegment.swift in Sources */,
 				6209C0781C54281E004E6B66 /* NavigationActions.swift in Sources */,
 				6209C07B1C542826004E6B66 /* Routable.swift in Sources */,
 			);
@@ -741,7 +744,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254B3BAE1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */,
 				6209C07E1C542838004E6B66 /* ReSwiftRouterIntegrationTests.swift in Sources */,
 				6209C07F1C54283A004E6B66 /* ReSwiftRouterTestsUnitTests.swift in Sources */,
 			);
@@ -754,6 +756,7 @@
 				6209C0A01C542A66004E6B66 /* NavigationReducer.swift in Sources */,
 				6209C0A11C542A68004E6B66 /* NavigationState.swift in Sources */,
 				6209C0A31C542A6C004E6B66 /* Router.swift in Sources */,
+				D47F3A191E007B6F00AAA70A /* RouteSegment.swift in Sources */,
 				6209C09F1C542A63004E6B66 /* NavigationActions.swift in Sources */,
 				6209C0A21C542A6A004E6B66 /* Routable.swift in Sources */,
 			);
@@ -763,7 +766,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254B3BAF1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */,
 				6209C0AC1C542BCA004E6B66 /* ReSwiftRouterIntegrationTests.swift in Sources */,
 				6209C0AB1C542BC7004E6B66 /* ReSwiftRouterTestsUnitTests.swift in Sources */,
 			);
@@ -776,6 +778,7 @@
 				25C0A9CE1C50AF6400139FA7 /* NavigationReducer.swift in Sources */,
 				25C0A9CF1C50AF6400139FA7 /* NavigationState.swift in Sources */,
 				25C0A9D21C50AF6400139FA7 /* Router.swift in Sources */,
+				D47F3A161E007B6F00AAA70A /* RouteSegment.swift in Sources */,
 				25C0A9CD1C50AF6400139FA7 /* NavigationActions.swift in Sources */,
 				25C0A9D11C50AF6400139FA7 /* Routable.swift in Sources */,
 			);
@@ -785,7 +788,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				254B3BAD1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */,
 				25C0A9D91C50AF8D00139FA7 /* ReSwiftRouterIntegrationTests.swift in Sources */,
 				25C0A9DA1C50AF8F00139FA7 /* ReSwiftRouterTestsUnitTests.swift in Sources */,
 			);

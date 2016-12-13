@@ -11,45 +11,45 @@ public typealias RoutingCompletionHandler = () -> Void
 public protocol Routable {
 
     func pushRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+        _ route: RouteSegment,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
 
     func popRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+        _ route: RouteSegment,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler)
 
     func changeRouteSegment(
-        _ from: RouteElementIdentifier,
-        to: RouteElementIdentifier,
+        _ from: RouteSegment,
+        to: RouteSegment,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
-
+    
 }
 
-extension Routable {
+public extension Routable {
 
-    public func pushRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+    func pushRouteSegment(
+        _ route: RouteSegment,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable {
-            fatalError("This routable cannot change segments. You have not implemented it.")
+        fatalError("This routable cannot change segments. You have not implemented it.")
     }
 
-    public func popRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+    func popRouteSegment(
+        _ route: RouteSegment,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) {
-            fatalError("This routable cannot change segments. You have not implemented it.")
+        fatalError("This routable cannot change segments. You have not implemented it.")
     }
 
-    public func changeRouteSegment(
-        _ from: RouteElementIdentifier,
-        to: RouteElementIdentifier,
+    func changeRouteSegment(
+        _ from: RouteSegment,
+        to: RouteSegment,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable {
-            fatalError("This routable cannot change segments. You have not implemented it.")
+        fatalError("This routable cannot change segments. You have not implemented it.")
     }
 
 }
