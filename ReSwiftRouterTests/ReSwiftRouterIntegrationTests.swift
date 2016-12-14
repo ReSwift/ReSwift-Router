@@ -106,7 +106,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     }
 
                     let routable = FakeRootRoutable()
-                    let _ = Router(store: store, rootRoutable: routable) { state in
+                    _ = Router(store: store, rootRoutable: routable) { state in
                         state.navigationState
                     }
 
@@ -143,7 +143,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             }
                         }
 
-                        let _ = Router(store: store, rootRoutable: rootRoutable) { state in
+                        _ = Router(store: store, rootRoutable: rootRoutable) { state in
                             state.navigationState
                         }
                     }
@@ -191,17 +191,13 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             }
                         }
 
-                        let _ = Router(store: store, rootRoutable:
-                            FakeRootRoutable(injectedRoutable: fakeChildRoutable)) { state in
+                        _ = Router(store: store, rootRoutable: FakeRootRoutable(injectedRoutable: fakeChildRoutable)) { state in
                                 state.navigationState
                         }
                     }
                 }
-
             }
-
         }
-
 
         describe("route specific data") {
 
@@ -224,9 +220,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                     expect(data).toEventually(equal("UserID_10"))
                 }
-                
+
             }
-            
+
         }
 
         describe("configuring animated/unanimated navigation") {
@@ -276,8 +272,5 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                 }
             }
         }
-
-
     }
-    
 }

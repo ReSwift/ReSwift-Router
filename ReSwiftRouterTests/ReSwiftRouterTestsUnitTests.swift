@@ -83,7 +83,9 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 expect(new).to(equal(statsViewControllerIdentifier))
             }
 
-            it("generates a Change action on the last common subroute, also for routes of different length") {
+            it("generates a Change action on the last common subroute, " +
+               "also for routes of different length") {
+                
                 let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier,
                     infoViewControllerIdentifier]
@@ -100,7 +102,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
 
                         if responsibleRoutableIndex == 1
                             && segmentToBeReplaced == counterViewControllerIdentifier
-                            && newSegment == statsViewControllerIdentifier{
+                            && newSegment == statsViewControllerIdentifier {
                                 action1Correct = true
                         }
                 }

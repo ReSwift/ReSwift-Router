@@ -16,10 +16,14 @@ open class Router<State: StateType>: StoreSubscriber {
     var store: Store<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
-    let waitForRoutingCompletionQueue = DispatchQueue(label: "WaitForRoutingCompletionQueue", attributes: [])
+    let waitForRoutingCompletionQueue = DispatchQueue(label: "WaitForRoutingCompletionQueue",
+                                                      attributes: [])
 
-    public init(store: Store<State>, rootRoutable: Routable,  stateSelector: @escaping NavigationStateSelector) {
-        self.store = store 
+    public init(store: Store<State>,
+                rootRoutable: Routable,
+                stateSelector: @escaping NavigationStateSelector) {
+
+        self.store = store
         self.routables.append(rootRoutable)
 
         self.store.subscribe(self, selector: stateSelector)
@@ -78,7 +82,8 @@ open class Router<State: StateType>: StoreSubscriber {
                     }
                 }
 
-                let waitUntil = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                let waitTime = Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                let waitUntil = DispatchTime.now() + waitTime
 
                 let result = semaphore.wait(timeout: waitUntil)
 
@@ -91,7 +96,6 @@ open class Router<State: StateType>: StoreSubscriber {
                     ReSwiftRouterStuck()
                 }
             }
-
         }
 
         lastNavigationState = state
