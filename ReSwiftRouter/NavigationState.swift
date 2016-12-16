@@ -8,41 +8,36 @@
 
 import ReSwift
 
-public typealias RouteElementIdentifier = String
-public typealias Route = [RouteElementIdentifier]
-
-/// A `Hashable` and `Equatable` presentation of a route.
-/// Can be used to check two routes for equality.
-public struct RouteHash: Hashable {
-    let routeHash: String
-
-    public init(route: Route) {
-        self.routeHash = route.joined(separator: "/")
-    }
-
-    public var hashValue: Int { return self.routeHash.hashValue }
-}
-
-public func == (lhs: RouteHash, rhs: RouteHash) -> Bool {
-    return lhs.routeHash == rhs.routeHash
-}
-
 public struct NavigationState {
     public init() {}
 
-    public var route: Route = []
-    public var routeSpecificState: [RouteHash: Any] = [:]
+    public var route: [RouteSegment] = []
     var changeRouteAnimated: Bool = true
-}
+    var shouldNavigate: Bool = true // Set to false if the router should not respond to state change
 
-extension NavigationState {
-    public func getRouteSpecificState<T>(_ route: Route) -> T? {
-        let hash = RouteHash(route: route)
+    public func segmentWith(identifier: UUID) -> RouteSegment? {
+        if let segment = self.route.first(where: { $0.identifier == identifier }) {
+            return segment
+        }
 
-        return self.routeSpecificState[hash] as? T
+        for segment in self.route {
+            if let state = segment as? HasChildNavigationStates {
+                for navigationState in state.childNavigationStates {
+                    if let segment = navigationState.segmentWith(identifier: identifier) {
+                        return segment
+                    }
+                }
+            }
+        }
+
+        return nil
     }
 }
 
 public protocol HasNavigationState {
     var navigationState: NavigationState { get set }
+}
+
+public protocol HasChildNavigationStates {
+    var childNavigationStates: [NavigationState] { get }
 }
