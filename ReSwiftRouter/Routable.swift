@@ -9,6 +9,7 @@
 public typealias RoutingCompletionHandler = () -> Void
 
 public protocol Routable {
+    var segmentIdentifier: UUID { get }
 
     func pushRouteSegment(
         _ route: RouteSegment,

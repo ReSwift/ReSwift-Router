@@ -108,7 +108,7 @@ open class Router<State: StateType>: StoreSubscriber {
 
             while largestCommonSubroute + 1 < newRoute.count &&
                   largestCommonSubroute + 1 < oldRoute.count &&
-                  newRoute[largestCommonSubroute + 1].instanceIdentifier == oldRoute[largestCommonSubroute + 1].instanceIdentifier {
+                  newRoute[largestCommonSubroute + 1].identifier == oldRoute[largestCommonSubroute + 1].identifier {
                     largestCommonSubroute += 1
             }
 

@@ -41,7 +41,7 @@ public struct NavigationReducer {
     }
 
     private static func mutateComponent(state: NavigationState, action: MutateRouteSegmentAction) -> NavigationState {
-        guard let index = state.route.index(where: { $0.instanceIdentifier == action.component.instanceIdentifier }) else { return state }
+        guard let index = state.route.index(where: { $0.identifier == action.component.identifier }) else { return state }
 
         var state = state
 
