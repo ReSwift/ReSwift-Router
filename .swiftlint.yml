@@ -5,3 +5,7 @@ excluded: # paths to ignore during linting. overridden by `included`.
 disabled_rules: # rule identifiers to exclude from running
   - force_cast
   - conditional_binding_cascade
+variable_name:
+    min_length: 2
+
+line_length: 180

@@ -16,10 +16,14 @@ open class Router<State: StateType>: StoreSubscriber {
     var store: Store<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
-    let waitForRoutingCompletionQueue = DispatchQueue(label: "WaitForRoutingCompletionQueue", attributes: [])
+    let waitForRoutingCompletionQueue = DispatchQueue(label: "WaitForRoutingCompletionQueue",
+                                                      attributes: [])
 
-    public init(store: Store<State>, rootRoutable: Routable,  stateSelector: @escaping NavigationStateSelector) {
-        self.store = store 
+    public init(store: Store<State>,
+                rootRoutable: Routable,
+                stateSelector: @escaping NavigationStateSelector) {
+
+        self.store = store
         self.routables.append(rootRoutable)
 
         self.store.subscribe(self, selector: stateSelector)
@@ -44,11 +48,9 @@ open class Router<State: StateType>: StoreSubscriber {
                 case let .pop(responsibleRoutableIndex, segmentToBePopped):
                     DispatchQueue.main.async {
                         self.routables[responsibleRoutableIndex]
-                            .popRouteSegment(
-                                segmentToBePopped,
-                                animated: state.changeRouteAnimated) {
+                            .popRouteSegment(segmentToBePopped, animated: state.changeRouteAnimated) {
                                     semaphore.signal()
-                        }
+                            }
 
                         self.routables.remove(at: responsibleRoutableIndex + 1)
                     }
@@ -57,29 +59,24 @@ open class Router<State: StateType>: StoreSubscriber {
                     DispatchQueue.main.async {
                         self.routables[responsibleRoutableIndex + 1] =
                             self.routables[responsibleRoutableIndex]
-                                .changeRouteSegment(
-                                    segmentToBeReplaced,
-                                    to: newSegment,
-                                    animated: state.changeRouteAnimated) {
+                                .changeRouteSegment(segmentToBeReplaced, to: newSegment, animated: state.changeRouteAnimated) {
                                         semaphore.signal()
-                        }
+                                }
                     }
 
                 case let .push(responsibleRoutableIndex, segmentToBePushed):
                     DispatchQueue.main.async {
                         self.routables.append(
                             self.routables[responsibleRoutableIndex]
-                                .pushRouteSegment(
-                                    segmentToBePushed,
-                                    animated: state.changeRouteAnimated) {
+                                .pushRouteSegment(segmentToBePushed, animated: state.changeRouteAnimated) {
                                         semaphore.signal()
-                            }
+                                }
                         )
                     }
                 }
 
-                let waitUntil = DispatchTime.now() + Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-
+                let timeoutWaitTime = Double(Int64(3 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+                let waitUntil = DispatchTime.now() + timeoutWaitTime
                 let result = semaphore.wait(timeout: waitUntil)
 
                 if case .timedOut = result {
@@ -91,7 +88,6 @@ open class Router<State: StateType>: StoreSubscriber {
                     ReSwiftRouterStuck()
                 }
             }
-
         }
 
         lastNavigationState = state

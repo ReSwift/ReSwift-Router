@@ -81,6 +81,8 @@ struct AppReducer: Reducer {
 
 class SwiftFlowRouterIntegrationTests: QuickSpec {
 
+    // Disabling function_body_length in tests
+    // swiftlint:disable function_body_length
     override func spec() {
 
         describe("routing calls") {
@@ -106,7 +108,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     }
 
                     let routable = FakeRootRoutable()
-                    let _ = Router(store: store, rootRoutable: routable) { state in
+                    _ = Router(store: store, rootRoutable: routable) { state in
                         state.navigationState
                     }
 
@@ -127,7 +129,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
-                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
+                            animated: Bool,
+                            completionHandler: @escaping RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeElementIdentifier)
 
                                 completionHandler()
@@ -143,7 +147,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             }
                         }
 
-                        let _ = Router(store: store, rootRoutable: rootRoutable) { state in
+                        _ = Router(store: store, rootRoutable: rootRoutable) { state in
                             state.navigationState
                         }
                     }
@@ -163,7 +167,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
-                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
+                            animated: Bool,
+                            completionHandler: @escaping RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeElementIdentifier)
 
                                 completionHandler()
@@ -185,23 +191,22 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                                 self.injectedRoutable = injectedRoutable
                             }
 
-                            func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                            func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
+                                animated: Bool,
+                                completionHandler: @escaping RoutingCompletionHandler) -> Routable {
                                     completionHandler()
                                     return injectedRoutable
                             }
                         }
 
-                        let _ = Router(store: store, rootRoutable:
-                            FakeRootRoutable(injectedRoutable: fakeChildRoutable)) { state in
+                        _ = Router(store: store,
+                                   rootRoutable: FakeRootRoutable(injectedRoutable: fakeChildRoutable)) { state in
                                 state.navigationState
                         }
                     }
                 }
-
             }
-
         }
-
 
         describe("route specific data") {
 
@@ -224,9 +229,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                     expect(data).toEventually(equal("UserID_10"))
                 }
-                
+
             }
-            
+
         }
 
         describe("configuring animated/unanimated navigation") {
@@ -276,8 +281,6 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                 }
             }
         }
-
-
     }
-    
+    // swiftlint:enable function_body_length
 }

@@ -35,7 +35,7 @@ public struct SetRouteAction: StandardActionConvertible {
             isTypedAction: true
         )
     }
-    
+
 }
 
 public struct SetRouteSpecificData: Action {
