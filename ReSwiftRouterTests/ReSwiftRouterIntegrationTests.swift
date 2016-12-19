@@ -81,6 +81,8 @@ struct AppReducer: Reducer {
 
 class SwiftFlowRouterIntegrationTests: QuickSpec {
 
+    // Disabling function_body_length in tests
+    // swiftlint:disable function_body_length
     override func spec() {
 
         describe("routing calls") {
@@ -127,7 +129,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
-                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
+                            animated: Bool,
+                            completionHandler: @escaping RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeElementIdentifier)
 
                                 completionHandler()
@@ -163,7 +167,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithIdentifier = calledWithIdentifier
                         }
 
-                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
+                            animated: Bool,
+                            completionHandler: @escaping RoutingCompletionHandler) -> Routable {
                                 calledWithIdentifier(routeElementIdentifier)
 
                                 completionHandler()
@@ -185,13 +191,16 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                                 self.injectedRoutable = injectedRoutable
                             }
 
-                            func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                            func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
+                                animated: Bool,
+                                completionHandler: @escaping RoutingCompletionHandler) -> Routable {
                                     completionHandler()
                                     return injectedRoutable
                             }
                         }
 
-                        _ = Router(store: store, rootRoutable: FakeRootRoutable(injectedRoutable: fakeChildRoutable)) { state in
+                        _ = Router(store: store,
+                                   rootRoutable: FakeRootRoutable(injectedRoutable: fakeChildRoutable)) { state in
                                 state.navigationState
                         }
                     }
@@ -273,4 +282,5 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             }
         }
     }
+    // swiftlint:enable function_body_length
 }

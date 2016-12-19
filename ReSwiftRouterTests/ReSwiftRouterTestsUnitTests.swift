@@ -17,6 +17,9 @@ class ReSwiftRouterUnitTests: QuickSpec {
     // Used as test app state
     struct AppState: StateType {}
 
+    // Disabling cyclomatic_complexity in tests
+    // swiftlint:disable cyclomatic_complexity
+    // swiftlint:disable function_body_length
     override func spec() {
         describe("routing calls") {
 
@@ -85,7 +88,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
 
             it("generates a Change action on the last common subroute, " +
                "also for routes of different length") {
-                
+
                 let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier,
                     infoViewControllerIdentifier]
@@ -238,5 +241,6 @@ class ReSwiftRouterUnitTests: QuickSpec {
         }
 
     }
-
+    // swiftlint:enable cyclomatic_complexity
+    // swiftlint:enable function_body_length
 }

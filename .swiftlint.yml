@@ -7,3 +7,5 @@ disabled_rules: # rule identifiers to exclude from running
   - conditional_binding_cascade
 variable_name:
     min_length: 2
+
+line_length: 180
