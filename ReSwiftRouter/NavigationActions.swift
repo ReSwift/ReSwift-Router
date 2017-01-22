@@ -16,26 +16,37 @@ public struct SetRouteAction: StandardActionConvertible {
 
     let route: Route
     let animated: Bool
+    let completionAction: Action?
     public static let type = "RE_SWIFT_ROUTER_SET_ROUTE"
 
-    public init (_ route: Route, animated: Bool = true) {
+    public init (_ route: Route, animated: Bool = true, completionAction: Action? = nil) {
         self.route = route
         self.animated = animated
+        self.completionAction = completionAction
     }
 
     public init(_ action: StandardAction) {
         self.route = action.payload!["route"] as! Route
         self.animated = action.payload!["animated"] as! Bool
+        self.completionAction = action.payload!["completionAction"] as? Action
     }
 
     public func toStandardAction() -> StandardAction {
         return StandardAction(
             type: SetRouteAction.type,
-            payload: ["route": route as AnyObject, "animated": animated as AnyObject],
+            payload: getPayload(),
             isTypedAction: true
         )
     }
     
+    private func getPayload() -> [String: AnyObject] {
+        var payload = ["route": route as AnyObject,
+                       "animated": animated as AnyObject]
+        if let completionAction = completionAction {
+            payload["completionAction"] = completionAction as AnyObject
+        }
+        return payload
+    }
 }
 
 public struct SetRouteSpecificData: Action {

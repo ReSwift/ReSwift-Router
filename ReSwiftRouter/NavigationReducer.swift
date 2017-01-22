@@ -36,7 +36,7 @@ public struct NavigationReducer {
 
         state.route = setRouteAction.route
         state.changeRouteAnimated = setRouteAction.animated
-
+        state.completionAction = setRouteAction.completionAction
         return state
     }
 
