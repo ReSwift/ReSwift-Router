@@ -35,17 +35,17 @@ open class Store<State: StateType>: StoreType {
 
     public var dispatchFunction: DispatchFunction!
 
-    private var reducer: AnyReducer
+    private var reducer: Reducer<State>
 
     var subscriptions: [SubscriptionType] = []
 
     private var isDispatching = false
 
-    public required convenience init(reducer: AnyReducer, state: State?) {
-        self.init(reducer: reducer, state: state, middleware: [])
-    }
-
-    public required init(reducer: AnyReducer, state: State?, middleware: [Middleware]) {
+    public required init(
+        reducer: @escaping Reducer<State>,
+        state: State?,
+        middleware: [Middleware] = []
+    ) {
         self.reducer = reducer
 
         // Wrap the dispatch function with all middlewares
@@ -53,8 +53,7 @@ open class Store<State: StateType>: StoreType {
             .reversed()
             .reduce({ [unowned self] action in
                 return self._defaultDispatch(action: action)
-            }) {
-                [weak self] dispatchFunction, middleware in
+            }) { [weak self] dispatchFunction, middleware in
                 let getState = { self?.state }
                 return middleware(self?.dispatch, getState)(dispatchFunction)
         }
@@ -100,37 +99,29 @@ open class Store<State: StateType>: StoreType {
         }
     }
 
-    open func _defaultDispatch(action: Action) -> Any {
+    open func _defaultDispatch(action: Action) -> Void {
         guard !isDispatching else {
             raiseFatalError(
                 "ReSwift:IllegalDispatchFromReducer - Reducers may not dispatch actions.")
         }
 
         isDispatching = true
-        let newState = reducer._handleAction(action: action, state: state) as! State
+        let newState = reducer(action, state)
         isDispatching = false
 
         state = newState
-
-        return action
     }
 
     @discardableResult
-    open func dispatch(_ action: Action) -> Any {
-        let returnValue = dispatchFunction(action)
-
-        return returnValue
+    open func dispatch(_ action: Action) -> Void {
+        dispatchFunction(action)
     }
 
     @discardableResult
-    open func dispatch(_ actionCreatorProvider: @escaping ActionCreator) -> Any {
-        let action = actionCreatorProvider(state, self)
-
-        if let action = action {
+    open func dispatch(_ actionCreatorProvider: @escaping ActionCreator) -> Void {
+        if let action = actionCreatorProvider(state, self) {
             dispatch(action)
         }
-
-        return action as Any
     }
 
     open func dispatch(_ asyncActionCreatorProvider: @escaping AsyncActionCreator) {

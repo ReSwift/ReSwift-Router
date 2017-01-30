@@ -20,17 +20,7 @@ class StoreDispatchTests: XCTestCase {
     override func setUp() {
         super.setUp()
         reducer = TestReducer()
-        store = Store(reducer: reducer, state: TestAppState())
-    }
-
-    /**
-     it returns the dispatched action
-     */
-    func testReturnsDispatchedAction() {
-        let action = SetValueAction(10)
-        let returnValue = store.dispatch(action)
-
-        XCTAssertEqual((returnValue as? SetValueAction)?.value, action.value)
+        store = Store(reducer: reducer.handleAction, state: TestAppState())
     }
 
     /**
@@ -39,7 +29,7 @@ class StoreDispatchTests: XCTestCase {
     func testThrowsExceptionWhenReducersDispatch() {
         // Expectation lives in the `DispatchingReducer` class
         let reducer = DispatchingReducer()
-        store = Store(reducer: reducer, state: TestAppState())
+        store = Store(reducer: reducer.handleAction, state: TestAppState())
         reducer.store = store
         store.dispatch(SetValueAction(10))
     }
@@ -68,9 +58,9 @@ class StoreDispatchTests: XCTestCase {
             withDescription: "It accepts async action creators")
 
         let asyncActionCreator: Store<TestAppState>.AsyncActionCreator = { _, _, callback in
-            dispatchAsync() {
+            dispatchAsync {
                 // Provide the callback with an action creator
-                callback { state, store in
+                callback { _, _ in
                     return SetValueAction(5)
                 }
             }
@@ -100,9 +90,9 @@ class StoreDispatchTests: XCTestCase {
             "It calls the callback once state update from async action is complete")
 
         let asyncActionCreator: Store<TestAppState>.AsyncActionCreator = { _, _, callback in
-            dispatchAsync() {
+            dispatchAsync {
                 // Provide the callback with an action creator
-                callback { state, store in
+                callback { _, _ in
                     return SetValueAction(5)
                 }
             }
@@ -124,7 +114,7 @@ class StoreDispatchTests: XCTestCase {
 }
 
 // Needs to be class so that shared reference can be modified to inject store
-class DispatchingReducer: XCTestCase, Reducer {
+class DispatchingReducer: XCTestCase {
     var store: Store<TestAppState>? = nil
 
     func handleAction(action: Action, state: TestAppState?) -> TestAppState {

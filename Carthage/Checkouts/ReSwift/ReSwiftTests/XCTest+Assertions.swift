@@ -13,7 +13,6 @@ import XCTest
 
 private let noReturnFailureWaitTime = 0.1
 
-
 public extension XCTestCase {
     /**
      Expects an `fatalError` to be called.
@@ -51,7 +50,7 @@ public extension XCTestCase {
         function: (_ caller: @escaping (String) -> Void) -> Void,
         expectedMessage: String? = nil,
         testCase: @escaping () -> Void,
-        cleanUp: @escaping () -> ()) {
+        cleanUp: @escaping () -> Void) {
 
         let asyncExpectation = futureExpectation(withDescription: funcName + "-Expectation")
         var assertionMessage: String? = nil

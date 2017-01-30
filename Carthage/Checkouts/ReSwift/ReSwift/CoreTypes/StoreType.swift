@@ -18,12 +18,9 @@ public protocol StoreType {
 
     associatedtype State: StateType
 
-    /// Initializes the store with a reducer and an intial state.
-    init(reducer: AnyReducer, state: State?)
-
     /// Initializes the store with a reducer, an initial state and a list of middleware.
     /// Middleware is applied in the order in which it is passed into this constructor.
-    init(reducer: AnyReducer, state: State?, middleware: [Middleware])
+    init(reducer: @escaping Reducer<State>, state: State?, middleware: [Middleware])
 
     /// The current state stored in the store.
     var state: State! { get }
@@ -42,6 +39,18 @@ public protocol StoreType {
      - parameter subscriber: Subscriber that will receive store updates
      */
     func subscribe<S: StoreSubscriber>(_ subscriber: S) where S.StoreSubscriberStateType == State
+
+    /**
+     Subscribes the provided subscriber to this store.
+     Subscribers will receive a call to `newState` whenever the
+     state in this store changes.
+
+     - parameter subscriber: Subscriber that will receive store updates
+     - parameter selector: A selector for the sub-state the subscriber will receive
+     */
+    func subscribe<SelectedState, S: StoreSubscriber>
+        (_ subscriber: S, selector: ((State) -> SelectedState)?)
+    where S.StoreSubscriberStateType == SelectedState
 
     /**
      Unsubscribes the provided subscriber. The subscriber will no longer
@@ -64,7 +73,7 @@ public protocol StoreType {
      - returns: By default returns the dispatched action, but middlewares can change the
      return type, e.g. to return promises
      */
-    func dispatch(_ action: Action) -> Any
+    func dispatch(_ action: Action)
 
     /**
      Dispatches an action creator to the store. Action creators are functions that generate
@@ -99,7 +108,7 @@ public protocol StoreType {
      - returns: By default returns the dispatched action, but middlewares can change the
      return type, e.g. to return promises
      */
-    func dispatch(_ actionCreator: ActionCreator) -> Any
+    func dispatch(_ actionCreator: ActionCreator)
 
     /**
      Dispatches an async action creator to the store. An async action creator generates an
@@ -119,7 +128,6 @@ public protocol StoreType {
      be called
      */
     func dispatch(_ asyncActionCreator: AsyncActionCreator, callback: DispatchCallback?)
-
 
     /**
      An optional callback that can be passed to the `dispatch` method.

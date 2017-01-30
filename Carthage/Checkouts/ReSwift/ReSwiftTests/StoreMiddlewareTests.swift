@@ -14,7 +14,7 @@ let firstMiddleware: Middleware = { dispatch, getState in
         return { action in
 
             if var action = action as? SetValueStringAction {
-                action.value = action.value + " First Middleware"
+                action.value += " First Middleware"
                 return next(action)
             } else {
                 return next(action)
@@ -28,7 +28,7 @@ let secondMiddleware: Middleware = { dispatch, getState in
         return { action in
 
             if var action = action as? SetValueStringAction {
-                action.value = action.value + " Second Middleware"
+                action.value += " Second Middleware"
                 return next(action)
             } else {
                 return next(action)
@@ -43,8 +43,6 @@ let dispatchingMiddleware: Middleware = { dispatch, getState in
 
             if var action = action as? SetValueAction {
                 _ = dispatch?(SetValueStringAction("\(action.value)"))
-
-                return "Converted Action Successfully"
             }
 
             return next(action)
@@ -81,7 +79,7 @@ class StoreMiddlewareTests: XCTestCase {
      */
     func testDecorateDispatch() {
         let reducer = TestValueStringReducer()
-        let store = Store<TestStringAppState>(reducer: reducer,
+        let store = Store<TestStringAppState>(reducer: reducer.handleAction,
             state: TestStringAppState(),
             middleware: [firstMiddleware, secondMiddleware])
 
@@ -99,7 +97,7 @@ class StoreMiddlewareTests: XCTestCase {
      */
     func testCanDispatch() {
         let reducer = TestValueStringReducer()
-        let store = Store<TestStringAppState>(reducer: reducer,
+        let store = Store<TestStringAppState>(reducer: reducer.handleAction,
             state: TestStringAppState(),
             middleware: [firstMiddleware, secondMiddleware, dispatchingMiddleware])
 
@@ -113,21 +111,6 @@ class StoreMiddlewareTests: XCTestCase {
     }
 
     /**
-     it can change the return value of the dispatch function
-     */
-    func testCanChangeReturnValue() {
-        let reducer = TestValueStringReducer()
-        let store = Store<TestStringAppState>(reducer: reducer,
-            state: TestStringAppState(),
-            middleware: [firstMiddleware, secondMiddleware, dispatchingMiddleware])
-
-        let action = SetValueAction(10)
-        let returnValue = store.dispatch(action) as? String
-
-        XCTAssertEqual(returnValue, "Converted Action Successfully")
-    }
-
-    /**
      it middleware can access the store's state
      */
     func testMiddlewareCanAccessState() {
@@ -135,7 +118,7 @@ class StoreMiddlewareTests: XCTestCase {
         var state = TestStringAppState()
         state.testValue = "OK"
 
-        let store = Store<TestStringAppState>(reducer: reducer, state: state,
+        let store = Store<TestStringAppState>(reducer: reducer.handleAction, state: state,
             middleware: [stateAccessingMiddleware])
 
         store.dispatch(SetValueStringAction("Action That Won't Go Through"))
