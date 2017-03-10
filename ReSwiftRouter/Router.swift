@@ -25,6 +25,27 @@ open class Router<State: StateType>: StoreSubscriber {
         self.store.subscribe(self, selector: stateSelector)
     }
 
+    public func canNavigate(to route: Route) -> Bool {
+        let routingActions = Router.routingActionsForTransitionFrom(
+            lastNavigationState.route,
+            newRoute: route
+        )
+
+        return routingActions.reduce(false) { canRoute, action in
+            switch action {
+            case let .pop(responsibleRoutableIndex, segmentToBePopped):
+                let routable = self.routables[responsibleRoutableIndex]
+                return canRoute || routable.canPop(segment: segmentToBePopped)
+            case let .change(responsibleRoutableIndex, _, newSegment):
+                let routable = self.routables[responsibleRoutableIndex]
+                return canRoute || routable.canChange(segment: newSegment)
+            case let .push(responsibleRoutableIndex, segmentToBePushed):
+                let routable = self.routables[responsibleRoutableIndex]
+                return canRoute || routable.canPush(segment: segmentToBePushed)
+            }
+        }
+    }
+
     open func newState(state: NavigationState) {
         let routingActions = Router.routingActionsForTransitionFrom(
             lastNavigationState.route, newRoute: state.route)
