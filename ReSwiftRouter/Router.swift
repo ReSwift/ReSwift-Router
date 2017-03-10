@@ -43,38 +43,53 @@ open class Router<State: StateType>: StoreSubscriber {
 
                 case let .pop(responsibleRoutableIndex, segmentToBePopped):
                     DispatchQueue.main.async {
-                        self.routables[responsibleRoutableIndex]
-                            .popRouteSegment(
-                                segmentToBePopped,
-                                animated: state.changeRouteAnimated) {
-                                    semaphore.signal()
-                        }
+                        let routable = self.routables[responsibleRoutableIndex]
+                        if routable.canPop(segment: segmentToBePopped) {
+                            routable
+                                .popRouteSegment(
+                                    segmentToBePopped,
+                                    animated: state.changeRouteAnimated) {
+                                        semaphore.signal()
+                            }
 
-                        self.routables.remove(at: responsibleRoutableIndex + 1)
+                            self.routables.remove(at: responsibleRoutableIndex + 1)
+                        } else {
+                            semaphore.signal()
+                        }
                     }
 
                 case let .change(responsibleRoutableIndex, segmentToBeReplaced, newSegment):
                     DispatchQueue.main.async {
-                        self.routables[responsibleRoutableIndex + 1] =
-                            self.routables[responsibleRoutableIndex]
-                                .changeRouteSegment(
-                                    segmentToBeReplaced,
-                                    to: newSegment,
-                                    animated: state.changeRouteAnimated) {
-                                        semaphore.signal()
+                        let routable = routables[responsibleRoutableIndex]
+                        if routable.canChange(segment: newSegment) {
+                            self.routables[responsibleRoutableIndex + 1] =
+                                routable
+                                    .changeRouteSegment(
+                                        segmentToBeReplaced,
+                                        to: newSegment,
+                                        animated: state.changeRouteAnimated) {
+                                            semaphore.signal()
+                            }
+                        } else {
+                            semaphore.signal()
                         }
                     }
 
                 case let .push(responsibleRoutableIndex, segmentToBePushed):
                     DispatchQueue.main.async {
-                        self.routables.append(
-                            self.routables[responsibleRoutableIndex]
-                                .pushRouteSegment(
-                                    segmentToBePushed,
-                                    animated: state.changeRouteAnimated) {
-                                        semaphore.signal()
-                            }
-                        )
+                        let routable = self.routables[responsibleRoutableIndex]
+                        if routable.canPush(segment: segmentToBePushed) {
+                            self.routables.append(
+                                routable
+                                    .pushRouteSegment(
+                                        segmentToBePushed,
+                                        animated: state.changeRouteAnimated) {
+                                            semaphore.signal()
+                                }
+                            )
+                        } else {
+                            semaphore.signal()
+                        }
                     }
                 }
 

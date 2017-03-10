@@ -198,6 +198,46 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     }
                 }
 
+                it("will call canPush") {
+                    store.dispatch(
+                        SetRouteAction(
+                            ["TabBarViewController"]
+                        )
+                    )
+
+                    class FakeRootRoutable: Routable {
+                        var calledFunction: (String) -> Void
+
+                        init(calledFunction: @escaping (String) -> Void) {
+                            self.calledFunction = calledFunction
+                        }
+
+                        func canPush(segment: RouteElementIdentifier) -> Bool {
+                            calledFunction("canPush")
+                            return false
+                        }
+
+                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                            calledFunction("pushRouteSegment")
+
+                            completionHandler()
+                            return MockRoutable()
+                        }
+
+                    }
+
+                    waitUntil(timeout: 2.0) { fullfill in
+                        let rootRoutable = FakeRootRoutable { action in
+                            if action == "canPush" {
+                                fullfill()
+                            }
+                        }
+
+                        let _ = Router(store: store, rootRoutable: rootRoutable) { state in
+                            state.navigationState
+                        }
+                    }
+                }
             }
 
         }
