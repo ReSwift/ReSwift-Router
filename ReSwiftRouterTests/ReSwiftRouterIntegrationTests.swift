@@ -65,18 +65,14 @@ struct FakeAppState: StateType {
     var navigationState = NavigationState()
 }
 
-class FakeReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return state ?? FakeAppState()
-    }
+func fakeReducer(action: Action, state: FakeAppState?) -> FakeAppState {
+    return state ?? FakeAppState()
 }
 
-struct AppReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return FakeAppState(
-            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
-        )
-    }
+func appReducer(action: Action, state: FakeAppState?) -> FakeAppState {
+    return FakeAppState(
+        navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+    )
 }
 
 class SwiftFlowRouterIntegrationTests: QuickSpec {
@@ -88,7 +84,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var store: Store<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: CombinedReducer([AppReducer()]), state: FakeAppState())
+                store = Store(reducer: appReducer, state: FakeAppState())
             }
 
             describe("setup") {
@@ -248,7 +244,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var store: Store<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: AppReducer(), state: nil)
+                store = Store(reducer: appReducer, state: nil)
             }
 
             context("when setting route specific data") {
@@ -276,7 +272,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var router: Router<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: AppReducer(), state: nil)
+                store = Store(reducer: appReducer, state: nil)
                 mockRoutable = MockRoutable()
                 router = Router(store: store, rootRoutable: mockRoutable) { state in
                     state.navigationState
