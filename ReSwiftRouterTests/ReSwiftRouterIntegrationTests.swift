@@ -65,18 +65,14 @@ struct FakeAppState: StateType {
     var navigationState = NavigationState()
 }
 
-class FakeReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return state ?? FakeAppState()
-    }
+func fakeReducer(action: Action, state: FakeAppState?) -> FakeAppState {
+    return state ?? FakeAppState()
 }
 
-struct AppReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return FakeAppState(
-            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
-        )
-    }
+func appReducer(action: Action, state: FakeAppState?) -> FakeAppState {
+    return FakeAppState(
+        navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+    )
 }
 
 class SwiftFlowRouterIntegrationTests: QuickSpec {
@@ -88,7 +84,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var store: Store<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: CombinedReducer([AppReducer()]), state: FakeAppState())
+                store = Store(reducer: appReducer, state: FakeAppState())
             }
 
             describe("setup") {
@@ -198,6 +194,46 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     }
                 }
 
+                it("will call canPush") {
+                    store.dispatch(
+                        SetRouteAction(
+                            ["TabBarViewController"]
+                        )
+                    )
+
+                    class FakeRootRoutable: Routable {
+                        var calledFunction: (String) -> Void
+
+                        init(calledFunction: @escaping (String) -> Void) {
+                            self.calledFunction = calledFunction
+                        }
+
+                        func canPush(segment: RouteElementIdentifier) -> Bool {
+                            calledFunction("canPush")
+                            return false
+                        }
+
+                        func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                            calledFunction("pushRouteSegment")
+
+                            completionHandler()
+                            return MockRoutable()
+                        }
+
+                    }
+
+                    waitUntil(timeout: 2.0) { fullfill in
+                        let rootRoutable = FakeRootRoutable { action in
+                            if action == "canPush" {
+                                fullfill()
+                            }
+                        }
+
+                        let _ = Router(store: store, rootRoutable: rootRoutable) { state in
+                            state.navigationState
+                        }
+                    }
+                }
             }
 
         }
@@ -208,7 +244,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var store: Store<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: AppReducer(), state: nil)
+                store = Store(reducer: appReducer, state: nil)
             }
 
             context("when setting route specific data") {
@@ -236,7 +272,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var router: Router<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: AppReducer(), state: nil)
+                store = Store(reducer: appReducer, state: nil)
                 mockRoutable = MockRoutable()
                 router = Router(store: store, rootRoutable: mockRoutable) { state in
                     state.navigationState

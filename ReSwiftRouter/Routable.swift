@@ -26,6 +26,11 @@ public protocol Routable {
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
 
+    func canPush(segment: RouteElementIdentifier) -> Bool
+
+    func canPop(segment: RouteElementIdentifier) -> Bool
+
+    func canChange(segment: RouteElementIdentifier) -> Bool
 }
 
 extension Routable {
@@ -52,4 +57,15 @@ extension Routable {
             fatalError("This routable cannot change segments. You have not implemented it.")
     }
 
+    public func canPush(segment: RouteElementIdentifier) -> Bool {
+        return true
+    }
+
+    public func canPop(segment: RouteElementIdentifier) -> Bool {
+        return true
+    }
+
+    public func canChange(segment: RouteElementIdentifier) -> Bool {
+        return true
+    }
 }
