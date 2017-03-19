@@ -148,7 +148,7 @@ open class Router<State: StateType>: StoreSubscriber {
                 let routeSegmentToPop = oldRoute[routeBuildingIndex]
 
                 let popAction = RoutingActions.pop(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
+                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex),
                     segmentToBePopped: routeSegmentToPop
                 )
 
