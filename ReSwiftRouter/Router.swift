@@ -50,7 +50,7 @@ open class Router<State: StateType>: StoreSubscriber {
                                     semaphore.signal()
                         }
 
-                        self.routables.remove(at: responsibleRoutableIndex + 1)
+                        self.routables.remove(at: responsibleRoutableIndex)
                     }
 
                 case let .change(responsibleRoutableIndex, segmentToBeReplaced, newSegment):
