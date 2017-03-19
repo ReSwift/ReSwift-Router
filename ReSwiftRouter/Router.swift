@@ -161,7 +161,7 @@ open class Router<State: StateType>: StoreSubscriber {
             //  we need to pop the route segment after the commonSubroute"
             if oldRoute.count > newRoute.count {
                 let popAction = RoutingActions.pop(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
+                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex),
                     segmentToBePopped: oldRoute[routeBuildingIndex]
                 )
 
