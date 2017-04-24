@@ -10,7 +10,7 @@ env:
     - FRAMEWORK_NAME="ReSwiftRouter"
     - UPDATE_DOCS="false"
 
-osx_image: xcode8.2
+osx_image: xcode8.3
 
 matrix:
   include:
