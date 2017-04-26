@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
   s.watchos.deployment_target = '2.0'
   s.requires_arc = true
   s.source_files     = 'ReSwiftRouter/**/*.swift'
-  s.dependency 'ReSwift', '~> 3.0.0'
+  s.dependency 'ReSwift', '~> 4.0.0'
 end
