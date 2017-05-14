@@ -11,18 +11,17 @@ import ReSwift
 
 open class Router<State: StateType>: StoreSubscriber {
 
-    public typealias NavigationStateSelector = (State) -> NavigationState
+    public typealias NavigationStateTransform = (Subscription<State>) -> Subscription<NavigationState>
 
     var store: Store<State>
     var lastNavigationState = NavigationState()
     var routables: [Routable] = []
     let waitForRoutingCompletionQueue = DispatchQueue(label: "WaitForRoutingCompletionQueue", attributes: [])
 
-    public init(store: Store<State>, rootRoutable: Routable,  stateSelector: @escaping NavigationStateSelector) {
+    public init(store: Store<State>, rootRoutable: Routable,  stateTransform: @escaping NavigationStateTransform) {
         self.store = store 
         self.routables.append(rootRoutable)
-
-        self.store.subscribe(self, selector: stateSelector)
+        self.store.subscribe(self, transform: stateTransform)
     }
 
     open func newState(state: NavigationState) {

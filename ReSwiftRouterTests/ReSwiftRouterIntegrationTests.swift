@@ -65,18 +65,14 @@ struct FakeAppState: StateType {
     var navigationState = NavigationState()
 }
 
-class FakeReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return state ?? FakeAppState()
-    }
+func fakeReducer(action: Action, state: FakeAppState?) -> FakeAppState {
+    return state ?? FakeAppState()
 }
 
-struct AppReducer: Reducer {
-    func handleAction(action: Action, state: FakeAppState?) -> FakeAppState {
-        return FakeAppState(
-            navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
-        )
-    }
+func appReducer(action: Action, state: FakeAppState?) -> FakeAppState {
+    return FakeAppState(
+        navigationState: NavigationReducer.handleAction(action, state: state?.navigationState)
+    )
 }
 
 class SwiftFlowRouterIntegrationTests: QuickSpec {
@@ -88,7 +84,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var store: Store<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: CombinedReducer([AppReducer()]), state: FakeAppState())
+                store = Store(reducer: appReducer, state: FakeAppState())
             }
 
             describe("setup") {
@@ -107,7 +103,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                     let routable = FakeRootRoutable()
                     let _ = Router(store: store, rootRoutable: routable) { state in
-                        state.navigationState
+                        state.select { $0.navigationState }
                     }
 
                     expect(routable.called).to(beFalse())
@@ -144,7 +140,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                         }
 
                         let _ = Router(store: store, rootRoutable: rootRoutable) { state in
-                            state.navigationState
+                            state.select { $0.navigationState }
                         }
                     }
                 }
@@ -185,7 +181,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                                 self.injectedRoutable = injectedRoutable
                             }
 
-                            func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                            func pushRouteSegment(_ routeElementIdentifier: RouteElementIdentifier,
+                                animated: Bool,
+                                completionHandler: @escaping RoutingCompletionHandler) -> Routable {
                                     completionHandler()
                                     return injectedRoutable
                             }
@@ -193,8 +191,8 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                         let _ = Router(store: store, rootRoutable:
                             FakeRootRoutable(injectedRoutable: fakeChildRoutable)) { state in
-                                state.navigationState
-                        }
+                                state.select { $0.navigationState }
+                            }
                     }
                 }
 
@@ -208,7 +206,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var store: Store<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: AppReducer(), state: nil)
+                store = Store(reducer: appReducer, state: nil)
             }
 
             context("when setting route specific data") {
@@ -236,10 +234,10 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
             var router: Router<FakeAppState>!
 
             beforeEach {
-                store = Store(reducer: AppReducer(), state: nil)
+                store = Store(reducer: appReducer, state: nil)
                 mockRoutable = MockRoutable()
                 router = Router(store: store, rootRoutable: mockRoutable) { state in
-                    state.navigationState
+                    state.select { $0.navigationState }
                 }
 
                 // silence router not read warning, need to keep router alive via reference
