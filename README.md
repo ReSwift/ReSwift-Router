@@ -13,7 +13,7 @@ mainStore.dispatch(
 )
 ```    
 
-#About ReSwiftRouter
+# About ReSwiftRouter
 
 **ReSwiftRouter is still under development and the API is neither complete nor stable at this point.**
 
@@ -21,10 +21,10 @@ When building apps with ReSwift you should aim to cause **all** state changes th
 
 This requires to store the current navigation state within the app state and to use actions to trigger changes to that state - both is provided ReSwiftRouter.
 
-#Installation
+# Installation
 
 
-##CocoaPods
+## CocoaPods
 
 You can install ReSwiftRouter via CocoaPods by adding it to your `Podfile`:
 
@@ -35,16 +35,16 @@ You can install ReSwiftRouter via CocoaPods by adding it to your `Podfile`:
 
 	pod 'ReSwift'
 	pod 'ReSwiftRouter'
-	
+
 And run `pod install`.
 
-##Carthage
+## Carthage
 
 You can install ReSwiftRouter via [Carthage]() by adding the following line to your Cartfile:
 
 	github "ReSwift/ReSwiftRouter"
 
-#Configuration
+# Configuration
 
 Extend your app state to include the navigation state:
 
@@ -67,7 +67,7 @@ router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewC
 
 We'll discuss `Routable` in the next main section.
 
-##Calling the Navigation Reducer
+## Calling the Navigation Reducer
 
 The `NavigationReducer` is provided as part of `ReSwiftRouter`. You need to call it from within your top-level reducer. Here's a simple example from the specs:
 
@@ -82,7 +82,7 @@ struct AppReducer: Reducer {
 ```
 This will make reducer handle all routing relevant actions.
 
-#Implementing `Routable`
+# Implementing `Routable`
 
 ReSwiftRouter works with routes that are defined, similar to URLs, as a sequence of identifiers e.g. `["Home", "User", "UserDetail"]`. 
 
@@ -150,11 +150,11 @@ func popRouteSegment(identifier: RouteElementIdentifier,
 }
 ```
 
-##Calling the Completion Handler within Routables
+## Calling the Completion Handler within Routables
 
 ReSwiftRouter needs to throttle the navigation actions, since many UI frameworks including UIKit don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completionHandler`. The router will not perform any further navigation actions until the completion handler is called.
 
-#Changing the Current Route
+# Changing the Current Route
 
 Currently the only way to change the current application route is by using the `SetRouteAction` and providing an absolute route. Here's a brief example:
 
@@ -168,8 +168,8 @@ Currently the only way to change the current application route is by using the `
 As development continues, support for changing individual route segments will be added.
 
 
-#Contributing
+# Contributing
 
-##Compiling & Running tests
+## Compiling & Running tests
 
 ReSwiftRouter uses [Carthage]() for its development dependencies. To build or test any of the targets, run `carthage bootstrap`.
