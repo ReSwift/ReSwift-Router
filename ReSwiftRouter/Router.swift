@@ -28,9 +28,10 @@ open class Router<State: StateType>: StoreSubscriber {
         let routingActions = Router.routingActionsForTransitionFrom(
             lastNavigationState.route, newRoute: state.route)
 
-        routingActions.forEach { routingAction in
+        routingActions.enumerated().forEach { (index, routingAction) in
 
             let semaphore = DispatchSemaphore(value: 0)
+            let isFinal = (index == routingActions.count - 1)
 
             // Dispatch all routing actions onto this dedicated queue. This will ensure that
             // only one routing action can run at any given time. This is important for using this
@@ -45,7 +46,10 @@ open class Router<State: StateType>: StoreSubscriber {
                         self.routables[responsibleRoutableIndex]
                             .popRouteSegment(
                                 segmentToBePopped,
-                                animated: state.changeRouteAnimated) {
+                                animated: state.changeRouteAnimated) { [weak self] in
+                                    if let completionAction = state.completionAction, isFinal {
+                                        self?.store.dispatch(completionAction)
+                                    }
                                     semaphore.signal()
                         }
 
@@ -59,7 +63,10 @@ open class Router<State: StateType>: StoreSubscriber {
                                 .changeRouteSegment(
                                     segmentToBeReplaced,
                                     to: newSegment,
-                                    animated: state.changeRouteAnimated) {
+                                    animated: state.changeRouteAnimated) { [weak self] in
+                                        if let completionAction = state.completionAction, isFinal {
+                                            self?.store.dispatch(completionAction)
+                                        }
                                         semaphore.signal()
                         }
                     }
@@ -70,7 +77,10 @@ open class Router<State: StateType>: StoreSubscriber {
                             self.routables[responsibleRoutableIndex]
                                 .pushRouteSegment(
                                     segmentToBePushed,
-                                    animated: state.changeRouteAnimated) {
+                                    animated: state.changeRouteAnimated) { [weak self] in
+                                        if let completionAction = state.completionAction, isFinal {
+                                            self?.store.dispatch(completionAction)
+                                        }
                                         semaphore.signal()
                             }
                         )
