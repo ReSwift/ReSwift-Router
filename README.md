@@ -11,7 +11,7 @@ Using ReSwiftRouter you can navigate your app by defining the target location in
 mainStore.dispatch(
     SetRouteAction(["TabBarViewController", StatsViewController.identifier])
 )
-```    
+```
 
 # About ReSwiftRouter
 
@@ -32,7 +32,7 @@ You can install ReSwiftRouter via CocoaPods by adding it to your `Podfile`:
 
 	source 'https://github.com/CocoaPods/Specs.git'
 	platform :ios, '8.0'
-
+	
 	pod 'ReSwift'
 	pod 'ReSwiftRouter'
 

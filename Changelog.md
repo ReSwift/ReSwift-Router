@@ -8,7 +8,7 @@
 
 
 
-#0.5.0
+# 0.5.0
 
 *Released: 11/24/2016*
 
@@ -16,7 +16,7 @@
 
 - Swift 3.0.1 / Xcode 8.1 updates -  @DivineDominion, @frranck
 
-#0.4.0
+# 0.4.0
 
 *Released: 09/21/2016*
 
@@ -25,7 +25,7 @@
 - Swift 3 Migration - @Ben-G
 - Documentation Fix - @excitedhoney
 
-#0.3.1
+# 0.3.1
 
 *Released: 07/16/2016*
 
@@ -33,7 +33,7 @@
 
 - Expose `RouteHash` initializer publicly - @Ben-G
 
-#0.3.0
+# 0.3.0
 
 *Released: 06/28/2016*
 
@@ -42,7 +42,7 @@
 - Update syntax to Swift 2.3 - @mjarvis
 - Update to ReSwift 2.0.0 - @Ben-G
 
-#0.2.7
+# 0.2.7
 
 *Released: 03/23/2016*
 
@@ -50,7 +50,7 @@
 
 - Fix issue when checking out with Carthage (#20) - @Ben-G
 
-#0.2.6
+# 0.2.6
 
 *Released: 03/20/2016*
 
@@ -65,14 +65,14 @@
 - Use a symbolic breakpoint in place of an `assertionFailure` for handling a stuck router - @Ben-G
 - Documentation Fix - @jschmid
 
-#0.2.5
+# 0.2.5
 
 *Released: 02/22/2016*
 
 **API Changes:**
 - ReSwift-Router now uses the new substate selection API when subscribing to a store. As a result, the `HasNavigationState` protocol has been removed. This change also allows an app to have multiple routers. - @Ben-G
 
-#0.2.4
+# 0.2.4
 
 *Released: 01/23/2016*
 
