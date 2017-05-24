@@ -22,6 +22,10 @@ public struct SetRouteAction: StandardActionConvertible {
         self.route = route
         self.animated = animated
     }
+    
+    public init(route: RouteElementIdentifier..., animated: Bool = true) {
+        self.init(route, animated: animated)
+    }
 
     public init(_ action: StandardAction) {
         self.route = action.payload!["route"] as! Route
@@ -36,6 +40,12 @@ public struct SetRouteAction: StandardActionConvertible {
         )
     }
     
+}
+
+public extension Store {
+    public func dispatchRoute(route: RouteElementIdentifier..., animated: Bool = true) {
+        dispatch(SetRouteAction(route, animated: animated))
+    }
 }
 
 public struct SetRouteSpecificData: Action {
