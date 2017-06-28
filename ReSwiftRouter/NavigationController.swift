@@ -77,7 +77,7 @@ extension NavigationController: UINavigationBarDelegate {
 
 extension UINavigationController {
     
-    func pushViewController(_ viewController: UIViewController, animated: Bool, completion: @escaping () -> Void) {
+    open func pushViewController(_ viewController: UIViewController, animated: Bool, completion: @escaping () -> Void) {
         
         self.pushViewController(viewController, animated: animated)
         
@@ -89,7 +89,7 @@ extension UINavigationController {
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
     }
     
-    func popViewController(animated: Bool, completion: @escaping () -> Void) -> UIViewController? {
+    open func popViewController(animated: Bool, completion: @escaping () -> Void) -> UIViewController? {
         
         let popped = self.popViewController(animated: animated)
         
