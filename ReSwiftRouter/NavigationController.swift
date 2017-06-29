@@ -9,7 +9,7 @@
 import UIKit
 
 // dummy view controller returned when popViewController is canceled
-final class PopWasIgnored: UIViewController {}
+public final class PopWasIgnored: UIViewController {}
 
 open class NavigationController: UINavigationController {
     
@@ -42,7 +42,7 @@ open class NavigationController: UINavigationController {
     
     /// should be overriden
     /// normally you should dispatch SetRouteAction here
-    open func changeRoute(){
+    open func popRoute(){
         print("WARNING: \(#function) should to be overriden")
     }
 }
@@ -64,9 +64,9 @@ extension NavigationController: UINavigationBarDelegate {
         
         // changeRoute is performed:
         // 1. back button was pressed
-        // 2. pop swipe is triggerred
+        // 2. pop swipe was triggerred
         if !isPerformingPop || self.isSwipping {
-            self.changeRoute()
+            self.popRoute()
         }
         
         // don't remove the navigationItem if navigationController
