@@ -1,3 +1,12 @@
+# 0.6.0
+
+*Released: 6/29/2017*
+
+**Other**:
+
+- Update to ReSwift 4.0 - @Ben-G
+- Lower iOS Deployment Target to 8.0 - @Ben-G
+
 # 0.5.1
 
 *Released: 11/24/2016*
