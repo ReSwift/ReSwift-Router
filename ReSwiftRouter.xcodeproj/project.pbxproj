@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1ADD0D9B1F041625004B2FD7 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADD0D9A1F041625004B2FD7 /* NavigationController.swift */; };
 		254B3BAD1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */; };
 		254B3BAE1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */; };
 		254B3BAF1D3AD6DD00B1E4F0 /* RouteHashSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */; };
@@ -94,6 +95,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1ADD0D9A1F041625004B2FD7 /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationController.swift; path = ReSwiftRouter/NavigationController.swift; sourceTree = SOURCE_ROOT; };
 		254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteHashSpec.swift; path = ReSwiftRouterTests/RouteHashSpec.swift; sourceTree = SOURCE_ROOT; };
 		25C0A9C51C50AF6400139FA7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ReSwiftRouter/Info.plist; sourceTree = SOURCE_ROOT; };
 		25C0A9C61C50AF6400139FA7 /* NavigationActions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NavigationActions.swift; path = ReSwiftRouter/NavigationActions.swift; sourceTree = SOURCE_ROOT; };
@@ -220,6 +222,7 @@
 				25C0A9C61C50AF6400139FA7 /* NavigationActions.swift */,
 				25C0A9C71C50AF6400139FA7 /* NavigationReducer.swift */,
 				25C0A9C81C50AF6400139FA7 /* NavigationState.swift */,
+				1ADD0D9A1F041625004B2FD7 /* NavigationController.swift */,
 				25C0A9C91C50AF6400139FA7 /* ReSwiftRouter.h */,
 				25C0A9CA1C50AF6400139FA7 /* Routable.swift */,
 				25C0A9CB1C50AF6400139FA7 /* Router.swift */,
@@ -774,6 +777,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25C0A9CE1C50AF6400139FA7 /* NavigationReducer.swift in Sources */,
+				1ADD0D9B1F041625004B2FD7 /* NavigationController.swift in Sources */,
 				25C0A9CF1C50AF6400139FA7 /* NavigationState.swift in Sources */,
 				25C0A9D21C50AF6400139FA7 /* Router.swift in Sources */,
 				25C0A9CD1C50AF6400139FA7 /* NavigationActions.swift in Sources */,
