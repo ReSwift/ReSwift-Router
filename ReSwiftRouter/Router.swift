@@ -49,7 +49,7 @@ open class Router<State: StateType>: StoreSubscriber {
                                     semaphore.signal()
                         }
 
-                        self.routables.remove(at: responsibleRoutableIndex + 1)
+                        self.routables.remove(at: responsibleRoutableIndex)
                     }
 
                 case let .change(responsibleRoutableIndex, segmentToBeReplaced, newSegment):
@@ -147,7 +147,7 @@ open class Router<State: StateType>: StoreSubscriber {
                 let routeSegmentToPop = oldRoute[routeBuildingIndex]
 
                 let popAction = RoutingActions.pop(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
+                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex),
                     segmentToBePopped: routeSegmentToPop
                 )
 
@@ -160,7 +160,7 @@ open class Router<State: StateType>: StoreSubscriber {
             //  we need to pop the route segment after the commonSubroute"
             if oldRoute.count > newRoute.count {
                 let popAction = RoutingActions.pop(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
+                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex),
                     segmentToBePopped: oldRoute[routeBuildingIndex]
                 )
 
