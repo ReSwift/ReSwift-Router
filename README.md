@@ -61,7 +61,7 @@ After you've initialized your store, create an instance of `Router`, passing in 
 
 ```swift
 router = Router(store: mainStore, rootRoutable: RootRoutable(routable: rootViewController)) { state in 
-	state.navigationState
+	state.select { $0.navigationState }
 }
 ```
 
