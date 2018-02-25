@@ -39,11 +39,59 @@ public struct SetRouteAction: StandardActionConvertible {
 }
 
 public struct SetRouteSpecificData: Action {
+
     let route: Route
     let data: Any
 
     public init(route: Route, data: Any) {
         self.route = route
         self.data = data
+    }
+}
+
+public struct PushPathAction: StandardActionConvertible {
+
+    let path: RouteElementIdentifier
+    let animated: Bool
+    public static let type = "RE_SWIFT_ROUTER_PUSH_PATH"
+
+    public init(_ path: RouteElementIdentifier, animated: Bool = true) {
+        self.path = path
+        self.animated = animated
+    }
+
+    public init(_ action: StandardAction) {
+        self.path = action.payload!["path"] as! RouteElementIdentifier
+        self.animated = action.payload!["animated"] as! Bool
+    }
+
+    public func toStandardAction() -> StandardAction {
+        return StandardAction(
+            type: PushPathAction.type,
+            payload: ["path": path as AnyObject, "animated": animated as AnyObject],
+            isTypedAction: true
+        )
+    }
+}
+
+public struct PopPathAction: StandardActionConvertible {
+
+    let animated: Bool
+    public static let type = "RE_SWIFT_ROUTER_POP_PATH"
+
+    public init(animated: Bool = true) {
+        self.animated = animated
+    }
+
+    public init(_ action: StandardAction) {
+        self.animated = action.payload!["animated"] as! Bool
+    }
+
+    public func toStandardAction() -> StandardAction {
+        return StandardAction(
+            type: PushPathAction.type,
+            payload: ["animated": animated as AnyObject],
+            isTypedAction: true
+        )
     }
 }

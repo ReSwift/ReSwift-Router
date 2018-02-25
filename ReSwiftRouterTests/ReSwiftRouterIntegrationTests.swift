@@ -273,9 +273,29 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                     expect(mockRoutable.callsToPushRouteSegment.last?.animated).toEventually(beTrue())
                 }
             }
+
+            context("when dispatching a push route path change") {
+                beforeEach {
+                    store.dispatch(PushPathAction("someRoute"))
+                }
+
+                it("calls routables asking for an animated presentation") {
+                    expect(mockRoutable.callsToPushRouteSegment.last?.animated).toEventually(beTrue())
+                }
+            }
+
+            context("when dispatching a pop route path change") {
+                beforeEach {
+                    store.dispatch(PushPathAction("someRoute"))
+                    store.dispatch(PopPathAction())
+                }
+
+                it("calls routables asking for an animated presentation") {
+                    expect(mockRoutable.callsToPopRouteSegment.last?.animated).toEventually(beTrue())
+                }
+            }
+
         }
-
-
     }
     
 }

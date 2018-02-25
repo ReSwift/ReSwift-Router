@@ -22,6 +22,10 @@ public struct NavigationReducer {
         switch action {
         case let action as SetRouteAction:
             return setRoute(state, setRouteAction: action)
+        case let action as PushPathAction:
+            return pushPath(state, pushPathAction: action)
+        case let action as PopPathAction:
+            return popPath(state, popPathAction: action)
         case let action as SetRouteSpecificData:
             return setRouteSpecificData(state, route: action.route, data: action.data)
         default:
@@ -36,6 +40,24 @@ public struct NavigationReducer {
 
         state.route = setRouteAction.route
         state.changeRouteAnimated = setRouteAction.animated
+
+        return state
+    }
+
+    static func pushPath(_ state: NavigationState, pushPathAction: PushPathAction) -> NavigationState {
+        var state = state
+
+        state.route.append(pushPathAction.path)
+        state.changeRouteAnimated = pushPathAction.animated
+
+        return state
+    }
+
+    static func popPath(_ state: NavigationState, popPathAction: PopPathAction) -> NavigationState {
+        var state = state
+
+        state.route = Array(state.route.dropLast())
+        state.changeRouteAnimated = popPathAction.animated
 
         return state
     }
