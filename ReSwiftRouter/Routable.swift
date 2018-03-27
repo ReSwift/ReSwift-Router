@@ -20,6 +20,11 @@ public protocol Routable {
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler)
 
+    func popRouteSegments(
+            _ routeElementIdentifiers: [RouteElementIdentifier],
+            animated: Bool,
+            completionHandler: @escaping RoutingCompletionHandler)
+
     func changeRouteSegment(
         _ from: RouteElementIdentifier,
         to: RouteElementIdentifier,
@@ -42,6 +47,13 @@ extension Routable {
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) {
             fatalError("This routable cannot pop segments. You have not implemented it. (Asked \(type(of: self)) to pop \(routeElementIdentifier))")
+    }
+
+    public func popRouteSegments(
+            _ routeElementIdentifiers: [RouteElementIdentifier],
+            animated: Bool,
+            completionHandler: @escaping RoutingCompletionHandler) {
+        fatalError("This routable cannot popTo segments. You have not implemented it. (Asked \(type(of: self)) to pop \(routeElementIdentifiers))")
     }
 
     public func changeRouteSegment(
