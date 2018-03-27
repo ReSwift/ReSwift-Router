@@ -194,16 +194,19 @@ open class Router<State: StateType>: StoreSubscriber {
 
         if groupPops {
             routingActions = routingActions.reduce([]) { acc, item in
-                if case let .pop(popRoutableIndex, segmentToBePopped) = item {
+                if case let .pop(responsibleRoutableIndex, segmentToBePopped) = item {
                     switch acc.last {
-                    case let .some(.popGroup(_, segmentsToBePopped)):
+                    case let .some(.popGroup(_, prevSegmentsToBePopped)):
                         return Array(acc.dropLast()) + [RoutingActions
-                                .popGroup(responsibleRoutableIndex: popRoutableIndex,
-                                segmentsToBePopped: segmentsToBePopped + [segmentToBePopped])]
+                                .popGroup(responsibleRoutableIndex: responsibleRoutableIndex,
+                                segmentsToBePopped: prevSegmentsToBePopped + [segmentToBePopped])]
+
+                    case let .some(.pop(_, prevSegmentToBePopped)):
+                        return Array(acc.dropLast()) + [RoutingActions
+                                .popGroup(responsibleRoutableIndex: responsibleRoutableIndex,
+                                segmentsToBePopped: [prevSegmentToBePopped] + [segmentToBePopped])]
                     default:
-                        return acc + [RoutingActions
-                                .popGroup(responsibleRoutableIndex: popRoutableIndex,
-                                segmentsToBePopped: [segmentToBePopped])]
+                        break
                     }
                 }
                 return acc + [item]
