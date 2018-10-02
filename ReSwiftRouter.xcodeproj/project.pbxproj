@@ -16,7 +16,6 @@
 		25C0A9D01C50AF6400139FA7 /* ReSwiftRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 25C0A9C91C50AF6400139FA7 /* ReSwiftRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25C0A9D11C50AF6400139FA7 /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9CA1C50AF6400139FA7 /* Routable.swift */; };
 		25C0A9D21C50AF6400139FA7 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9CB1C50AF6400139FA7 /* Router.swift */; };
-		25C0A9D61C50AF8B00139FA7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25C0A9D31C50AF8B00139FA7 /* Info.plist */; };
 		25C0A9D91C50AF8D00139FA7 /* ReSwiftRouterIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9D41C50AF8B00139FA7 /* ReSwiftRouterIntegrationTests.swift */; };
 		25C0A9DA1C50AF8F00139FA7 /* ReSwiftRouterTestsUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9D51C50AF8B00139FA7 /* ReSwiftRouterTestsUnitTests.swift */; };
 		6209C0531C54257D004E6B66 /* NavigationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9C61C50AF6400139FA7 /* NavigationActions.swift */; };
@@ -600,7 +599,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25C0A9D61C50AF8B00139FA7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
