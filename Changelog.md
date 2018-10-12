@@ -1,3 +1,11 @@
+# Upcoming
+
+**Breaking API Changes:**
+- Remove use of `StandardAction` and `StandardActionConvertible` (#82) - @hlineholm
+
+    - Removes the compatibility of this with `ReSwift-Recorder`, which itself is being deprecated.
+    - Ensures compatibility with latest versions of `ReSwift` which have removed these types.
+
 # 0.6.0
 
 *Released: 6/29/2017*
