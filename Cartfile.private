@@ -1,6 +1,2 @@
 github "Quick/Quick"
-
-# Release 7.0.1 produces a build error due to using a `swift-version` argument
-# See: https://github.com/Quick/Nimble/issues/434
-# As of now fix has not been released yet.
-github "Quick/Nimble"  == 7.0.0
+github "Quick/Nimble"

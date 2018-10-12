@@ -16,7 +16,6 @@
 		25C0A9D01C50AF6400139FA7 /* ReSwiftRouter.h in Headers */ = {isa = PBXBuildFile; fileRef = 25C0A9C91C50AF6400139FA7 /* ReSwiftRouter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		25C0A9D11C50AF6400139FA7 /* Routable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9CA1C50AF6400139FA7 /* Routable.swift */; };
 		25C0A9D21C50AF6400139FA7 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9CB1C50AF6400139FA7 /* Router.swift */; };
-		25C0A9D61C50AF8B00139FA7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 25C0A9D31C50AF8B00139FA7 /* Info.plist */; };
 		25C0A9D91C50AF8D00139FA7 /* ReSwiftRouterIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9D41C50AF8B00139FA7 /* ReSwiftRouterIntegrationTests.swift */; };
 		25C0A9DA1C50AF8F00139FA7 /* ReSwiftRouterTestsUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9D51C50AF8B00139FA7 /* ReSwiftRouterTestsUnitTests.swift */; };
 		6209C0531C54257D004E6B66 /* NavigationActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25C0A9C61C50AF6400139FA7 /* NavigationActions.swift */; };
@@ -225,8 +224,7 @@
 				25C0A9CB1C50AF6400139FA7 /* Router.swift */,
 				625E66E21C2000620027C288 /* Frameworks */,
 			);
-			name = ReSwiftRouter;
-			path = SwiftFlowRouter;
+			path = ReSwiftRouter;
 			sourceTree = "<group>";
 		};
 		625E66E21C2000620027C288 /* Frameworks */ = {
@@ -249,8 +247,7 @@
 				254B3BAC1D3AD6DD00B1E4F0 /* RouteHashSpec.swift */,
 				625E67001C2001F60027C288 /* Frameworks */,
 			);
-			name = ReSwiftRouterTests;
-			path = SwiftFlowRouterTests;
+			path = ReSwiftRouterTests;
 			sourceTree = "<group>";
 		};
 		625E67001C2001F60027C288 /* Frameworks */ = {
@@ -504,7 +501,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Benjamin Encz";
 				TargetAttributes = {
 					6209C04A1C54256F004E6B66 = {
@@ -529,11 +526,11 @@
 					};
 					625E66CC1C1FFE280027C288 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1000;
 					};
 					625E66F01C2000EA0027C288 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -600,7 +597,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				25C0A9D61C50AF8B00139FA7 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1048,14 +1044,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1099,14 +1103,22 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -1157,7 +1169,7 @@
 				PRODUCT_NAME = ReSwiftRouter;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1181,7 +1193,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.benjamin-encz.ReSwiftRouter";
 				PRODUCT_NAME = ReSwiftRouter;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1196,7 +1208,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.benjamin-encz.SwiftFlowRouterTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1211,7 +1223,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "de.benjamin-encz.SwiftFlowRouterTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
