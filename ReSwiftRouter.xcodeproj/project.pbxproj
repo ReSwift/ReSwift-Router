@@ -387,7 +387,6 @@
 				6209C05D1C5427E0004E6B66 /* Frameworks */,
 				6209C05E1C5427E0004E6B66 /* Headers */,
 				6209C05F1C5427E0004E6B66 /* Resources */,
-				D47F3A941E00896B00AAA70A /* Carthage Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -425,7 +424,6 @@
 				6209C0841C5428DE004E6B66 /* Frameworks */,
 				6209C0851C5428DE004E6B66 /* Headers */,
 				6209C0861C5428DE004E6B66 /* Resources */,
-				D47F3A601E0087D900AAA70A /* Carthage Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -463,7 +461,6 @@
 				625E66C91C1FFE280027C288 /* Frameworks */,
 				625E66CA1C1FFE280027C288 /* Headers */,
 				625E66CB1C1FFE280027C288 /* Resources */,
-				D47F3A551E0085A300AAA70A /* Carthage Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -610,21 +607,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D47F3A551E0085A300AAA70A /* Carthage Copy Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/ReSwift.framework",
-			);
-			name = "Carthage Copy Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
 		D47F3A581E0086C800AAA70A /* Carthage Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -634,21 +616,6 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Nimble.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Quick.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/ReSwift.framework",
-			);
-			name = "Carthage Copy Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		D47F3A601E0087D900AAA70A /* Carthage Copy Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/Mac/ReSwift.framework",
 			);
 			name = "Carthage Copy Frameworks";
 			outputPaths = (
@@ -672,22 +639,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-		D47F3A941E00896B00AAA70A /* Carthage Copy Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/tvOS/ReSwift.framework",
-			);
-			name = "Carthage Copy Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 		D47F3A951E00899600AAA70A /* Carthage Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -704,7 +656,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
