@@ -10,19 +10,19 @@ public typealias RoutingCompletionHandler = () -> Void
 
 public protocol Routable {
 
-    func pushRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+    func push(
+        _ element: RouteElement,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
 
-    func popRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+    func pop(
+        _ element: RouteElement,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler)
 
-    func changeRouteSegment(
-        _ from: RouteElementIdentifier,
-        to: RouteElementIdentifier,
+    func change(
+        _ from: RouteElement,
+        to: RouteElement,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable
 
@@ -30,26 +30,26 @@ public protocol Routable {
 
 extension Routable {
 
-    public func pushRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+    public func push(
+        _ element: RouteElement,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable {
-            fatalError("This routable cannot push segments. You have not implemented it. (Asked \(type(of: self)) to push \(routeElementIdentifier))")
+            fatalError("This routable cannot push elements. You have not implemented it. (Asked \(type(of: self)) to push \(element))")
     }
 
-    public func popRouteSegment(
-        _ routeElementIdentifier: RouteElementIdentifier,
+    public func pop(
+        _ element: RouteElement,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) {
-            fatalError("This routable cannot pop segments. You have not implemented it. (Asked \(type(of: self)) to pop \(routeElementIdentifier))")
+            fatalError("This routable cannot pop elements. You have not implemented it. (Asked \(type(of: self)) to pop \(element))")
     }
 
-    public func changeRouteSegment(
-        _ from: RouteElementIdentifier,
-        to: RouteElementIdentifier,
+    public func change(
+        _ from: RouteElement,
+        to: RouteElement,
         animated: Bool,
         completionHandler: @escaping RoutingCompletionHandler) -> Routable {
-            fatalError("This routable cannot change segments. You have not implemented it. (Asked \(type(of: self)) to change from \(from) to \(to))")
+            fatalError("This routable cannot change elements. You have not implemented it. (Asked \(type(of: self)) to change from \(from) to \(to))")
     }
 
 }
