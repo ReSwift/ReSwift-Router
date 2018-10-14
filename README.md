@@ -99,18 +99,18 @@ public protocol Routable {
     func push(
         _ element: RouteElement,
         animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler) -> Routable
+        completion: @escaping RoutingCompletion) -> Routable
 
     func pop(
         _ element: RouteElement,
         animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler)
+        completion: @escaping RoutingCompletion)
 
     func change(
         _ from: RouteElement,
         to: RouteElement,
         animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler) -> Routable
+        completion: @escaping RoutingCompletion) -> Routable
 
 }
 
@@ -127,16 +127,16 @@ Whenever a `Routable` presents a new route element, it needs to return a new `Ro
 If your navigation stack uses a modal presentation for this transition, the implementation of `Routable` for the `"Home"` element might look like this:
 
 ```swift
-func push(_ element: RouteElement, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+func push(_ element: RouteElement, animated: Bool, completion: @escaping RoutingCompletion) -> Routable {
 
 	if element == "User" {
 		// 1.) Perform the transition
         userViewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewControllerWithIdentifier("UserViewController") as! Routable
 
-		// 2.) Call the `completionHandler` once the transition is complete
+		// 2.) Call the `completion` once the transition is complete
         presentViewController(userViewController, animated: false,
-            completion: completionHandler)
+            completion: completion)
 
 		// 3.) Return the Routable for the presented element. For convenience
 		// this will often be the UIViewController itself. 
@@ -146,10 +146,10 @@ func push(_ element: RouteElement, animated: Bool, completionHandler: @escaping 
    	// ...
 }
 
-func pop(_ element: RouteElement, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) {
+func pop(_ element: RouteElement, animated: Bool, completion: @escaping RoutingCompletion)
 
 	if element == "Home" {
-    	dismissViewControllerAnimated(false, completion: completionHandler)
+    	dismissViewControllerAnimated(false, completion: completion)
     }
     
     // ...
@@ -158,7 +158,7 @@ func pop(_ element: RouteElement, animated: Bool, completionHandler: @escaping R
 
 ## Calling the Completion Handler within Routables
 
-ReSwiftRouter needs to throttle the navigation actions, since many UI frameworks including UIKit don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completionHandler`. The router will not perform any further navigation actions until the completion handler is called.
+ReSwiftRouter needs to throttle the navigation actions, since many UI frameworks including UIKit don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completion` handler. The router will not perform any further navigation actions until the completion handler is called.
 
 # Changing the Current Route
 

@@ -24,35 +24,35 @@ class MockRoutable: Routable {
     func push(
         _ element: RouteElement,
         animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler
+        completion: @escaping RoutingCompletion
         ) -> Routable {
 
         callsToPushRouteElement.append(
             (routeElement: element, animated: animated)
         )
-        completionHandler()
+        completion()
         return MockRoutable()
     }
 
     func pop(
         _ element: RouteElement,
         animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler) {
+        completion: @escaping RoutingCompletion) {
 
         callsToPopRouteElement.append(
             (routeElement: element, animated: animated)
         )
-        completionHandler()
+        completion()
     }
 
     func change(
         _ from: RouteElement,
         to: RouteElement,
         animated: Bool,
-        completionHandler: @escaping RoutingCompletionHandler
+        completion: @escaping RoutingCompletion
         ) -> Routable {
 
-        completionHandler()
+        completion()
 
         callsToChangeRouteElement.append((from: from, to: to, animated: animated))
 
@@ -95,7 +95,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                         var called = false
 
                         func push(_ element: RouteElement,
-                            completionHandler: RoutingCompletionHandler) -> Routable {
+                            completion: RoutingCompletion) -> Routable {
                                 called = true
                                 return MockRoutable()
                         }
@@ -123,10 +123,10 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithElement = calledWithElement
                         }
 
-                        func push(_ element: RouteElement, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                        func push(_ element: RouteElement, animated: Bool, completion: @escaping RoutingCompletion) -> Routable {
                                 calledWithElement(element)
 
-                                completionHandler()
+                                completion()
                                 return MockRoutable()
                         }
 
@@ -159,10 +159,10 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                             self.calledWithElement = calledWithElement
                         }
 
-                        func push(_ element: RouteElement, animated: Bool, completionHandler: @escaping RoutingCompletionHandler) -> Routable {
+                        func push(_ element: RouteElement, animated: Bool, completion: @escaping RoutingCompletion) -> Routable {
                                 calledWithElement(element)
 
-                                completionHandler()
+                                completion()
                                 return MockRoutable()
                         }
                     }
@@ -183,8 +183,8 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                             func push(_ element: RouteElement,
                                 animated: Bool,
-                                completionHandler: @escaping RoutingCompletionHandler) -> Routable {
-                                    completionHandler()
+                                completion: @escaping RoutingCompletion) -> Routable {
+                                    completion()
                                     return injectedRoutable
                             }
                         }
@@ -222,9 +222,9 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                     expect(data).toEventually(equal("UserID_10"))
                 }
-                
+
             }
-            
+
         }
 
         describe("configuring animated/unanimated navigation") {
@@ -277,5 +277,5 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
 
     }
-    
+
 }
