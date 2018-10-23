@@ -42,7 +42,7 @@ And run `pod install`.
 
 You can install ReSwiftRouter via [Carthage]() by adding the following line to your Cartfile:
 
-	github "ReSwift/ReSwiftRouter"
+	github "ReSwift/ReSwift-Router"
 
 # Configuration
 
