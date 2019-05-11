@@ -20,7 +20,9 @@ public struct RouteHash: Hashable {
         self.routeHash = route.joined(separator: "/")
     }
 
-    public var hashValue: Int { return self.routeHash.hashValue }
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(routeHash)
+    }
 }
 
 public func == (lhs: RouteHash, rhs: RouteHash) -> Bool {
