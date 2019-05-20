@@ -6,6 +6,9 @@
     - Removes the compatibility of this with `ReSwift-Recorder`, which itself is being deprecated.
     - Ensures compatibility with latest versions of `ReSwift` which have removed these types.
 
+**Other:**
+- Update to ReSwift 4.1.1 and fix project setup for SwiftPM & Carthage - @djtech42
+
 # 0.6.0
 
 *Released: 6/29/2017*
