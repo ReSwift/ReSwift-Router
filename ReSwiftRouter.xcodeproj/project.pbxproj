@@ -195,6 +195,7 @@
 				625E66CF1C1FFE280027C288 /* ReSwiftRouter */,
 				625E66F21C2000EA0027C288 /* ReSwiftRouterTests */,
 				625E66CE1C1FFE280027C288 /* Products */,
+				6F0B3C2C22969D7700F1BAAC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -256,6 +257,13 @@
 				D47F3A851E00891200AAA70A /* tvOS */,
 				D47F3A501E0083DB00AAA70A /* iOS */,
 				D47F3A611E00880400AAA70A /* Mac */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6F0B3C2C22969D7700F1BAAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -536,6 +544,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 625E66C31C1FFE270027C288;
