@@ -29,8 +29,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 let oldRoute: Route = []
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
 
                 var action1Correct: Bool?
                 var action2Correct: Bool?
@@ -62,8 +62,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+              let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                to: newRoute)
 
                 var controllerIndex: Int?
                 var toBeReplaced: RouteElementIdentifier?
@@ -88,8 +88,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier,
                     infoViewControllerIdentifier]
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
 
                 var action1Correct: Bool?
                 var action2Correct: Bool?
@@ -124,8 +124,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 let oldRoute = [tabBarViewControllerIdentifier]
                 let newRoute = [statsViewControllerIdentifier]
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
 
                 var controllerIndex: Int?
                 var toBeReplaced: RouteElementIdentifier?
@@ -149,8 +149,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 let oldRoute: Route = []
                 let newRoute: Route = []
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
 
                 expect(routingActions).to(haveCount(0))
             }
@@ -159,8 +159,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 let oldRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
 
                 expect(routingActions).to(haveCount(0))
             }
@@ -170,8 +170,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                     counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier]
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
 
                 var action1Correct: Bool?
                 var action2Correct: Bool?
@@ -204,8 +204,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier,
                     counterViewControllerIdentifier]
 
-                let routingActions = Router<AppState>.routingActionsForTransitionFrom(oldRoute,
-                    newRoute: newRoute)
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
 
                 var action1Correct: Bool?
                 var action2Correct: Bool?

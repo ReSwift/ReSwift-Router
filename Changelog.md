@@ -5,6 +5,9 @@
 
     - Removes the compatibility of this with `ReSwift-Recorder`, which itself is being deprecated.
     - Ensures compatibility with latest versions of `ReSwift` which have removed these types.
+- Renamed argument labels for modern Swift conformance ([#116](<https://github.com/ReSwift/ReSwift-Router/pull/116>)) - @TaeJoongYoon
+    - Renamed `routingActionsForTransitionFrom(_ oldRoute:,newRoute:)` method  to `routingActionsForTransition(from oldRoute:,to newRoute:)`
+    - Renamed `routableIndexForRouteSegment(_ segment:)` method  to `routableIndex(for segment:)`
 
 **Other:**
 - Update to ReSwift 4.1.1 and fix project setup for SwiftPM & Carthage - @djtech42

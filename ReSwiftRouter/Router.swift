@@ -25,8 +25,8 @@ open class Router<State: StateType>: StoreSubscriber {
     }
 
     open func newState(state: NavigationState) {
-        let routingActions = Router.routingActionsForTransitionFrom(
-            lastNavigationState.route, newRoute: state.route)
+      let routingActions = Router.routingActionsForTransition(from: lastNavigationState.route,
+                                                              to: state.route)
 
         routingActions.forEach { routingAction in
 
@@ -114,12 +114,13 @@ open class Router<State: StateType>: StoreSubscriber {
     // is not represented in the route, e.g.
     // route = ["tabBar"]
     // routables = [RootRoutable, TabBarRoutable]
-    static func routableIndexForRouteSegment(_ segment: Int) -> Int {
-        return segment + 1
+    static func routableIndex(for segment: Int) -> Int {
+      return segment + 1
     }
 
-    static func routingActionsForTransitionFrom(_ oldRoute: Route,
-        newRoute: Route) -> [RoutingActions] {
+    static func routingActionsForTransition(
+      from oldRoute: Route,
+      to newRoute: Route) -> [RoutingActions] {
 
             var routingActions: [RoutingActions] = []
 
@@ -147,7 +148,7 @@ open class Router<State: StateType>: StoreSubscriber {
                 let routeSegmentToPop = oldRoute[routeBuildingIndex]
 
                 let popAction = RoutingActions.pop(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
+                    responsibleRoutableIndex: routableIndex(for: routeBuildingIndex - 1),
                     segmentToBePopped: routeSegmentToPop
                 )
 
@@ -160,7 +161,7 @@ open class Router<State: StateType>: StoreSubscriber {
             //  we need to pop the route segment after the commonSubroute"
             if oldRoute.count > newRoute.count {
                 let popAction = RoutingActions.pop(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex - 1),
+                    responsibleRoutableIndex: routableIndex(for: routeBuildingIndex - 1),
                     segmentToBePopped: oldRoute[routeBuildingIndex]
                 )
 
@@ -172,7 +173,7 @@ open class Router<State: StateType>: StoreSubscriber {
             //  the old route element with the new one"
             else if oldRoute.count > (commonSubroute + 1) && newRoute.count > (commonSubroute + 1) {
                 let changeAction = RoutingActions.change(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(commonSubroute),
+                    responsibleRoutableIndex: routableIndex(for: commonSubroute),
                     segmentToBeReplaced: oldRoute[commonSubroute + 1],
                     newSegment: newRoute[commonSubroute + 1])
 
@@ -189,7 +190,7 @@ open class Router<State: StateType>: StoreSubscriber {
                 let routeSegmentToPush = newRoute[routeBuildingIndex + 1]
 
                 let pushAction = RoutingActions.push(
-                    responsibleRoutableIndex: routableIndexForRouteSegment(routeBuildingIndex),
+                    responsibleRoutableIndex: routableIndex(for: routeBuildingIndex),
                     segmentToBePushed: routeSegmentToPush
                 )
 
