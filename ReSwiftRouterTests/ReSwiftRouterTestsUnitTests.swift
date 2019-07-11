@@ -119,6 +119,42 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 expect(action1Correct).to(beTrue())
                 expect(action2Correct).to(beTrue())
             }
+            
+            it("generates a Change action on the last common subroute, also for routes of different length, old route is longer than the new one") {
+                let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier,infoViewControllerIdentifier]
+                let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
+                
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
+                
+                var action1Correct: Bool?
+                var action2Correct: Bool?
+                
+                if case let RoutingActions.pop(responsibleRoutableIndex, segmentToBePopped)
+                    = routingActions[0] {
+                    
+                    if responsibleRoutableIndex == 2
+                        && segmentToBePopped == infoViewControllerIdentifier {
+                        
+                        action1Correct = true
+                    }
+                }
+                
+                if case let RoutingActions.change(responsibleRoutableIndex, segmentToBeReplaced,
+                                                  newSegment)
+                    = routingActions[1] {
+                    
+                    if responsibleRoutableIndex == 1
+                        && segmentToBeReplaced == counterViewControllerIdentifier
+                        && newSegment == statsViewControllerIdentifier{
+                        action2Correct = true
+                    }
+                }
+                
+                expect(routingActions).to(haveCount(2))
+                expect(action1Correct).to(beTrue())
+                expect(action2Correct).to(beTrue())
+            }
 
             it("generates a Change action on root when root element changes") {
                 let oldRoute = [tabBarViewControllerIdentifier]
