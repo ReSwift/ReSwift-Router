@@ -58,7 +58,8 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 expect(action2Correct).to(beTrue())
             }
 
-            it("generates a Change action on the last common subroute") {
+            it("generates a Change on the last common subroute for routes of same length") {
+            
                 let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
 
@@ -83,7 +84,7 @@ class ReSwiftRouterUnitTests: QuickSpec {
                 expect(new).to(equal(statsViewControllerIdentifier))
             }
 
-            it("generates a Change action on the last common subroute, also for routes of different length") {
+            it("generates a Change on the last common subroute when new route is longer than the old route") {
                 let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier]
                 let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier,
                     infoViewControllerIdentifier]
@@ -115,6 +116,42 @@ class ReSwiftRouterUnitTests: QuickSpec {
                         }
                 }
 
+                expect(routingActions).to(haveCount(2))
+                expect(action1Correct).to(beTrue())
+                expect(action2Correct).to(beTrue())
+            }
+            
+            it("generates a Change on the last common subroute when the new route is shorter than the old route") {
+                let oldRoute = [tabBarViewControllerIdentifier, counterViewControllerIdentifier,infoViewControllerIdentifier]
+                let newRoute = [tabBarViewControllerIdentifier, statsViewControllerIdentifier]
+                
+                let routingActions = Router<AppState>.routingActionsForTransition(from: oldRoute,
+                                                                                  to: newRoute)
+                
+                var action1Correct: Bool?
+                var action2Correct: Bool?
+                
+                if case let RoutingActions.pop(responsibleRoutableIndex, segmentToBePopped)
+                    = routingActions[0] {
+                    
+                    if responsibleRoutableIndex == 2
+                        && segmentToBePopped == infoViewControllerIdentifier {
+                        
+                        action1Correct = true
+                    }
+                }
+                
+                if case let RoutingActions.change(responsibleRoutableIndex, segmentToBeReplaced,
+                                                  newSegment)
+                    = routingActions[1] {
+                    
+                    if responsibleRoutableIndex == 1
+                        && segmentToBeReplaced == counterViewControllerIdentifier
+                        && newSegment == statsViewControllerIdentifier{
+                        action2Correct = true
+                    }
+                }
+                
                 expect(routingActions).to(haveCount(2))
                 expect(action1Correct).to(beTrue())
                 expect(action2Correct).to(beTrue())

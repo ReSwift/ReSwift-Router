@@ -156,10 +156,21 @@ open class Router<State: StateType>: StoreSubscriber {
                 routeBuildingIndex -= 1
             }
 
+            // This is the 3. case:
+            // "The new route has a different element after the commonSubroute, we need to replace
+            //  the old route element with the new one"
+             if oldRoute.count > (commonSubroute + 1) && newRoute.count > (commonSubroute + 1) {
+                let changeAction = RoutingActions.change(
+                    responsibleRoutableIndex: routableIndex(for: commonSubroute),
+                    segmentToBeReplaced: oldRoute[commonSubroute + 1],
+                    newSegment: newRoute[commonSubroute + 1])
+                
+                routingActions.append(changeAction)
+            }
             // This is the 1. case:
             // "The old route had an element after the commonSubroute and the new route does not
             //  we need to pop the route segment after the commonSubroute"
-            if oldRoute.count > newRoute.count {
+            else if oldRoute.count > newRoute.count {
                 let popAction = RoutingActions.pop(
                     responsibleRoutableIndex: routableIndex(for: routeBuildingIndex - 1),
                     segmentToBePopped: oldRoute[routeBuildingIndex]
@@ -168,17 +179,7 @@ open class Router<State: StateType>: StoreSubscriber {
                 routingActions.append(popAction)
                 routeBuildingIndex -= 1
             }
-            // This is the 3. case:
-            // "The new route has a different element after the commonSubroute, we need to replace
-            //  the old route element with the new one"
-            else if oldRoute.count > (commonSubroute + 1) && newRoute.count > (commonSubroute + 1) {
-                let changeAction = RoutingActions.change(
-                    responsibleRoutableIndex: routableIndex(for: commonSubroute),
-                    segmentToBeReplaced: oldRoute[commonSubroute + 1],
-                    newSegment: newRoute[commonSubroute + 1])
-
-                routingActions.append(changeAction)
-            }
+        
 
             // Push remainder of elements in new Route that weren't in old Route, this covers
             // the 2. case:
