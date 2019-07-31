@@ -2,6 +2,8 @@
 
 # 0.7.0
 
+*Released: 2019-08-01*
+
 **Breaking API Changes:**
 - Remove use of `StandardAction` and `StandardActionConvertible` (#82) - @hlineholm
 
