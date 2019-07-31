@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ReSwiftRouter"
-  s.version          = "0.6.0"
+  s.version          = "0.7.0"
   s.summary          = "Declarative Routing for ReSwift"
   s.description      = <<-DESC
                           A declarative router for ReSwift. Allows developers to declare routes in a similar manner as
