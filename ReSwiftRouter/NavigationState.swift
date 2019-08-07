@@ -8,8 +8,8 @@
 
 import ReSwift
 
-public typealias RouteElementIdentifier = String
-public typealias Route = [RouteElementIdentifier]
+public typealias RouteElement = String
+public typealias Route = [RouteElement]
 
 /// A `Hashable` and `Equatable` presentation of a route.
 /// Can be used to check two routes for equality.

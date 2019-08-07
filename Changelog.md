@@ -1,5 +1,9 @@
 # Upcoming
 
+**Breaking API Changes:**
+- Rename Components of the `Routable` protocol (#107) - @hlineholm
+
+
 # 0.7.0
 
 *Released: 2019-08-01*

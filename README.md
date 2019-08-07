@@ -84,54 +84,61 @@ This will make reducer handle all routing relevant actions.
 
 # Implementing `Routable`
 
-ReSwiftRouter works with routes that are defined, similar to URLs, as a sequence of identifiers e.g. `["Home", "User", "UserDetail"]`. 
+ReSwiftRouter works with routes that are defined, similar to URLs, as a sequence of elements e.g. `["Home", "User", "UserDetail"]`. 
 
 ReSwiftRouter is agnostic of the UI framework you are using - it uses `Routable`s to implement that interaction.
 
-Each route segment is mapped to one responsible `Routable`. The `Routable` needs to be able to present a child, hide a child or replace a child with another child.
+Each route element is mapped to one responsible `Routable`. The `Routable` needs to be able to present a child, hide a child or replace a child with another child.
 
 Here is the `Routable` protocol with the methods you should implement:
 
 ```swift
-protocol Routable {
 
-    func changeRouteSegment(from: RouteElementIdentifier,
-        to: RouteElementIdentifier,
-        completionHandler: RoutingCompletionHandler) -> Routable
+public protocol Routable {
 
-    func pushRouteSegment(routeElementIdentifier: RouteElementIdentifier,
-        completionHandler: RoutingCompletionHandler) -> Routable
+    func push(
+        _ element: RouteElement,
+        animated: Bool,
+        completion: @escaping RoutingCompletion) -> Routable
 
-    func popRouteSegment(routeElementIdentifier: RouteElementIdentifier,
-        completionHandler: RoutingCompletionHandler)
+    func pop(
+        _ element: RouteElement,
+        animated: Bool,
+        completion: @escaping RoutingCompletion)
+
+    func change(
+        _ from: RouteElement,
+        to: RouteElement,
+        animated: Bool,
+        completion: @escaping RoutingCompletion) -> Routable
 
 }
+
 ```
 
-As part of initializing `Router` you need to pass the first `Routable` as an argument. That root `Routable` will be responsible for the first route segment.
+As part of initializing `Router` you need to pass the first `Routable` as an argument. That root `Routable` will be responsible for the first route element.
 
-If e.g. you set the route of your application to `["Home"]`, your root `Routable` will be asked to present the view that corresponds to the identifier `"Home"`. 
+If e.g. you set the route of your application to `["Home"]`, your root `Routable` will be asked to present the view that corresponds to the element `"Home"`. 
 
 When working on iOS with UIKit this would mean the `Routable` would need to set the `rootViewController` of the application.  
 
-Whenever a `Routable` presents a new route segment, it needs to return a new `Routable` that will be responsible for managing the presented segment. If you want to navigate from `["Home"]` to `["Home", "Users"]` the `Routable` responsible for the `"Home"` segment will be asked to present the `"User"` segment.
+Whenever a `Routable` presents a new route element, it needs to return a new `Routable` that will be responsible for managing the presented element. If you want to navigate from `["Home"]` to `["Home", "Users"]` the `Routable` responsible for the `"Home"` element will be asked to present the `"User"` element.
 
-If your navigation stack uses a modal presentation for this transition, the implementation of `Routable` for the `"Home"` segment might look like this:
+If your navigation stack uses a modal presentation for this transition, the implementation of `Routable` for the `"Home"` element might look like this:
 
 ```swift
-func pushRouteSegment(identifier: RouteElementIdentifier,
-    completionHandler: RoutingCompletionHandler) -> Routable {
-    
-	if identifier == "User" {
+func push(_ element: RouteElement, animated: Bool, completion: @escaping RoutingCompletion) -> Routable {
+
+	if element == "User" {
 		// 1.) Perform the transition
         userViewController = UIStoryboard(name: "Main", bundle: nil)
             .instantiateViewControllerWithIdentifier("UserViewController") as! Routable
 
-		// 2.) Call the `completionHandler` once the transition is complete
+		// 2.) Call the `completion` once the transition is complete
         presentViewController(userViewController, animated: false,
-            completion: completionHandler)
+            completion: completion)
 
-		// 3.) Return the Routable for the presented segment. For convenience
+		// 3.) Return the Routable for the presented element. For convenience
 		// this will often be the UIViewController itself. 
         return userViewController
    	}
@@ -139,11 +146,10 @@ func pushRouteSegment(identifier: RouteElementIdentifier,
    	// ...
 }
 
-func popRouteSegment(identifier: RouteElementIdentifier,
-    completionHandler: RoutingCompletionHandler) {
+func pop(_ element: RouteElement, animated: Bool, completion: @escaping RoutingCompletion)
 
-	if identifier == "Home" {
-    	dismissViewControllerAnimated(false, completion: completionHandler)
+	if element == "Home" {
+    	dismissViewControllerAnimated(false, completion: completion)
     }
     
     // ...
@@ -152,7 +158,7 @@ func popRouteSegment(identifier: RouteElementIdentifier,
 
 ## Calling the Completion Handler within Routables
 
-ReSwiftRouter needs to throttle the navigation actions, since many UI frameworks including UIKit don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completionHandler`. The router will not perform any further navigation actions until the completion handler is called.
+ReSwiftRouter needs to throttle the navigation actions, since many UI frameworks including UIKit don't allow to perform multiple navigation steps in parallel. Therefor every method of `Routable` receives a `completion` handler. The router will not perform any further navigation actions until the completion handler is called.
 
 # Changing the Current Route
 
@@ -165,7 +171,7 @@ Currently the only way to change the current application route is by using the `
     )
 }
 ```
-As development continues, support for changing individual route segments will be added.
+As development continues, support for changing individual route elements will be added.
 
 
 # Contributing
