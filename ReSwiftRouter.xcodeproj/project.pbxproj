@@ -507,7 +507,7 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
 				LastUpgradeCheck = 1000;
-				ORGANIZATIONNAME = "Benjamin Encz";
+				ORGANIZATIONNAME = "ReSwift Community";
 				TargetAttributes = {
 					6209C04A1C54256F004E6B66 = {
 						CreatedOnToolsVersion = 7.1.1;

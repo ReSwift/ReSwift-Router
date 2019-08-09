@@ -3,7 +3,7 @@
 //  SwiftFlowRouterTests
 //
 //  Created by Benjamin Encz on 12/2/15.
-//  Copyright © 2015 DigiTales. All rights reserved.
+//  Copyright © 2015 ReSwift Community. All rights reserved.
 //
 
 import Quick

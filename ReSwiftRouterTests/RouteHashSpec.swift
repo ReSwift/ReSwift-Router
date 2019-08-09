@@ -3,7 +3,7 @@
 //  ReSwiftRouter
 //
 //  Created by Benji Encz on 7/16/16.
-//  Copyright © 2016 Benjamin Encz. All rights reserved.
+//  Copyright © 2016 ReSwift Community. All rights reserved.
 //
 
 import ReSwiftRouter
