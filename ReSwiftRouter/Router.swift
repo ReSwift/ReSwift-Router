@@ -42,13 +42,17 @@ open class Router<State: StateType>: StoreSubscriber {
 
                 case let .pop(responsibleRoutableIndex, elementToBePopped):
                     DispatchQueue.main.async {
-                        self.routables[responsibleRoutableIndex]
-                            .pop(
-                                elementToBePopped,
-                                animated: state.changeRouteAnimated) {
-                                    semaphore.signal()
+                        if !state.disablePopAction {
+                            self.routables[responsibleRoutableIndex]
+                                .pop(
+                                    elementToBePopped,
+                                    animated: state.changeRouteAnimated) {
+                                        semaphore.signal()
+                            }
+                        } else {
+                            semaphore.signal()
                         }
-
+                        
                         self.routables.remove(at: responsibleRoutableIndex + 1)
                     }
 
@@ -92,8 +96,13 @@ open class Router<State: StateType>: StoreSubscriber {
             }
 
         }
-
+        
         lastNavigationState = state
+        
+        if (state.disablePopAction) {
+            store.dispatch(EnablePopAction())
+        }
+
     }
 
     // MARK: Route Transformation Logic

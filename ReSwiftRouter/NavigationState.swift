@@ -35,6 +35,7 @@ public struct NavigationState {
     public var route: Route = []
     public var routeSpecificState: [RouteHash: Any] = [:]
     var changeRouteAnimated: Bool = true
+    var disablePopAction: Bool = false
 }
 
 extension NavigationState {
