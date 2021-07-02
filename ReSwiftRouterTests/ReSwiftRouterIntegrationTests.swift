@@ -9,6 +9,7 @@
 import Quick
 import Nimble
 import ReSwift
+import Dispatch
 @testable import ReSwiftRouter
 
 class MockRoutable: Routable {
@@ -61,7 +62,7 @@ class MockRoutable: Routable {
 
 }
 
-struct FakeAppState: StateType {
+struct FakeAppState {
     var navigationState = NavigationState()
 }
 
@@ -132,7 +133,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
 
                     }
 
-                    waitUntil(timeout: 2.0) { fullfill in
+                    waitUntil(timeout: .seconds(2)) { fullfill in
                         let rootRoutable = FakeRootRoutable { element in
                             if element == "TabBarViewController" {
                                 fullfill()
@@ -167,7 +168,7 @@ class SwiftFlowRouterIntegrationTests: QuickSpec {
                         }
                     }
 
-                    waitUntil(timeout: 5.0) { completion in
+                    waitUntil(timeout: .seconds(5)) { completion in
                         let fakeChildRoutable = FakeChildRoutable() { element in
                             if element == "SecondViewController" {
                                 completion()

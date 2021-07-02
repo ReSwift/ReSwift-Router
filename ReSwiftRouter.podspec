@@ -18,5 +18,5 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.source_files     = 'ReSwiftRouter/**/*.swift'
   s.swift_versions   = [ "5.0", "4.2" ]
-  s.dependency 'ReSwift', '~> 5.0.0'
+  s.dependency 'ReSwift', '~> 6.1.0'
 end

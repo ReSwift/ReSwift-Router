@@ -15,7 +15,7 @@ import ReSwift
 class ReSwiftRouterUnitTests: QuickSpec {
 
     // Used as test app state
-    struct AppState: StateType {}
+    struct AppState {}
 
     override func spec() {
         describe("routing calls") {
