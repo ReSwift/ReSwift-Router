@@ -9,7 +9,7 @@
 import Foundation
 import ReSwift
 
-open class Router<State: StateType>: StoreSubscriber {
+open class Router<State>: StoreSubscriber {
 
     public typealias NavigationStateTransform = (Subscription<State>) -> Subscription<NavigationState>
 
