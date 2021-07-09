@@ -3,9 +3,9 @@
 import PackageDescription
 
 let package = Package(
-    name: "ReSwift-Router",
+    name: "ReSwiftRouter",
     products: [
-        .library(name: "ReSwift-Router", targets: ["ReSwiftRouter"]),
+        .library(name: "ReSwiftRouter", targets: ["ReSwiftRouter"]),
     ],
     dependencies: [
         .package(url: "https://github.com/ReSwift/ReSwift.git", .upToNextMajor(from: "6.1.0")),
