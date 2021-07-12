@@ -24,6 +24,8 @@ public struct NavigationReducer {
             return setRoute(state, setRouteAction: action)
         case let action as SetRouteSpecificData:
             return setRouteSpecificData(state, route: action.route, data: action.data)
+        case let action as EnablePopAction:
+            return enablePopAction(state)
         default:
             break
         }
@@ -36,6 +38,7 @@ public struct NavigationReducer {
 
         state.route = setRouteAction.route
         state.changeRouteAnimated = setRouteAction.animated
+        state.disablePopAction = setRouteAction.disablePopAction
 
         return state
     }
@@ -51,6 +54,14 @@ public struct NavigationReducer {
             state.routeSpecificState[routeHash] = data
 
             return state
+    }
+    
+    static func enablePopAction(_ state: NavigationState) -> NavigationState {
+        var state = state;
+        
+        state.disablePopAction = false
+        
+        return state
     }
 
 }
